@@ -1,0 +1,15 @@
+syntax on
+set tabstop=4
+set number
+set enc=utf-8
+set fileencoding=utf-8
+set ai
+set tw=80
+
+" set spell
+" set spelllang=nb
+" set spelllang=en
+
+if exists("&colorcolumn")
+        set colorcolumn=81
+endif

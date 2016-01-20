@@ -15,5 +15,18 @@ class profile::users {
     ensure   => "directory",
   }
   
+  file { "/root/.bashrc":
+    owner => "root",
+    group => "root",
+    mode  => 440,
+    source => "puppet:///modules/profile/userpref/bashrc",
+  }   
+  file { "/root/.vimrc":
+    owner => "root",
+    group => "root",
+    mode  => 440,
+    source => "puppet:///modules/profile/userpref/vimrc",
+  }
+  
   include ::profile::users::eigil
 }
