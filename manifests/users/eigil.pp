@@ -11,6 +11,18 @@ class profile::users::eigil {
     password    => hiera("profile::user::eigil::hash"),
   }
   
+  file { "/home/eigil/.bashrc":
+    owner    => "eigil",
+    group    => "users",
+    mode  => 440,
+    source => "puppet:///modules/profile/userpref/bashrc",
+  }   
+  file { "/home/eigil/.vimrc":
+    owner    => "eigil",
+    group    => "users",
+    mode  => 440,
+    source => "puppet:///modules/profile/userpref/vimrc",
+  }
   file { "/home/eigil/.ssh":
     owner    => "eigil",
     group    => "users",
