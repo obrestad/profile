@@ -3,6 +3,10 @@ class profile::users {
     ensure => present,
     gid => 700,
   }
+  group { 'admins':
+    ensure => present,
+    gid => 701,
+  }
 
   file { "/root/.ssh":
     owner    => "root",

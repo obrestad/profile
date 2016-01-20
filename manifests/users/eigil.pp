@@ -3,7 +3,7 @@ class profile::users::eigil {
     ensure      => present,
     gid         => 'users',
     require     => Group['users'],
-    groups      => ['sudo'],
+    groups      => ['admins'],
     uid         => 801,
     shell       => '/bin/bash',
     home        => '/home/eigil',

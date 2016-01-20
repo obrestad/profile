@@ -1,7 +1,8 @@
 class profile::sudo {
   class { '::sudo': }
-  sudo::conf { 'sudo':
+
+  sudo::conf { 'admins':
     priority => 10,
-    content  => "%sudo   ALL=(ALL:ALL) ALL",
+    content  => "%admins   ALL=(ALL:ALL) ALL",
   }
 }
