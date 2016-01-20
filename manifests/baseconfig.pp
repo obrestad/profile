@@ -27,4 +27,13 @@ class profile::baseconfig {
       '-6 default kod nomodify notrap nopeer noquery',
     ],
   }
+
+  class { 'ssh':
+    storeconfigs_enabled => false,
+    server_options => {
+      'Port' => [22],
+      'PasswordAuthentication' => 'yes',
+      'X11Forwarding' => 'no',
+    },
+  }
 }
