@@ -36,4 +36,11 @@ class profile::baseconfig {
       'X11Forwarding' => 'no',
     },
   }
+  
+  file { "/user/local/sbin/general-backup":
+    owner => "root",
+    group => "root",
+    mode  => 744,
+    source => "puppet:///modules/profile/scripts/general-backup.sh",
+  }
 }
