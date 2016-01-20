@@ -37,7 +37,7 @@ class profile::baseconfig {
     },
   }
   
-  file { "/user/local/sbin/general-backup":
+  file { "/usr/local/sbin/general-backup":
     owner => "root",
     group => "root",
     mode  => 744,
