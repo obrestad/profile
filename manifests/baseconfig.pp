@@ -42,5 +42,10 @@ class profile::baseconfig {
     group => "root",
     mode  => 744,
     source => "puppet:///modules/profile/scripts/general-backup.sh",
+  }->
+  cron { general-backup:
+    command => '/usr/local/sbin/general-backup',
+    user    => root,
+    hour    => [3, 9, 15, 21],
   }
 }
