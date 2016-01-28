@@ -1,5 +1,5 @@
 class profile::mailserver {
-  firewall { 'accept incoming SMTP':
+  firewall { '010 accept incoming SMTP':
     proto  => 'tcp',
 	dport  => 25,
     action => 'accept',
