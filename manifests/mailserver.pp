@@ -43,7 +43,7 @@ class profile::mailserver {
     sa_skip_rbl_checks    => '0',
     spampd_children       => '4',
     # Send all emails to spampd on 10026
-    smtp_content_filter   => 'smtp:127.0.0.1:10026',
+    smtp_content_filter   => [ 'smtp:127.0.0.1:10026', ] ,
     # This is where we get emails back from spampd
     master_services       => [ '127.0.0.1:10027 inet n - n -20 smtpd'],
   }
