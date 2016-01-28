@@ -31,6 +31,13 @@ class profile::users::eigil {
     require  => User['eigil'],
   }
   
+  ssh_authorized_key { "eigil@mocha":
+    user => "eigil",
+    type => 'ssh-rsa',
+    key => 'AAAAB3NzaC1yc2EAAAABJQAAAQEAvZKZc91/Ga62TYSdGyDd+nbFwyYUwb23bye2XPOC30K/KsokMCemxxxQ2Y+1XmL8AZ2QvzVwvuN/DFpF9km54v9cZtjuby4VcJRGJzXoCTsXmshGn6JhIGKJ1CdeOU4LFLaDJIchugHk4D77XBmOB/4LPe8OqGEMQdRgRYolYTs708Mv/NHxKu/cp5o0dsRoEObUgaIcG5jfA1WnpRb4fWdX5NL/waOidGjO3GTNYOUH8iY8qZVZiW/QxTLxpIDwFtF9U1Eu6Kl/DPT/+0VaV0+2R7q30ZA5csdUkfdvxliMiu7kcFKI5HrAMcSgkrK/MGUWo5wXMCom7U9MezlC2Q==',
+    require => File['/home/eigil/.ssh'], 
+  }
+  
   ssh_authorized_key { "eigil@carajillo":
     user => "eigil",
     type => 'ssh-rsa',
