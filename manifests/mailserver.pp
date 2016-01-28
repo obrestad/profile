@@ -1,4 +1,9 @@
 class profile::mailserver {
+  firewall { 'accept incoming SMTP':
+    proto  => 'tcp',
+	dport  => 25,
+    action => 'accept',
+  }
   class { '::postfix::server':
     myhostname              => "$::fqdn",
     mydomain                => "$::domain",
