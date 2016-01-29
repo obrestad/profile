@@ -1,6 +1,6 @@
 class profile::mailserver {
   $mysql_name = hiera("profile::mail::db::name")
-  $mysql_host = hiera("profile::mail::db::hose")
+  $mysql_host = hiera("profile::mail::db::host")
   $mysql_user = hiera("profile::mail::db::user")
   $mysql_pass = hiera("profile::mail::db::pass")
 
