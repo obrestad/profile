@@ -108,6 +108,8 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     inet_interfaces         => 'all',
 
     postgrey              => false,
-    spamassassin          => false,
+    spamassassin          => true,
+	smtp_content_filter   => 'smtp:127.0.0.1:10026',
+	master_services       => [ '127.0.0.1:10027 inet n  -       n       -      20       smtpd'],
   }
 }
