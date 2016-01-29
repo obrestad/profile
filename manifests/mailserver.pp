@@ -84,6 +84,10 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
 	dport  => 25,
     action => 'accept',
   }
+  
+  package { "postfix-mysql": 
+    ensure => installed, 
+  }
 
   class { '::postfix::server':
     myhostname              => "$::fqdn",
