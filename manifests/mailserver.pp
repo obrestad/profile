@@ -6,37 +6,29 @@ class profile::mailserver {
 
   $mail_mynetworks = hiera("profile::mail::mynetworks")
 
-  $virtual_domains = @("END")
-    user = ${mysql_user}
-    password = ${mysql_pass}
-    hosts = ${mysql_host}
-    dbname = ${mysql_name}
-    query = SELECT 1 FROM virtual_domains WHERE name='%s'
-    | END
+  $virtual_domains = "user = ${mysql_user}
+password = ${mysql_pass}
+hosts = ${mysql_host}
+dbname = ${mysql_name}
+query = SELECT 1 FROM virtual_domains WHERE name='%s'"
 
-  $virtual_mailbox = @("END")
-    user = ${mysql_user}
-    password = ${mysql_pass}
-    hosts = ${mysql_host}
-    dbname = ${mysql_name}
-    query = SELECT 1 FROM virtual_users WHERE email='%s'
-    | END
+  $virtual_mailbox = "user = ${mysql_user}
+password = ${mysql_pass}
+hosts = ${mysql_host}
+dbname = ${mysql_name}
+query = SELECT 1 FROM virtual_users WHERE email='%s'"
 
-  $virtual_alias = @("END")
-    user = ${mysql_user}
-    password = ${mysql_pass}
-    hosts = ${mysql_host}
-    dbname = ${mysql_name}
-    query = SELECT destination FROM virtual_aliases WHERE source='%s'
-    | END
+  $virtual_alias = "user = ${mysql_user}
+password = ${mysql_pass}
+hosts = ${mysql_host}
+dbname = ${mysql_name}
+query = SELECT destination FROM virtual_aliases WHERE source='%s'"
 
-  $virtual_email2email = @("END")
-    user = ${mysql_user}
-    password = ${mysql_pass}
-    hosts = ${mysql_host}
-    dbname = ${mysql_name}
-    query = SELECT email FROM virtual_users WHERE email='%s'
-    | END
+  $virtual_email2email = "user = ${mysql_user}
+password = ${mysql_pass}
+hosts = ${mysql_host}
+dbname = ${mysql_name}
+query = SELECT email FROM virtual_users WHERE email='%s'"
 
   file { "/var/tmp/maildb-schema.sql":
     owner => "root",
