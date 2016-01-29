@@ -30,6 +30,39 @@ hosts = ${mysql_host}
 dbname = ${mysql_name}
 query = SELECT email FROM virtual_users WHERE email='%s'"
 
+  file { "/etc/postfix/mysql-virtual-mailbox-domains.cf":
+    owner => "root",
+    group => "root",
+	ensure => "file",
+    mode  => 744,
+	content => $virtual_domains,
+	require => Class['::postfix::server'],
+  }
+  file { "/etc/postfix/mysql-virtual-mailbox-maps.cf":
+    owner => "root",
+    group => "root",
+	ensure => "file",
+    mode  => 744,
+	content => $virtual_mailbox,
+	require => Class['::postfix::server'],
+  }
+  file { "/etc/postfix/mysql-virtual-alias-maps.cf":
+    owner => "root",
+    group => "root",
+	ensure => "file",
+    mode  => 744,
+	content => $virtual_alias,
+	require => Class['::postfix::server'],
+  }
+  file { "/etc/postfix/mysql-virtual-email2email.cf":
+    owner => "root",
+    group => "root",
+	ensure => "file",
+    mode  => 744,
+	content => $virtual_email2email,
+	require => Class['::postfix::server'],
+  }
+
   file { "/var/tmp/maildb-schema.sql":
     owner => "root",
     group => "root",
