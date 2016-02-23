@@ -11,20 +11,20 @@ class profile::users {
   file { "/root/.ssh":
     owner    => "root",
     group    => "root",
-    mode     => 700,
+    mode     => "700",
     ensure   => "directory",
   }
   
   file { "/root/.bashrc":
     owner => "root",
     group => "root",
-    mode  => 440,
+    mode  => "440",
     source => "puppet:///modules/profile/userpref/bashrc",
   }   
   file { "/root/.vimrc":
     owner => "root",
     group => "root",
-    mode  => 440,
+    mode  => "440",
     source => "puppet:///modules/profile/userpref/vimrc",
   }
   
