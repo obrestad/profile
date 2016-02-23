@@ -14,19 +14,19 @@ class profile::users::eigil {
   file { "/home/eigil/.bashrc":
     owner    => "eigil",
     group    => "users",
-    mode  => 440,
+    mode  => "440",
     source => "puppet:///modules/profile/userpref/bashrc",
   }   
   file { "/home/eigil/.vimrc":
     owner    => "eigil",
     group    => "users",
-    mode  => 440,
+    mode  => "440",
     source => "puppet:///modules/profile/userpref/vimrc",
   }
   file { "/home/eigil/.ssh":
     owner    => "eigil",
     group    => "users",
-    mode     => 700,
+    mode     => "700",
     ensure   => "directory",
     require  => User['eigil'],
   }
