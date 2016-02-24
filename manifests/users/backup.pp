@@ -1,16 +1,15 @@
 class profile::users::backup {
   user { 'backup':
     ensure      => present,
-    gid         => 'service',
-    require     => Group['service'],
-    uid         => 501,
-    shell       => '/bin/bash',
-    home        => '/home/backup',
+    gid         => 34,
+    uid         => 34,
+    shell       => '/usr/sbin/nologin',
+    home        => '/var/backups',
     managehome  => true,
     password    => "*",
   }
   
-  file { "/home/backup/.ssh":
+  file { "/var/backups/.ssh":
     owner    => "backup",
     group    => "service",
     mode     => "700",
