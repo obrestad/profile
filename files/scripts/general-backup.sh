@@ -4,7 +4,7 @@
 hostname=$(hostname)
 
 backupUser="eigil"
-backupHost="ristretto.rothaugane.com"
+backupHost="antoccino.rothaugane.com"
 backupPath="/srv/backup/puppet/$hostname"
 
 # Create root backupfolder if it doesnt exist
