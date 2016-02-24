@@ -7,6 +7,10 @@ class profile::users {
     ensure => present,
     gid => 701,
   }
+  group { 'service':
+    ensure => present,
+    gid => 702,
+  }
 
   file { "/root/.ssh":
     owner    => "root",
