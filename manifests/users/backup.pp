@@ -1,4 +1,4 @@
-class profile::users::eigil {
+class profile::users::backup {
   user { 'backup':
     ensure      => present,
     gid         => 'service',
