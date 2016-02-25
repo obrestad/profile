@@ -57,7 +57,7 @@ class profile::dlnaserver {
   }
   firewall { '101 accept incoming DLNA':
     proto  => 'udp',
-	dport  => 55806,
+	dport  => 56627,
     action => 'accept',
   }
   firewall { '102 accept incoming DLNA':
