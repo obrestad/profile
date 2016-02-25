@@ -1,7 +1,8 @@
 class profile::users::backup {
   user { 'remote-backup':
     ensure      => present,
-    gid         => Group['service'],
+    require     => Group['service'],
+    gid         => 'service',
     uid         => 800,
     shell       => '/bin/bash',
     home        => '/home/remote-backup',
