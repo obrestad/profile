@@ -29,7 +29,7 @@ class profile::baseconfig {
   }
 
   class { 'ssh':
-    storeconfigs_enabled => false,
+    storeconfigs_enabled => true,
     server_options => {
       'Port' => [22],
       'PasswordAuthentication' => 'yes',
