@@ -49,4 +49,10 @@ class profile::dlnaserver {
 		value   => 'yes',
 		notify => Service['minidlna'],
 	}	
+
+  firewall { '100 accept incoming DLNA':
+    proto  => 'tcp',
+	dport  => 8200,
+    action => 'accept',
+  }
 }
