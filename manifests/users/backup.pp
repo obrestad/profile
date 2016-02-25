@@ -11,7 +11,7 @@ class profile::users::backup {
   }
   
   file { "/home/remote-backup/.ssh":
-    owner    => "backup",
+    owner    => "remote-backup",
     group    => "service",
     mode     => "700",
     ensure   => "directory",

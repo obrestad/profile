@@ -3,7 +3,7 @@
 # Configuration
 hostname=$(hostname)
 
-backupUser="eigil"
+backupUser="remote-backup"
 backupHost="antoccino.rothaugane.com"
 backupPath="/srv/backup/puppet/$hostname"
 
