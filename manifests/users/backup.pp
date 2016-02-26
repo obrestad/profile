@@ -24,4 +24,10 @@ class profile::users::backup {
     key => 	'AAAAB3NzaC1yc2EAAAADAQABAAABAQC/OdpRVK/mISztiaxquAz1R8O/eR4r30vU77QmERzQyNM4Kx90QWYR91vQZ3gm0cb3DtHeqvRL6xBROTGY1OeTBOd4GZYBQ2VOVSTdQoxmnxl8nKkx7B4eAryXoXAbuWOWqHIoAxow5RbopzO3HJ+rCPAS5n2m6AJleUAVpEwN8uqg4iyEOZa/aT4QvSm6qahzNG+k7eX3i0qarm4Jc6GoJLBP17lt0lLf4/ortXD9yoni66jtS/dXUXacFVHJQfolCfO30W3R9+yYY93n8GHRx/J8LNB/If6e5xBxt3FHxXgyMO7hnwPm0Chn3kC5tXN25aPow+a5w+s2Lk7VMue3',
     require => File['/home/remote-backup/.ssh'], 
   }
+  ssh_authorized_key { "root@frappuccino":
+    user => "remote-backup",
+    type => 'ssh-rsa',
+    key =>	'AAAAB3NzaC1yc2EAAAADAQABAAABAQDMLO39rOuIs20ndBn/nGFjYlYIj1RVyYr/UJMAVUSMbAT1iFkWZ/CL2GLHTw/mIGJuqFJFYVgzMX8Q/RXT9qAXqKBmc7yed2IEh18qC4Q3Gz0DkUf9znL4PFo+UjQ6+QSf2pXG3Sj7Fm44hI+2/2cb6IEP/8UhSy8287WAQrgGiocoqPmCwiy/MGVwMF41oCd6tQU5LoqRka2MWSNBo01wSIIjhHRejp6FxMfz79JEl/eddHGL/8A0PtZrBS/WIoIPorKuhVXZVV9NpxXdGMlKONBndKd67OvM+zV0RmuNSNqqGC5v6TWLjeuTJIaIy7Mo32XHR+E+JwqLHMbExZn3',
+    require => File['/home/remote-backup/.ssh'], 
+  }
 }
