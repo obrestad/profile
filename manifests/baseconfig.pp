@@ -4,6 +4,7 @@ class profile::baseconfig {
     'fio',
     'git',
     'gdisk',
+	'hdparm',
     'htop',
     'iperf3',
     'nmap',
