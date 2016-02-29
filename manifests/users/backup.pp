@@ -30,7 +30,7 @@ class profile::users::backup {
     key =>	'AAAAB3NzaC1yc2EAAAADAQABAAABAQDMLO39rOuIs20ndBn/nGFjYlYIj1RVyYr/UJMAVUSMbAT1iFkWZ/CL2GLHTw/mIGJuqFJFYVgzMX8Q/RXT9qAXqKBmc7yed2IEh18qC4Q3Gz0DkUf9znL4PFo+UjQ6+QSf2pXG3Sj7Fm44hI+2/2cb6IEP/8UhSy8287WAQrgGiocoqPmCwiy/MGVwMF41oCd6tQU5LoqRka2MWSNBo01wSIIjhHRejp6FxMfz79JEl/eddHGL/8A0PtZrBS/WIoIPorKuhVXZVV9NpxXdGMlKONBndKd67OvM+zV0RmuNSNqqGC5v6TWLjeuTJIaIy7Mo32XHR+E+JwqLHMbExZn3',
     require => File['/home/remote-backup/.ssh'], 
   }
-  ssh_authorized_key { "eigil@carajillo":
+  ssh_authorized_key { "b-eigil@carajillo":
     user => "remote-backup",
     type => 'ssh-rsa',
     key =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDwe4N6Op3OEDYxe/SeHr58jgq7/Ip7uSDLYuOtJl40/IHVWyCwMfQwFWgIzNM+8Obpu9uRvwp85hF7PHoM5MTNgcPGhlJeFUkHbiUu3fhlj4k+YmiW9NpotNbVbTw0s3m2PLVruEvVm8fQ376XTJO2jTOfx7DC25dV+UqAe7XtmZra6l2wEZPr2UN5W7TGr3Th19dkBiQBQMxIGFd/toKOniFdq/+JBp6OH+ZMQ8QIgKkAQ/AKCxYROkxYvWblvOtjk0kehaJkn3b6wjgyMf80yxLvOd4jaX7LO/G8kXjXQ+1gwVImvG0Cw4yG5D20Y+UspwahXeRV5Ik72qsF3ezX',
