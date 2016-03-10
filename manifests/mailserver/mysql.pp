@@ -1,10 +1,8 @@
-class profile::mailserver {
+class profile::mailserver::mysql {
   $mysql_name = hiera("profile::mail::db::name")
   $mysql_host = hiera("profile::mail::db::host")
   $mysql_user = hiera("profile::mail::db::user")
   $mysql_pass = hiera("profile::mail::db::pass")
-
-  $mail_mynetworks = hiera("profile::mail::mynetworks")
 
   $virtual_domains = "user = ${mysql_user}
 password = ${mysql_pass}
@@ -63,12 +61,6 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
 	require => Class['::postfix::server'],
   }
 
-  firewall { '010 accept incoming SMTP':
-    proto  => 'tcp',
-	dport  => 25,
-    action => 'accept',
-  }
-  
   file { "/var/local/maildb-initial.sql":
     owner => "root",
     group => "root",
