@@ -12,7 +12,18 @@ class profile::webserver {
 
   firewall { '010 accept incoming HTTP(S)':
     proto  => 'tcp',
-	dport  => [80, 443],
+    dport  => [80, 443],
     action => 'accept',
+  }
+
+  class { '::letsencrypt':
+    email => 'hostmaster@rothaugane.com',
+  }
+
+  letsencrypt::certonly { $::fqdn:
+    domains       => [$::fqdn],
+    plugin        => 'webroot',
+    webroot_paths => ["/var/www/${::fqdn}"],
+    require       => Apache::Vhost[$::fqdn],
   }
 }
