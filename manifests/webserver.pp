@@ -4,14 +4,14 @@ class profile::webserver {
   }
 
   apache::vhost { "${::fqdn} http":
-    servername    => $::fqdn
+    servername    => $::fqdn,
     port          => '80',
     docroot       => "/var/www/${::fqdn}",
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
   }
   apache::vhost { "${::fqdn} https":
-    servername    => $::fqdn
+    servername    => $::fqdn,
     port          => '443',
     docroot       => "/var/www/${::fqdn}",
     ssl           => true,
@@ -34,6 +34,6 @@ class profile::webserver {
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${::fqdn}"],
     require       => Apache::Vhost[$::fqdn],
-	manage_cron   => true,
+    manage_cron   => true,
   }
 }
