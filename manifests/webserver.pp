@@ -16,7 +16,7 @@ class profile::webserver {
     docroot       => "/var/www/${::fqdn}",
     ssl           => true,
     ssl_cert      => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem",
-    ssl_key       => "/etc/letsencrypt/live/${::fqdn}/pivkey.pem",
+    ssl_key       => "/etc/letsencrypt/live/${::fqdn}/privkey.pem",
   }
 
   firewall { '010 accept incoming HTTP(S)':
