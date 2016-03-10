@@ -34,7 +34,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
 	ensure  => "file",
     mode    => 744,
 	content => $virtual_domains,
-	require => Class['::postfix::server'],
+	require => Class['::profile::mailserver::postfix'],
   }
   file { "/etc/postfix/mysql-virtual-mailbox-maps.cf":
     owner   => "root",
@@ -42,7 +42,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
 	ensure  => "file",
     mode    => 744,
 	content => $virtual_mailbox,
-	require => Class['::postfix::server'],
+	require => Class['::profile::mailserver::postfix'],
   }
   file { "/etc/postfix/mysql-virtual-alias-maps.cf":
     owner   => "root",
@@ -50,7 +50,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
 	ensure  => "file",
     mode    => 744,
 	content => $virtual_alias,
-	require => Class['::postfix::server'],
+	require => Class['::profile::mailserver::postfix'],
   }
   file { "/etc/postfix/mysql-virtual-email2email.cf":
     owner   => "root",
@@ -58,7 +58,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
 	ensure  => "file",
     mode    => 744,
 	content => $virtual_email2email,
-	require => Class['::postfix::server'],
+	require => Class['::profile::mailserver::postfix'],
   }
 
   file { "/var/local/maildb-initial.sql":
@@ -66,6 +66,14 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     group => "root",
     mode  => "644",
     source => "puppet:///modules/profile/initial/maildb.sql",
+  } ->
+  mysql::db { 'mydb':
+    user     => ${mysql_user},
+    password => ${mysql_pass},
+    host     => ${mysql_host},
+    grant    => ['SELECT', 'UPDATE'],
+    sql      => '/var/local/maildb-initial.sql',
+    import_timeout => 900,
 	require => Class['::mysql::server'],
   }
 }
