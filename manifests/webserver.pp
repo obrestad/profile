@@ -9,4 +9,10 @@ class profile::webserver {
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
   }
+
+  firewall { '010 accept incoming HTTP(S)':
+    proto  => 'tcp',
+	dport  => [80, 443],
+    action => 'accept',
+  }
 }
