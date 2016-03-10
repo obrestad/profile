@@ -32,7 +32,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => 744,
+    mode    => '744',
     content => $virtual_domains,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -40,7 +40,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => 744,
+    mode    => '744',
     content => $virtual_mailbox,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -48,7 +48,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => 744,
+    mode    => '744',
     content => $virtual_alias,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -56,7 +56,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => 744,
+    mode    => '744',
     content => $virtual_email2email,
     require => Class['::profile::mailserver::postfix'],
   }
