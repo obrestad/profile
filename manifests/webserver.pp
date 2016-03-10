@@ -33,7 +33,7 @@ class profile::webserver {
     domains       => [$::fqdn],
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${::fqdn}"],
-    require       => Apache::Vhost[$::fqdn],
+    require       => Apache::Vhost["${::fqdn} http"],
     manage_cron   => true,
   }
 }
