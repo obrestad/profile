@@ -25,5 +25,6 @@ class profile::webserver {
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${::fqdn}"],
     require       => Apache::Vhost[$::fqdn],
+	manage_cron   => true,
   }
 }
