@@ -2,7 +2,6 @@ class profile::baseconfig {
   package { [
     'bc',
     'fio',
-    'git',
     'gdisk',
 	'hdparm',
     'htop',
