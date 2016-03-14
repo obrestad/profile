@@ -6,4 +6,8 @@ class profile::mailserver::postfix {
     mta => true,
 	relayhost => 'direct',
   }
+  postfix::config { 'myhostname':
+    ensure  => present,
+    value   => $::fqdn,
+  }
 }
