@@ -1,11 +1,8 @@
 class profile::mailserver::postfix {
-  $mail_mynetworks = hiera('profile::mail::mynetworks')
-
-  package { 'postfix':
-    ensure => 'latest',
-  }
-
-  service { 'postfix':
-    ensure => 'stopped',
+  postfix {
+    master_smtp => 'smtp inet n - n - - smtpd',
+    master_smtps => 'smtps inet n - n - - smtpd',
+    master_submission => 'submission inet n - n - - smtpd',
+    mta => true,
   }
 }
