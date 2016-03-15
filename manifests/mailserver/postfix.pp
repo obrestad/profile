@@ -5,14 +5,15 @@ class profile::mailserver::postfix {
     master_smtp       => 'smtp inet n - n - - smtpd',
     master_smtps      => 'smtps inet n - n - - smtpd',
     master_submission => 'submission inet n - n - - smtpd',
-    mta               => true,
-    relayhost         => 'direct',
   }
 
   # Various settings
   postfix::config {
     'myhostname':          value => $::fqdn;
+    'mydestination':       value => $::fqdn;
+    'mynetworks':          value => '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128';
     'recipient_delimiter': value => '-';
+    'relayhost':           ensure => 'blank';
   }
 
   # Virtual mailbox settings
