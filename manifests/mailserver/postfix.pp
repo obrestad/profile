@@ -1,6 +1,10 @@
 class profile::mailserver::postfix {
   $mailname = hiera('profile::mail::hostname')
 
+  package { 'postfix-mysql':
+    ensure  => 'present',
+  }
+
   class { '::postfix':
     master_smtp       => 'smtp inet n - n - - smtpd',
     master_smtps      => 'smtps inet n - n - - smtpd',
