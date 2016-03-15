@@ -8,9 +8,11 @@ class profile::mailserver::postfix {
     mta => true,
 	relayhost => 'direct',
   }
-  postfix::config { 'myhostname':
-    ensure  => present,
-    value   => $::fqdn,
+
+  # Various settings
+  postfix::config { 
+    'myhostname':          value => $::fqdn;
+	'recipient_delimiter': value => '-';
   }
 
   # Deny relay access etc.
