@@ -18,11 +18,9 @@ class profile::mailserver::postfix {
   # Deny relay access etc.
   postfix::config {
     'smtpd_recipient_restrictions':
-      value => 'permit_sasl_authenticated, permit_mynetworks, \
-      defer_unauth_destination';
+      value => 'permit_sasl_authenticated, permit_mynetworks, defer_unauth_destination';
     'smtpd_relay_restrictions':
-      value => 'permit_sasl_authenticated, permit_mynetworks, \
-      defer_unauth_destination';
+      value => 'permit_sasl_authenticated, permit_mynetworks, defer_unauth_destination';
   }
 
   # Implement TLS
