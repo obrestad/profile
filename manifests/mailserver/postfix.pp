@@ -10,7 +10,7 @@ class profile::mailserver::postfix {
   }
   postfix::config { 'myhostname':
     ensure  => present,
-    value   => $mailname,
+    value   => $::fqdn,
   }
 
   # Deny relay access etc.
