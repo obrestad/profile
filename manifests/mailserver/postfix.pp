@@ -13,6 +13,13 @@ class profile::mailserver::postfix {
     value   => $mailname,
   }
 
+  # Deny relay access etc.
+  postfix::config {
+    'smtpd_recipient_restrictions': value => 'permit_sasl_authenticated, permit_mynetworks, defer_unauth_destination';
+    'smtpd_relay_restrictions': value => 'permit_sasl_authenticated, permit_mynetworks, defer_unauth_destination';
+  }
+
+  # Implement TLS
   postfix::config {
     'smtpd_tls_cert_file':       value  => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem";
     'smtpd_tls_key_file':        value  => "/etc/letsencrypt/live/${::fqdn}/privkey.pem";
