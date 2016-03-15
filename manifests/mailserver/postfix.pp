@@ -15,6 +15,16 @@ class profile::mailserver::postfix {
     'recipient_delimiter': value => '-';
   }
 
+  # Virtual mailbox settings
+  postfix::config {
+    'virtual_mailbox_domains':
+      value => 'mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf';
+    'virtual_mailbox_maps':
+      value => 'mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf';
+    'virtual_alias_maps':
+      value => 'mysql:/etc/postfix/mysql-virtual-alias-maps.cf, mysql:/etc/postfix/mysql-virtual-email2email.cf';
+  }
+
   # Deny relay access etc.
   postfix::config {
     'smtpd_recipient_restrictions':
