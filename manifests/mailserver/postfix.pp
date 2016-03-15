@@ -10,12 +10,12 @@ class profile::mailserver::postfix {
   }
   postfix::config { 'myhostname':
     ensure  => present,
-    value   => $::fqdn,
+    value   => $mailname,
   }
 
   postfix::config {
-    'smtpd_tls_cert_file':       value  => "/etc/letsencrypt/live/${mailname}/fullchain.pem";
-    'smtpd_tls_key_file':        value  => "/etc/letsencrypt/live/${mailname}/privkey.pem";
+    'smtpd_tls_cert_file':       value  => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem";
+    'smtpd_tls_key_file':        value  => "/etc/letsencrypt/live/${::fqdn}/privkey.pem";
     'smtpd_tls_security_level':  value  => 'may';
   }
 }
