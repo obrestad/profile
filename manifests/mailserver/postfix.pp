@@ -32,6 +32,8 @@ class profile::mailserver::postfix {
 
   # Virtual mailbox settings
   postfix::config {
+    'virtual_transport':
+      value => 'lmtp:unix:private/dovecot-lmtp';
     'virtual_mailbox_domains':
       value => 'mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf';
     'virtual_mailbox_maps':
