@@ -1,8 +1,8 @@
 class profile::mailserver::dovecot::conf {
-  $name = hiera('profile::mail::db::name')
-  $host = hiera('profile::mail::db::host')
-  $user = hiera('profile::mail::db::user')
-  $pass = hiera('profile::mail::db::pass')
+  $dbname = hiera('profile::mail::db::name')
+  $dbhost = hiera('profile::mail::db::host')
+  $dbuser = hiera('profile::mail::db::user')
+  $dbpass = hiera('profile::mail::db::pass')
 
   ini_setting { 'Dovecot protocols':
     ensure  => present,
@@ -65,7 +65,7 @@ class profile::mailserver::dovecot::conf {
     ensure  => present,
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'connect',
-    value   => "host=${host} dbname=${name} user=${user} password=${pass}",
+    value   => "host=${dbhost} dbname=${dbname} user=${dbuser} password=${dbpass}",
     notify  => Service['dovecot'],
   }
 
