@@ -1,4 +1,5 @@
 class profile::mailserver::dovecot::conf {
+  $mailname = hiera('profile::mail::hostname')
   $dbname = hiera('profile::mail::db::name')
   $dbhost = hiera('profile::mail::db::host')
   $dbuser = hiera('profile::mail::db::user')
@@ -75,6 +76,27 @@ class profile::mailserver::dovecot::conf {
     value   => 'SELECT email as user, password FROM virtual_users WHERE email=\'%u\';',
   }
 
+  ini_setting { 'dovecot ssl require':
+    ensure  => present,
+    path    => '/etc/dovecot/conf.d/10-ssl.conf',
+    setting => 'ssl',
+    value   => 'required',
+  }
+
+  ini_setting { 'dovecot ssl cert':
+    ensure  => present,
+    path    => '/etc/dovecot/conf.d/10-ssl.conf',
+    setting => 'ssl_cert',
+    value   => "/etc/letsencrypt/live/${mailname}/fullchain.pem",
+  }
+
+  ini_setting { 'dovecot ssl key':
+    ensure  => present,
+    path    => '/etc/dovecot/conf.d/10-ssl.conf',
+    setting => 'ssl_key',
+    value   => "/etc/letsencrypt/live/${mailname}/privkey.pem",
+  }
+
   file { '/srv/mail/vhosts':
     ensure  => 'directory',
     owner   => 'vmail',
@@ -87,5 +109,12 @@ class profile::mailserver::dovecot::conf {
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/profile/config/dovecot/auth-sql.conf.ext',
+  }
+
+  file { '/etc/dovecot/conf.d/10-mail.conf':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/profile/config/dovecot/10-mail.conf',
   }
 }

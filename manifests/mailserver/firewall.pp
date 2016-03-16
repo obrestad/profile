@@ -4,4 +4,9 @@ class profile::mailserver::firewall {
     dport  => [25, 587],
     action => 'accept',
   }
+  firewall { '010 accept incoming IMAP':
+    proto  => 'tcp',
+    dport  => [993],
+    action => 'accept',
+  }
 }
