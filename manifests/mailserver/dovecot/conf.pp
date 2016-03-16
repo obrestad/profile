@@ -77,19 +77,11 @@ class profile::mailserver::dovecot::conf {
     notify  => Service['dovecot'],
   }
 
-  ini_setting { 'dovecot sql ':
+  ini_setting { 'dovecot sql password':
     ensure  => present,
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'password_query',
     value   => 'SELECT email as user, password FROM virtual_users WHERE email=\'%u\';',
-    notify  => Service['dovecot'],
-  }
-
-  ini_setting { 'dovecot sql ':
-    ensure  => present,
-    path    => '/etc/dovecot/dovecot-sql.conf.ext',
-    setting => '',
-    value   => '',
     notify  => Service['dovecot'],
   }
 
