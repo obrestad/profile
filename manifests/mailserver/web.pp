@@ -18,13 +18,6 @@ class profile::mailserver::web {
     require       => Letsencrypt::Certonly[$mailname],
   }
 
-  letsencrypt::certonly { $mailname:
-    domains       => [$mailname],
-    plugin        => 'webroot',
-    webroot_paths => ["/var/www/${mailname}"],
-    require       => Apache::Vhost["${mailname} http"],
-    manage_cron   => true,
-  }
   letsencrypt::certonly { "${::fqdn}-${mailname}":
     domains       => [$::fqdn, $mailname],
     plugin        => 'webroot',
