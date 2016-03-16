@@ -52,6 +52,8 @@ class profile::mailserver::postfix {
 
   # Implement TLS
   postfix::config {
+    'smtpd_tls_CAfile':
+      value  => "/etc/letsencrypt/live/${::fqdn}/chain.pem";
     'smtpd_tls_cert_file':
       value  => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem";
     'smtpd_tls_key_file':
