@@ -87,13 +87,13 @@ class profile::mailserver::dovecot::conf {
 
   file { '/srv/mail/vhosts':
     ensure  => 'directory',
-    user    => 'vmail',
+    owner   => 'vmail',
     group   => 'vmail',
     mode    => '2775',
   }
 
   file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
-    user    => 'root',
+    owner   => 'root',
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/profile/config/dovecot/auth-sql.conf.ext',
