@@ -20,7 +20,6 @@ class profile::mailserver::dovecot::install {
     path        => '/usr/sbin:/bin:/usr/bin:/sbin',
     logoutput   => true,
     refreshonly => true,
-    require     => Package['dovecot-core'],
   }
 
   service { 'dovecot':

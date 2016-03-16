@@ -9,7 +9,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/dovecot.conf',
     setting => 'protocols',
     value   => 'imap pop3 lmtp',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'Maildir location':
@@ -17,7 +16,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/conf.d/10-mail.conf',
     setting => 'mail_location',
     value   => 'maildir:/srv/mail/vhosts/%d/%n',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'Maildir group':
@@ -25,7 +23,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/conf.d/10-mail.conf',
     setting => 'mail_privileged_group',
     value   => 'mail',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'Dovecot-disable_plaintext_auth':
@@ -33,7 +30,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/conf.d/10-auth.conf',
     setting => 'disable_plaintext_auth',
     value   => 'yes',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'Dovecot-auth_mechanisms':
@@ -41,7 +37,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/conf.d/10-auth.conf',
     setting => 'auth_mechanisms',
     value   => 'plain login',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'dovecot auth-sql.conf.ext':
@@ -50,7 +45,6 @@ class profile::mailserver::dovecot::conf {
     setting           => '!include',
     value             => 'auth-sql.conf.ext',
     key_val_separator => ' ',
-    notify            => Service['dovecot'],
   }
 
   ini_setting { 'dovecot sql driver':
@@ -58,7 +52,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'driver',
     value   => 'mysql',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'dovecot sql connect':
@@ -66,7 +59,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'connect',
     value   => "host=${dbhost} dbname=${dbname} user=${dbuser} password=${dbpass}",
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'dovecot sql default_pass_scheme':
@@ -74,7 +66,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'default_pass_scheme',
     value   => 'SHA512-CRYPT',
-    notify  => Service['dovecot'],
   }
 
   ini_setting { 'dovecot sql password':
@@ -82,7 +73,6 @@ class profile::mailserver::dovecot::conf {
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'password_query',
     value   => 'SELECT email as user, password FROM virtual_users WHERE email=\'%u\';',
-    notify  => Service['dovecot'],
   }
 
   file { '/srv/mail/vhosts':
