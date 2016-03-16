@@ -111,10 +111,10 @@ class profile::mailserver::dovecot::conf {
     source  => 'puppet:///modules/profile/config/dovecot/auth-sql.conf.ext',
   }
 
-  file { '/etc/dovecot/conf.d/10-mail.conf':
+  file { '/etc/dovecot/conf.d/10-master.conf':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => 'puppet:///modules/profile/config/dovecot/10-mail.conf',
+    source  => 'puppet:///modules/profile/config/dovecot/10-master.conf',
   }
 }
