@@ -9,7 +9,7 @@ class profile::mailserver::dovecot::conf {
     ensure  => present,
     path    => '/etc/dovecot/dovecot.conf',
     setting => 'protocols',
-    value   => 'imap pop3 lmtp',
+    value   => 'imap lmtp',
   }
 
   ini_setting { 'Maildir location':
