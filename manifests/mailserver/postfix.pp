@@ -53,11 +53,11 @@ class profile::mailserver::postfix {
   # Implement TLS
   postfix::config {
     'smtpd_tls_CAfile':
-      value  => "/etc/letsencrypt/live/${::fqdn}/chain.pem";
+      value  => "/etc/letsencrypt/live/${mailname}/chain.pem";
     'smtpd_tls_cert_file':
-      value  => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem";
+      value  => "/etc/letsencrypt/live/${mailname}/cert.pem";
     'smtpd_tls_key_file':
-      value  => "/etc/letsencrypt/live/${::fqdn}/privkey.pem";
+      value  => "/etc/letsencrypt/live/${mailname}/privkey.pem";
     'smtpd_tls_security_level':  value  => 'may';
   }
 }
