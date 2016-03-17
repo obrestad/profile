@@ -65,19 +65,19 @@ class profile::dlnaserver {
     dport  => 1900,
     action => 'accept',
   }
-  firewall { '100 accept incoming DLNA':
+  firewall { '100 v6 accept incoming DLNA':
     proto    => 'tcp',
     dport    => 8200,
     action   => 'accept',
     provider => 'ip6tables',
   }
-  firewall { '101 accept incoming DLNA':
+  firewall { '101 v6 accept incoming DLNA':
     proto    => 'udp',
     dport    => 56627,
     action   => 'accept',
     provider => 'ip6tables',
   }
-  firewall { '102 accept incoming DLNA':
+  firewall { '102 v6 accept incoming DLNA':
     proto    => 'udp',
     dport    => 1900,
     action   => 'accept',

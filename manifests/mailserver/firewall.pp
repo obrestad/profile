@@ -10,13 +10,13 @@ class profile::mailserver::firewall {
     action => 'accept',
   }
 
-  firewall { '010 accept incoming SMTP':
+  firewall { '010 v6 accept incoming SMTP':
     proto    => 'tcp',
     dport    => [25, 587],
     action   => 'accept',
     provider => 'ip6tables',
   }
-  firewall { '010 accept incoming IMAP':
+  firewall { '010 v6 accept incoming IMAP':
     proto    => 'tcp',
     dport    => [993],
     action   => 'accept',

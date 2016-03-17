@@ -5,7 +5,7 @@ class profile::firewall::post {
     before => undef,
   }
 
-  firewall { '999 drop all':
+  firewall { '999 v6 drop all':
     proto    => 'all',
     action   => 'drop',
     before   => undef,

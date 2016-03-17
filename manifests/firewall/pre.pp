@@ -31,31 +31,31 @@ class profile::firewall::pre {
   }
 
   # Default firewall IPv6 rules
-  firewall { '000 accept all icmp':
+  firewall { '000 v6 accept all icmp':
     proto    => 'icmp',
     action   => 'accept',
     provider => 'ip6tables',
   }->
-  firewall { '001 accept all to lo interface':
+  firewall { '001 v6 accept all to lo interface':
     proto    => 'all',
     iniface  => 'lo',
     action   => 'accept',
     provider => 'ip6tables',
   }->
-  firewall { '002 reject local traffic not on loopback interface':
+  firewall { '002 v6 reject local traffic not on loopback interface':
     iniface     => '! lo',
     proto       => 'all',
     destination => '::1/128',
     action      => 'reject',
     provider    => 'ip6tables',
   }->
-  firewall { '003 accept related established rules':
+  firewall { '003 v6 accept related established rules':
     proto    => 'all',
     state    => ['RELATED', 'ESTABLISHED'],
     action   => 'accept',
     provider => 'ip6tables',
   }->
-  firewall { '004 accept incoming SSH':
+  firewall { '004 v6 accept incoming SSH':
     proto    => 'tcp',
     dport    => 22,
     action   => 'accept',

@@ -5,7 +5,7 @@ class profile::firewall::puppetmaster {
     action   => 'accept',
   }
 
-  firewall { '005 accept incoming puppetmaster':
+  firewall { '005 v6 accept incoming puppetmaster':
     proto    => 'tcp',
     dport    => 8140,
     action   => 'accept',
