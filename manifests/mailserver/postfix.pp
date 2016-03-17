@@ -30,6 +30,12 @@ class profile::mailserver::postfix {
     'relayhost':           ensure => 'blank';
   }
 
+  # SASL
+  postfix::config {
+    'smtpd_sasl_type':        value => 'dovecot'
+    'smtpd_sasl_path':        value => 'private/auth'
+    'smtpd_sasl_auth_enable': value => 'yes'
+  }
   # Virtual mailbox settings
   postfix::config {
     'virtual_transport':
