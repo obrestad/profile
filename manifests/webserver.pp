@@ -24,6 +24,12 @@ class profile::webserver {
     dport  => [80, 443],
     action => 'accept',
   }
+  firewall { '010 accept incoming HTTP(S)':
+    proto    => 'tcp',
+    dport    => [80, 443],
+    action   => 'accept',
+    provider => 'ip6tables',
+  }
 
   class { '::letsencrypt':
     email => 'hostmaster@rothaugane.com',
