@@ -37,19 +37,5 @@ class profile::mailserver::web {
     host           => $mysql_host,
     grant          => ['ALL'],
     require        => Class['::mysql::server'],
-  }->
-  class { 'roundcube':
-    imap_host => 'ssl://127.0.0.1',
-    imap_port => 993,
-    db_type     => 'mysql',
-    db_name     => $mysql_name,
-    db_host     => $mysql_host,
-    db_username => $mysql_user,
-    db_password => $mysql_pass,
-    plugins => [
-      'emoticons',
-      'markasjunk',
-      'password',
-    ],
   }
 }
