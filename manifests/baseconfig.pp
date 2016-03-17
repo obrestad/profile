@@ -3,7 +3,7 @@ class profile::baseconfig {
     'bc',
     'fio',
     'gdisk',
-	'hdparm',
+    'hdparm',
     'htop',
     'iperf3',
     'nmap',
@@ -14,7 +14,7 @@ class profile::baseconfig {
   ] :
     ensure => 'latest',
   }
-  
+
   class { '::ntp':
     servers   => [
       '0.pool.ntp.org',
@@ -30,22 +30,23 @@ class profile::baseconfig {
 
   class { 'ssh':
     storeconfigs_enabled => true,
-    server_options => {
-      'Port' => [22],
+    server_options       => {
+      'Port'                   => [22],
       'PasswordAuthentication' => 'yes',
-      'X11Forwarding' => 'no',
+      'X11Forwarding'          => 'no',
     },
   }
-  
-  file { "/usr/local/sbin/general-backup":
-    owner => "root",
-    group => "root",
-    mode  => "744",
-    source => "puppet:///modules/profile/scripts/general-backup.sh",
+
+  file { '/usr/local/sbin/general-backup':
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0744',
+    source => 'puppet:///modules/profile/scripts/general-backup.sh',
   }->
-  cron { general-backup:
+  cron { 'general-backup':
     command => '/usr/local/sbin/general-backup',
     user    => root,
     hour    => [3, 9, 15, 21],
+    minute  => [0],
   }
 }
