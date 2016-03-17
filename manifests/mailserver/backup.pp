@@ -4,11 +4,11 @@ class profile::mailserver::backup {
     group  => 'root',
     mode   => '0744',
     source => 'puppet:///modules/profile/scripts/mail-backup.sh',
-  #}->
-  #cron { 'general-backup':
-  #  command => '/usr/local/sbin/general-backup',
-  #  user    => root,
-  #  hour    => [3, 9, 15, 21],
-  #  minute  => [0],
+  }->
+  cron { 'mail-backup':
+    command => '/usr/local/sbin/mail-backup',
+    user    => root,
+    hour    => [3, 9, 15, 21],
+    minute  => [30],
   }
 }
