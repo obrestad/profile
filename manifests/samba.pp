@@ -33,6 +33,17 @@ class profile::samba {
     read_only            => false,
   }
 
+  samba::server::share {'software':
+    comment              => 'Various software',
+    path                 => '/srv/software',
+    guest_only           => false,
+    guest_ok             => false,
+    guest_account        => 'nobody',
+    browsable            => true,
+    force_group          => 'users',
+    read_only            => false,
+  }
+
   firewall { '011 accept incoming SAMBA TCP':
     proto   => 'tcp',
     dport   => [139, 445],
