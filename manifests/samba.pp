@@ -22,6 +22,17 @@ class profile::samba {
     force_group          => 'users',
   }
 
+  samba::server::share {'media':
+    comment              => 'Various media',
+    path                 => '/srv/media',
+    guest_only           => false,
+    guest_ok             => false,
+    guest_account        => 'nobody',
+    browsable            => true,
+    force_group          => 'users',
+    read_only            => false,
+  }
+
   firewall { '011 accept incoming SAMBA TCP':
     proto   => 'tcp',
     dport   => [139, 445],
