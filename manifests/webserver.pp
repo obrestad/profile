@@ -1,6 +1,7 @@
 class profile::webserver {
   class { 'apache':
     default_vhost => false,
+    mpm_module    => 'prefork',
   }
 
   include '::apache::mod::php', '::apache::mod::rewrite', '::apache::mod::ssl'
