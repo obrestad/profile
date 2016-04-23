@@ -3,6 +3,8 @@ class profile::webserver {
     default_vhost => false,
   }
 
+  include '::apache::mod::php', '::apache::mod::rewrite', '::apache::mod::ssl'
+
   apache::vhost { "${::fqdn} http":
     servername    => $::fqdn,
     port          => '80',

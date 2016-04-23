@@ -31,6 +31,31 @@ class profile::mailserver::web {
     manage_cron   => true,
   }
 
+  apache::vhost { "${webmailurl} http":
+    servername    => $mailname,
+    port          => '80',
+    docroot       => "/var/www/${webmailurl}",
+    docroot_owner => 'www-data',
+    docroot_group => 'www-data',
+  }
+  apache::vhost { "${webmailurl} https":
+    servername    => $mailname,
+    port          => '443',
+    docroot       => "/var/www/${webmailurl}",
+    ssl           => true,
+    ssl_cert      => "/etc/letsencrypt/live/${webmailurl}/fullchain.pem",
+    ssl_key       => "/etc/letsencrypt/live/${webmailurl}/privkey.pem",
+    require       => Letsencrypt::Certonly["${::fqdn}-${webmailurl}"],
+  }
+
+  letsencrypt::certonly { "${::fqdn}-${webmailurl}":
+    domains       => [$webmailurl],
+    plugin        => 'webroot',
+    webroot_paths => ["/var/www/${webmailurl}"],
+    require       => Apache::Vhost["${webmailurl} http"],
+    manage_cron   => true,
+  }
+
   mysql::db { $mysql_name:
     user           => $mysql_user,
     password       => $mysql_pass,
