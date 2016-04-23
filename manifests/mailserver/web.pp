@@ -45,10 +45,10 @@ class profile::mailserver::web {
     ssl           => true,
     ssl_cert      => "/etc/letsencrypt/live/${webmailurl}/fullchain.pem",
     ssl_key       => "/etc/letsencrypt/live/${webmailurl}/privkey.pem",
-    require       => Letsencrypt::Certonly["${::fqdn}-${webmailurl}"],
+    require       => Letsencrypt::Certonly["${webmailurl}"],
   }
 
-  letsencrypt::certonly { "${::fqdn}-${webmailurl}":
+  letsencrypt::certonly { "${webmailurl}":
     domains       => [$webmailurl],
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${webmailurl}"],
