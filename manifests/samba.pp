@@ -5,7 +5,7 @@ class profile::samba {
     workgroup     => 'rothaugane',
     server_string => 'Antoccino',
     interfaces    => 'eth0 lo',
-    security      => 'share'
+    security      => 'user'
   }
 
   samba::server::user { 'eigil':
@@ -16,13 +16,9 @@ class profile::samba {
     comment              => 'Archived stuff',
     path                 => '/srv/archive',
     guest_only           => false,
-    guest_ok             => flase,
+    guest_ok             => false,
     guest_account        => 'nobody',
     browsable            => true,
-    create_mask          => 0777,
-    force_create_mask    => 0777,
-    directory_mask       => 0777,
-    force_directory_mask => 0777,
     force_group          => 'users',
   }
 }
