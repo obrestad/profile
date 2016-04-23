@@ -21,4 +21,32 @@ class profile::samba {
     browsable            => true,
     force_group          => 'users',
   }
+
+  firewall { '011 accept incoming SAMBA TCP':
+    proto   => 'tcp',
+    dport   => [139, 445],
+    iniface => 'eth0',
+    action  => 'accept',
+  }
+  firewall { '011 accept incoming SAMBA UDP':
+    proto   => 'udp',
+    dport   => [137, 138],
+    iniface => 'eth0',
+    action  => 'accept',
+  }
+
+  firewall { '011 v6 accept incoming SAMBA TCP':
+    proto    => 'tcp',
+    dport    => [139, 445],
+    action   => 'accept',
+    iniface  => 'eth0',
+    provider => 'ip6tables',
+  }
+  firewall { '011 v6 accept incoming SAMBA UDP':
+    proto    => 'udp',
+    dport    => [137, 138],
+    action   => 'accept',
+    iniface  => 'eth0',
+    provider => 'ip6tables',
+  }
 }
