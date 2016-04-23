@@ -9,7 +9,7 @@ class profile::samba {
   }
 
   samba::server::user { 'eigil':
-    password = $samba_eigil_pass,
+    password => $samba_eigil_pass,
   }
 
   samba::server::share {'archive':
