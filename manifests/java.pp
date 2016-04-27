@@ -1,6 +1,5 @@
 class profile::java {
   class { 'java':
-    distribution => 'oracle-jre',
   }
 
   firewall { '015 accept incoming Minecraft':
