@@ -1,6 +1,6 @@
 class profile::java {
   class { 'java':
-    distribution => 'jdk',
+    distribution => 'oracle-jdk',
   }
 
 #  java::oracle { 'jdk8' :

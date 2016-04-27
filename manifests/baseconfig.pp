@@ -6,6 +6,7 @@ class profile::baseconfig {
     'hdparm',
     'htop',
     'iperf3',
+	'lsb-release',
     'nmap',
     'pwgen',
     'screen',
