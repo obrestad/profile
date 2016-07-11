@@ -22,7 +22,7 @@ class profile::mailserver::web {
     ssl           => true,
     ssl_cert      => "/etc/letsencrypt/live/${mailname}/fullchain.pem",
     ssl_key       => "/etc/letsencrypt/live/${mailname}/privkey.pem",
-    require       => Letsencrypt::Certonly["${::fqdn}-${mailname}"],
+    require       => Letsencrypt::Certonly["${mailname}-${::fqdn}"],
   }
 
   letsencrypt::certonly { "${mailname}-${::fqdn}":
