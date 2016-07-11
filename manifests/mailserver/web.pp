@@ -1,3 +1,5 @@
+# Configures the webserver used by the webmail-client, and requests SSL
+# certificates for both the webserver and the mailserver.
 class profile::mailserver::web {
   $mailname = hiera('profile::mail::hostname')
   $webmailurl = hiera('profile::mail::webmail')
@@ -23,8 +25,8 @@ class profile::mailserver::web {
     require       => Letsencrypt::Certonly["${::fqdn}-${mailname}"],
   }
 
-  letsencrypt::certonly { "${mailname}-${::fqds}":
-    domains       => [$mailname, ${::fqdn}],
+  letsencrypt::certonly { "${mailname}-${::fqdn}":
+    domains       => [$mailname, $::fqdn],
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${mailname}", "/var/www/${::fqdn}"],
     require       => Apache::Vhost["${mailname} http"],
