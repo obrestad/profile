@@ -23,10 +23,10 @@ class profile::mailserver::web {
     require       => Letsencrypt::Certonly["${::fqdn}-${mailname}"],
   }
 
-  letsencrypt::certonly { "${::fqdn}-${mailname}":
-    domains       => [$::fqdn, $mailname],
+  letsencrypt::certonly { "${mailname}-${::fqds}":
+    domains       => [$mailname, ${::fqdn}],
     plugin        => 'webroot',
-    webroot_paths => ["/var/www/${::fqdn}", "/var/www/${mailname}"],
+    webroot_paths => ["/var/www/${mailname}", "/var/www/${::fqdn}"],
     require       => Apache::Vhost["${mailname} http"],
     manage_cron   => true,
   }
