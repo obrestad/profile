@@ -125,6 +125,14 @@ class profile::mailserver::web {
     require => Package['roundcube'],
   }
 
+  ini_setting { 'Roundcube DBC Disable':
+    ensure  => present,
+    path    => '/etc/dbconfig-common/roundcube.conf',
+    setting => 'dbc_install',
+    value   => 'false',
+    require => Package['roundcube'],
+  }
+
   ini_setting { 'Roundcube DB Host':
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
