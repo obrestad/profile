@@ -40,23 +40,6 @@ class profile::mailserver::web {
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
   }
-#  apache::vhost { "${webmailurl} https":
-#    servername    => $mailname,
-#    port          => '443',
-#    docroot       => "/var/www/${webmailurl}",
-#    ssl           => true,
-#    ssl_cert      => "/etc/letsencrypt/live/${webmailurl}/fullchain.pem",
-#    ssl_key       => "/etc/letsencrypt/live/${webmailurl}/privkey.pem",
-#    require       => Letsencrypt::Certonly["${webmailurl}"],
-#  }
-
-#  letsencrypt::certonly { "${webmailurl}":
-#    domains       => [$webmailurl],
-#    plugin        => 'webroot',
-#    webroot_paths => ["/var/www/${webmailurl}"],
-#    require       => Apache::Vhost["${webmailurl} http"],
-#    manage_cron   => true,
-#  }
 
   mysql::db { $mysql_name:
     user           => $mysql_user,
@@ -64,5 +47,14 @@ class profile::mailserver::web {
     host           => $mysql_host,
     grant          => ['ALL'],
     require        => Class['::mysql::server'],
+  }
+
+  package { [
+    'roundcube',
+    'roundcube-core',
+    'roundcube-mysql',
+    'roundcube-plugins'
+  ] :
+    ensure => 'present',
   }
 }
