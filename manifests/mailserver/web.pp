@@ -107,7 +107,11 @@ class profile::mailserver::web {
     password       => $mysql_pass,
     host           => $mysql_host,
     grant          => ['ALL'],
-    require        => Class['::mysql::server'],
+    sql            => '/usr/share/roundcube/SQL/mysql.initial.sql',
+    require        => [
+      Class['::mysql::server'],
+      Package['roundcoube-common'],
+    ],
   }
 
   package { [
