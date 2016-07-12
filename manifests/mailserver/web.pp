@@ -63,7 +63,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'default_host\']',
-    value   => "'ssl://${mailname}:993'",
+    value   => "'ssl://${mailname}:993';",
     require => Package['roundcube'],
   }
 
@@ -71,7 +71,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_server\']',
-    value   => "'${mailname}'",
+    value   => "'${mailname}';",
     require => Package['roundcube'],
   }
 
@@ -79,7 +79,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_port\']',
-    value   => '\'587\'',
+    value   => '\'587\';',
     require => Package['roundcube'],
   }
 
@@ -87,7 +87,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_user\']',
-    value   => '\'%u\'',
+    value   => '\'%u\';',
     require => Package['roundcube'],
   }
 
@@ -95,7 +95,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_pass\']',
-    value   => '\'%p\'',
+    value   => '\'%p\';',
     require => Package['roundcube'],
   }
 
@@ -103,7 +103,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'des_key\']',
-    value   => "'${rc_des_key}'",
+    value   => "'${rc_des_key}';",
     require => Package['roundcube'],
   }
 
@@ -111,7 +111,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
     setting => '$dbserver',
-    value   => "'${mysql_host}'",
+    value   => "'${mysql_host}';",
     require => Package['roundcube'],
   }
 
@@ -119,7 +119,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
     setting => '$dbname',
-    value   => "'${mysql_name}'",
+    value   => "'${mysql_name}';",
     require => Package['roundcube'],
   }
 
@@ -127,7 +127,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
     setting => '$dbserver',
-    value   => "'${mysql_user}'",
+    value   => "'${mysql_user}';",
     require => Package['roundcube'],
   }
 
@@ -135,7 +135,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
     setting => '$dbserver',
-    value   => "'${mysql_pass}'",
+    value   => "'${mysql_pass}';",
     require => Package['roundcube'],
   }
 
@@ -143,7 +143,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
     setting => '$dbtype',
-    value   => '\'mysql\'',
+    value   => '\'mysql\';',
     require => Package['roundcube'],
   }
 }
