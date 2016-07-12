@@ -110,7 +110,7 @@ class profile::mailserver::web {
     sql            => '/usr/share/roundcube/SQL/mysql.initial.sql',
     require        => [
       Class['::mysql::server'],
-      Package['roundcoube-core'],
+      Package['roundcube-core'],
     ],
   }
 
