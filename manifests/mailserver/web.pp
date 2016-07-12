@@ -152,7 +152,7 @@ class profile::mailserver::web {
   ini_setting { 'Roundcube DB User':
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
-    setting => '$dbserver',
+    setting => '$dbuser',
     value   => "'${mysql_user}';",
     require => Package['roundcube'],
   }
@@ -160,7 +160,7 @@ class profile::mailserver::web {
   ini_setting { 'Roundcube DB Pass':
     ensure  => present,
     path    => '/etc/roundcube/debian-db.php',
-    setting => '$dbserver',
+    setting => '$dbpass',
     value   => "'${mysql_pass}';",
     require => Package['roundcube'],
   }
