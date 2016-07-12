@@ -2,7 +2,7 @@
 # certificates for both the webserver and the mailserver.
 class profile::mailserver::web {
   $mailname = hiera('profile::mail::hostname')
-  $webmailurl = hiera('profile::mail::webmail')
+  $webmailname = hiera('profile::mail::webmail')
   $mysql_name = hiera('profile::mail::web::db::name')
   $mysql_host = hiera('profile::mail::web::db::host')
   $mysql_user = hiera('profile::mail::web::db::user')
@@ -34,13 +34,31 @@ class profile::mailserver::web {
     manage_cron   => true,
   }
 
-  apache::vhost { "${webmailurl} http":
-    servername    => $mailname,
+  apache::vhost { "${webmailname} http":
+    servername    => $webmailname,
     port          => '80',
-    docroot       => "/var/www/${webmailurl}",
+    docroot       => "/var/www/${webmailname}",
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
   }
+  apache::vhost { "${webmailname} https":
+    servername    => $webmailname,
+    port          => '443',
+    docroot       => "/var/www/${webmailname}",
+    ssl           => true,
+    ssl_cert      => "/etc/letsencrypt/live/${webmailname}/fullchain.pem",
+    ssl_key       => "/etc/letsencrypt/live/${webmailname}/privkey.pem",
+    require       => Letsencrypt::Certonly[$webmailname}],
+  }
+
+  letsencrypt::certonly { $webmailname:
+    domains       => [$webmailname],
+    plugin        => 'webroot',
+    webroot_paths => ["/var/www/${webmailname}"],
+    require       => Apache::Vhost["${webmailname} http"],
+    manage_cron   => true,
+  }
+
 
   mysql::db { $mysql_name:
     user           => $mysql_user,
