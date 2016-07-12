@@ -135,7 +135,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_server\']',
-    value   => "'${mailname}';",
+    value   => "'127.0.0.1';",
     require => Package['roundcube'],
   }
 
@@ -151,7 +151,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_user\']',
-    value   => '\'%u\';',
+    value   => '\'\';',
     require => Package['roundcube'],
   }
 
@@ -159,7 +159,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_pass\']',
-    value   => '\'%p\';',
+    value   => '\'\';',
     require => Package['roundcube'],
   }
 
