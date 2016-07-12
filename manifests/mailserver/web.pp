@@ -62,7 +62,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'default_host\']',
-    value   => 'mail.rothaugane.com',
+    value   => '\'mail.rothaugane.com\'',
     require => Package['roundcube'],
   }
 }
