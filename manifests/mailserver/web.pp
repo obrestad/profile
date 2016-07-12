@@ -58,7 +58,7 @@ class profile::mailserver::web {
     ensure => 'present',
   }
 
-  ini_setting { 'Dovecot protocols':
+  ini_setting { 'Roundcube IMAP Host':
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'default_host\']',
