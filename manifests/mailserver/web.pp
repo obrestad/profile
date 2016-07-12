@@ -135,7 +135,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_server\']',
-    value   => "'127.0.0.1';",
+    value   => "'tls://127.0.0.1';",
     require => Package['roundcube'],
   }
 
