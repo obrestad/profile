@@ -37,24 +37,45 @@ class profile::mailserver::web {
   apache::vhost { "${webmailname} http":
     servername    => $webmailname,
     port          => '80',
-    docroot       => "/var/www/${webmailname}",
+    docroot       => '/var/lib/roundcube/',
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
   }
   apache::vhost { "${webmailname} https":
     servername    => $webmailname,
     port          => '443',
-    docroot       => "/var/www/${webmailname}",
+    docroot       => '/var/lib/roundcube/',
     ssl           => true,
     ssl_cert      => "/etc/letsencrypt/live/${webmailname}/fullchain.pem",
     ssl_key       => "/etc/letsencrypt/live/${webmailname}/privkey.pem",
     require       => Letsencrypt::Certonly[$webmailname],
+    directories   => [
+      { path           => '/var/lib/roundcube/',
+        options        => ['+FollowSymLinks'],
+        allow_override => ['All'],
+        Require        => 'all granted',
+      },
+      { path           => '/var/lib/roundcube/config',
+        options        => ['-FollowSymLinks'],
+        allow_override => ['None'],
+      },
+      { path           => '/var/lib/roundcube/temp',
+        options        => ['-FollowSymLinks'],
+        allow_override => ['None'],
+        Require        => 'all denied',
+      },
+      { path           => '/var/lib/roundcube/logs',
+        options        => ['-FollowSymLinks'],
+        allow_override => ['None'],
+        Require        => 'all denied',
+      },
+    ],
   }
 
   letsencrypt::certonly { $webmailname:
     domains       => [$webmailname],
     plugin        => 'webroot',
-    webroot_paths => ["/var/www/${webmailname}"],
+    webroot_paths => ['/var/lib/roundcube/'],
     require       => Apache::Vhost["${webmailname} http"],
     manage_cron   => true,
   }
@@ -129,7 +150,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/dbconfig-common/roundcube.conf',
     setting => 'dbc_install',
-    value   => 'false',
+    value   => false,
     require => Package['roundcube'],
   }
 
