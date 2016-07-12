@@ -57,4 +57,12 @@ class profile::mailserver::web {
   ] :
     ensure => 'present',
   }
+
+  ini_setting { 'Dovecot protocols':
+    ensure  => present,
+    path    => '/etc/roundcube/config.inc.php',
+    setting => '$config[\'default_host\']',
+    value   => 'mail.rothaugane.com',
+    require => Package['roundcube'],
+  }
 }
