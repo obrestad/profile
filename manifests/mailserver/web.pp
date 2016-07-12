@@ -48,7 +48,7 @@ class profile::mailserver::web {
     ssl           => true,
     ssl_cert      => "/etc/letsencrypt/live/${webmailname}/fullchain.pem",
     ssl_key       => "/etc/letsencrypt/live/${webmailname}/privkey.pem",
-    require       => Letsencrypt::Certonly[$webmailname}],
+    require       => Letsencrypt::Certonly[$webmailname],
   }
 
   letsencrypt::certonly { $webmailname:
