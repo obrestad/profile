@@ -143,7 +143,7 @@ class profile::mailserver::web {
     ensure  => present,
     path    => '/etc/roundcube/config.inc.php',
     setting => '$config[\'smtp_port\']',
-    value   => '\'\';',
+    value   => '\'587\';',
     require => Package['roundcube'],
   }
 
