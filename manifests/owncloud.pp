@@ -16,10 +16,9 @@ class profile::owncloud {
     require       => Lvm::Volume['owncloud_data'],
   }
 
-  lvm::volume { 'owncloud_data':
+  lvm::logical_volume { 'owncloud_data':
     ensure            => present,
-    vg                => 'hdd',
-    fstype            => 'ext4',
+    volume_group      => 'hdd',
     size              => '100G',
     mountpath         => '/srv/owncloud-data',
     mountpath_require => true,
