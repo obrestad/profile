@@ -39,4 +39,32 @@ class profile::owncloud {
       },
     ],
   }
+
+  apache::vhost { "${url} https":
+    servername    => $url,
+    port          => '443',
+    docroot       => '/var/www/owncloud',
+    ssl           => true,
+    ssl_cert      => "/etc/letsencrypt/live/${url}/fullchain.pem",
+    ssl_key       => "/etc/letsencrypt/live/${url}/privkey.pem",
+    require       => Letsencrypt::Certonly[$url],
+    docroot_owner => 'www-data',
+    docroot_group => 'www-data',
+    directories   => [
+      { path            => '/var/www/owncloud',
+        options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+        allow_override  => ['All'],
+        require         => 'all granted',
+        custom_fragment => 'Dav Off',
+      },
+    ],
+  }
+
+  letsencrypt::certonly { $url:
+    domains       => [$url],
+    plugin        => 'webroot',
+    webroot_paths => ['/var/www/owncloud'],
+    require       => Apache::Vhost["${url} http"],
+    manage_cron   => true,
+  }
 }
