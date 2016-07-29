@@ -17,7 +17,7 @@ class profile::gitolite {
     system      => true,
   }
 
-  file { '/srv/git/admin_pub_key':
+  file { '/srv/git/admin_pub_key.pub':
     ensure   => 'file',
     owner    => 'git',
     group    => 'service',
@@ -26,11 +26,11 @@ class profile::gitolite {
     content  => $admin_key,
   }
 
-  exec { 'gitolite setup -pk admin_pub_key':
+  exec { 'gitolite setup -pk admin_pub_key.pub':
     cwd     => '/srv/git',
     path    => '/usr/bin',
     user    => 'git',
     creates => '/srv/git/.gitolite.rc',
-    require => File['/srv/git/admin_pub_key'],
+    require => File['/srv/git/admin_pub_key.pub'],
   }
 }
