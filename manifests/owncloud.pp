@@ -13,7 +13,7 @@ class profile::owncloud {
     db_user       => $dbuser,
     db_name       => $dbname,
     datadirectory => '/srv/owncloud-data',
-    require       => Lvm::Volume['owncloud_data'],
+    require       => Lvm::Logical_volume['owncloud_data'],
   }
 
   lvm::logical_volume { 'owncloud_data':
