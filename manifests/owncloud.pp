@@ -41,14 +41,15 @@ class profile::owncloud {
   }
 
   apache::vhost { "${url} https":
-    servername    => $url,
-    port          => '443',
-    docroot       => '/var/www/owncloud',
-    ssl           => true,
-    ssl_cert      => "/etc/letsencrypt/live/${url}/fullchain.pem",
-    ssl_key       => "/etc/letsencrypt/live/${url}/privkey.pem",
-    require       => Letsencrypt::Certonly[$url],
-    directories   => [
+    servername     => $url,
+    port           => '443',
+    docroot        => '/var/www/owncloud',
+    manage_docroot => false,
+    ssl            => true,
+    ssl_cert       => "/etc/letsencrypt/live/${url}/fullchain.pem",
+    ssl_key        => "/etc/letsencrypt/live/${url}/privkey.pem",
+    require        => Letsencrypt::Certonly[$url],
+    directories    => [
       { path            => '/var/www/owncloud',
         options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
         allow_override  => ['All'],
