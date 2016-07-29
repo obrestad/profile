@@ -27,7 +27,7 @@ class profile::gitolite {
   }
 
   exec { 'gitolite setup -pk admin_pub_key.pub':
-    environment => ["HOME=/srv/git"]
+    environment => ['HOME=/srv/git'],
     cwd         => '/srv/git',
     path        => '/usr/bin',
     user        => 'git',
