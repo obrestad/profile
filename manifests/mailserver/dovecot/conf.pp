@@ -87,14 +87,14 @@ class profile::mailserver::dovecot::conf {
     ensure  => present,
     path    => '/etc/dovecot/conf.d/10-ssl.conf',
     setting => 'ssl_cert',
-    value   => "</etc/letsencrypt/live/${mailname}/fullchain.pem",
+    value   => "</etc/certbot/live/${mailname}/fullchain.pem",
   }
 
   ini_setting { 'dovecot ssl key':
     ensure  => present,
     path    => '/etc/dovecot/conf.d/10-ssl.conf',
     setting => 'ssl_key',
-    value   => "</etc/letsencrypt/live/${mailname}/privkey.pem",
+    value   => "</etc/certbot/live/${mailname}/privkey.pem",
   }
 
   file { '/srv/mail/vhosts':

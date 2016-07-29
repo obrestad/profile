@@ -18,8 +18,8 @@ class profile::webserver {
     port          => '443',
     docroot       => "/var/www/${::fqdn}",
     ssl           => true,
-    ssl_cert      => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem",
-    ssl_key       => "/etc/letsencrypt/live/${::fqdn}/privkey.pem",
+    ssl_cert      => "/etc/certbot/live/${::fqdn}/fullchain.pem",
+    ssl_key       => "/etc/certbot/live/${::fqdn}/privkey.pem",
   }
 
   firewall { '010 accept incoming HTTP(S)':
@@ -34,11 +34,11 @@ class profile::webserver {
     provider => 'ip6tables',
   }
 
-  class { '::letsencrypt':
+  class { '::certbot':
     email => 'hostmaster@rothaugane.com',
   }
 
-  letsencrypt::certonly { $::fqdn:
+  certbot::certonly { $::fqdn:
     domains       => [$::fqdn],
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${::fqdn}"],
