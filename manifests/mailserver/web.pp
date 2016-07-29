@@ -23,7 +23,7 @@ class profile::mailserver::web {
     ssl           => true,
     ssl_cert      => "/etc/certbot/live/${mailname}/fullchain.pem",
     ssl_key       => "/etc/certbot/live/${mailname}/privkey.pem",
-    require       => Certbot::Certonly["${mailname}-${::fqdn}"],
+    require       => Letsencrypt::Certonly["${mailname}-${::fqdn}"],
   }
 
   certbot::certonly { "${mailname}-${::fqdn}":
@@ -69,7 +69,7 @@ class profile::mailserver::web {
     ssl           => true,
     ssl_cert      => "/etc/certbot/live/${webmailname}/fullchain.pem",
     ssl_key       => "/etc/certbot/live/${webmailname}/privkey.pem",
-    require       => Certbot::Certonly[$webmailname],
+    require       => Letsencrypt::Certonly[$webmailname],
     directories   => [
       { path           => '/var/lib/roundcube/',
         options        => ['+FollowSymLinks'],
