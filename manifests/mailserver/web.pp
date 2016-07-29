@@ -21,12 +21,12 @@ class profile::mailserver::web {
     port          => '443',
     docroot       => "/var/www/${mailname}",
     ssl           => true,
-    ssl_cert      => "/etc/certbot/live/${mailname}/fullchain.pem",
-    ssl_key       => "/etc/certbot/live/${mailname}/privkey.pem",
+    ssl_cert      => "/etc/letsencrypt/live/${mailname}/fullchain.pem",
+    ssl_key       => "/etc/letsencrypt/live/${mailname}/privkey.pem",
     require       => Letsencrypt::Certonly["${mailname}-${::fqdn}"],
   }
 
-  certbot::certonly { "${mailname}-${::fqdn}":
+  letsencrypt::certonly { "${mailname}-${::fqdn}":
     domains       => [$mailname, $::fqdn],
     plugin        => 'webroot',
     webroot_paths => ["/var/www/${mailname}", "/var/www/${::fqdn}"],
@@ -67,8 +67,8 @@ class profile::mailserver::web {
     port          => '443',
     docroot       => '/var/lib/roundcube/',
     ssl           => true,
-    ssl_cert      => "/etc/certbot/live/${webmailname}/fullchain.pem",
-    ssl_key       => "/etc/certbot/live/${webmailname}/privkey.pem",
+    ssl_cert      => "/etc/letsencrypt/live/${webmailname}/fullchain.pem",
+    ssl_key       => "/etc/letsencrypt/live/${webmailname}/privkey.pem",
     require       => Letsencrypt::Certonly[$webmailname],
     directories   => [
       { path           => '/var/lib/roundcube/',
@@ -93,7 +93,7 @@ class profile::mailserver::web {
     ],
   }
 
-  certbot::certonly { $webmailname:
+  letsencrypt::certonly { $webmailname:
     domains       => [$webmailname],
     plugin        => 'webroot',
     webroot_paths => ['/var/lib/roundcube/'],
