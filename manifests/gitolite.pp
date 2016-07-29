@@ -31,7 +31,7 @@ class profile::gitolite {
     cwd         => '/srv/git',
     path        => '/usr/bin',
     user        => 'git',
-    refreshonly => true
+    refreshonly => true,
     creates     => '/srv/git/.gitolite.rc',
     require     => File['/srv/git/admin_pub_key.pub'],
   }
