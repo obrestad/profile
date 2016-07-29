@@ -48,8 +48,6 @@ class profile::owncloud {
     ssl_cert      => "/etc/letsencrypt/live/${url}/fullchain.pem",
     ssl_key       => "/etc/letsencrypt/live/${url}/privkey.pem",
     require       => Letsencrypt::Certonly[$url],
-    docroot_owner => 'www-data',
-    docroot_group => 'www-data',
     directories   => [
       { path            => '/var/www/owncloud',
         options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
