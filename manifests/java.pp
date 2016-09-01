@@ -11,7 +11,7 @@ class profile::java {
 
   firewall { '015 accept incoming Minecraft':
     proto  => 'tcp',
-    dport  => 25565,
+    dport  => [25565, 25566],
     action => 'accept',
   }
 }
