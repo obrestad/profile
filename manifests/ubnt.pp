@@ -1,3 +1,4 @@
+# Installs a ubnt controller
 class profile::ubnt {
   apt::source { 'ubnt':
     location   => 'http://www.ubnt.com/downloads/unifi/debian',
@@ -5,6 +6,16 @@ class profile::ubnt {
     release    => 'stable',
     key        => 'C0A52C50',
     key_server => 'keyserver.ubuntu.com',
+  }
+
+  package { 'unifi':
+    ensure  => 'present',
+    require => Apt::Source['ubnt'],
+  }
+
+  service { 'unifi':
+    ensure  => 'running',
+    require => Package['unifi'],
   }
 
   firewall { '011 accept incoming UAPs and management':
