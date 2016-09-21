@@ -3,7 +3,7 @@ class profile::ubnt {
   apt::source { 'ubnt':
     location   => 'http://www.ubnt.com/downloads/unifi/debian',
     repos      => 'ubiquiti',
-    release    => 'stable',
+    release    => 'unifi5',
     key        => 'C0A52C50',
     key_server => 'keyserver.ubuntu.com',
   }
