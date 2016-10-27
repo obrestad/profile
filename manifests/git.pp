@@ -1,6 +1,6 @@
 # This class installs gitolite to allow for hosting git repos with access
 # control.
-class profile::gitolite {
+class profile::git {
   $admin_key = hiera('profile::gitolite::admin-key')
 
   package{ 'gitolite3':
@@ -11,36 +11,17 @@ class profile::gitolite {
     ensure => present,
   }
 
-  ini_setting { 'Enable git-daemon':
-    ensure  => present,
-    path    => '/etc/default/git-daemon',
-    setting => 'GIT_DAEMON_ENABLE',
-    value   => 'true',
+  class {'::profile::git::firewall':
     require => Package['git-daemon-sysvinit'],
   }
 
-  ini_setting { 'Set git-daemon user':
-    ensure  => present,
-    path    => '/etc/default/git-daemon',
-    setting => 'GIT_DAEMON_USER',
-    value   => 'gitdaemon',
+  class {'::profile::git::daemonconfig':
     require => Package['git-daemon-sysvinit'],
   }
 
-  ini_setting { 'Set git-daemon path1':
-    ensure  => present,
-    path    => '/etc/default/git-daemon',
-    setting => 'GIT_DAEMON_BASE_PATH',
-    value   => '/srv/git/repositories/',
-    require => Package['git-daemon-sysvinit'],
-  }
-
-  ini_setting { 'Set git-daemon path2':
-    ensure  => present,
-    path    => '/etc/default/git-daemon',
-    setting => 'GIT_DAEMON_DIRECTORY',
-    value   => '/srv/git/repositories/',
-    require => Package['git-daemon-sysvinit'],
+  service { 'git-daemon':
+    ensure  => 'running',
+    require => Class['::profile::git::daemonconfig'],
   }
 
   user { 'git':
