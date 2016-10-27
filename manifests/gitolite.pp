@@ -7,6 +7,10 @@ class profile::gitolite {
     ensure => present,
   }
 
+  package{ 'git-daemon-sysvinit':
+    ensure => present,
+  }
+
   user { 'git':
     ensure      => present,
     gid         => 'service',
