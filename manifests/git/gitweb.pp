@@ -6,6 +6,10 @@ class profile::git::gitweb {
     ensure => present,
   }
 
+  package{ 'libcgi-pm-perl':
+    ensure => present,
+  }
+
   apache::vhost { "${gitwebname} http":
     servername    => $gitwebname,
     port          => '80',
