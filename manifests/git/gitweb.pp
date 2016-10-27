@@ -18,12 +18,13 @@ class profile::git::gitweb {
         options        => ['Indexes', 'FollowSymlinks', 'ExecCGI'],
         allow_override => ['None'],
         require        => 'all granted',
-      },
-    ],
-    rewrites      => [
-      { rewrite_rule => [ '^/$  /cgi-bin/gitweb.cgi' ]
-      },
-      { rewrite_rule => [ '^/(.*\.git/(?!/?(HEAD|info|objects|refs)).*)?$ /cgi-bin/gitweb.cgi%{REQUEST_URI}  [L,PT]' ]
+        directoryindex => '/cgi-bin/gitweb.cgi',
+        rewrites       => [
+          { rewrite_rule => [ '^/$  /cgi-bin/gitweb.cgi' ]
+          },
+          { rewrite_rule => [ '^/(.*\.git/(?!/?(HEAD|info|objects|refs)).*)?$ /cgi-bin/gitweb.cgi%{REQUEST_URI}  [L,PT]' ]
+          },
+        ],
       },
     ],
   }
