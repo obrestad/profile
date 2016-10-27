@@ -11,6 +11,38 @@ class profile::gitolite {
     ensure => present,
   }
 
+  ini_setting { 'Enable git-daemon':
+    ensure  => present,
+    path    => '/etc/default/git-daemon',
+    setting => 'GIT_DAEMON_ENABLE',
+    value   => 'true',
+    require => Package['git-daemon-sysvinit'],
+  }
+
+  ini_setting { 'Enable git-daemon':
+    ensure  => present,
+    path    => '/etc/default/git-daemon',
+    setting => 'GIT_DAEMON_USER',
+    value   => 'gitdaemon',
+    require => Package['git-daemon-sysvinit'],
+  }
+
+  ini_setting { 'Enable git-daemon':
+    ensure  => present,
+    path    => '/etc/default/git-daemon',
+    setting => 'GIT_DAEMON_BASE_PATH',
+    value   => '/srv/git/repositories/',
+    require => Package['git-daemon-sysvinit'],
+  }
+
+  ini_setting { 'Enable git-daemon':
+    ensure  => present,
+    path    => '/etc/default/git-daemon',
+    setting => 'GIT_DAEMON_DIRECTORY',
+    value   => '/srv/git/repositories/',
+    require => Package['git-daemon-sysvinit'],
+  }
+
   user { 'git':
     ensure      => present,
     gid         => 'service',
