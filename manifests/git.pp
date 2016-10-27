@@ -3,16 +3,15 @@
 class profile::git {
   $admin_key = hiera('profile::gitolite::admin-key')
 
+  include ::profile::git::gitweb
+  include ::profile::git::firewall
+
   package{ 'gitolite3':
     ensure => present,
   }
 
   package{ 'git-daemon-sysvinit':
     ensure => present,
-  }
-
-  class {'::profile::git::firewall':
-    require => Package['git-daemon-sysvinit'],
   }
 
   class {'::profile::git::daemonconfig':
