@@ -27,5 +27,13 @@ class profile::git::gitweb {
         ],
       },
     ],
+    aliases => [
+      { alias            => '/static/',
+        path             => '/usr/share/gitweb/static/',
+      },
+      { scriptalias      => '/cgi-bin/',
+        path             => '/usr/share/gitweb/',
+      },
+    ],
   }
 }
