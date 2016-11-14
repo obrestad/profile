@@ -26,6 +26,12 @@ class profile::mailserver::web {
     require       => Letsencrypt::Certonly["${mailname}-${::fqdn}"],
   }
 
+  vcsrepo { '/opt/mailadmin':
+    ensure   => present,
+    provider => git,
+    source   => 'git://git.rothaugane.com/mailadmin.git',
+  }
+
   letsencrypt::certonly { "${mailname}-${::fqdn}":
     domains       => [$mailname, $::fqdn],
     plugin        => 'webroot',
