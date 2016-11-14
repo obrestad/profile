@@ -61,19 +61,11 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     require => Class['::profile::mailserver::postfix'],
   }
 
-  file { '/var/local/maildb-initial.sql':
-    owner  => 'root',
-    group  => 'root',
-    mode   => '644',
-    source => 'puppet:///modules/profile/initial/maildb.sql',
-  } ->
   mysql::db { $mysql_name:
     user           => $mysql_user,
     password       => $mysql_pass,
     host           => $mysql_host,
-    grant          => ['CREATE', 'SELECT', 'UPDATE'],
-    sql            => '/var/local/maildb-initial.sql',
-    import_timeout => 900,
+    grant          => ['ALL'],
     require        => Class['::mysql::server'],
   }
 }
