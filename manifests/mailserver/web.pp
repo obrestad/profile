@@ -34,17 +34,27 @@ class profile::mailserver::web {
     manage_cron   => true,
   }
   package { [
-    'python3-django',
-    'python3-mysqldb',
-    'python3-passlib',
+      'python3-django',
+      'python3-mysqldb',
+      'python3-passlib',
     ] :
     ensure => present,
+    before => Exec['/opt/mailadmin/manage.py syncdb --noinput'],
   }
 
   vcsrepo { '/opt/mailadmin':
-    ensure   => present,
-    provider => git,
-    source   => 'git://git.rothaugane.com/mailadmin.git',
+    ensure    => present,
+    provider  => git,
+    source    => 'git://git.rothaugane.com/mailadmin.git',
+    notify    => Exec['/opt/mailadmin/manage.py syncdb --noinput'],
+  }
+
+  exec { '/opt/mailadmin/manage.py syncdb --noinput':
+    refresh_only  => true,
+    require       => [
+                      Vcsrepo['/opt/mailadmin'],
+                      Mysql::Db[$mysql_name],
+                  ],
   }
 
   ini_setting { 'Mailadmin debug':
