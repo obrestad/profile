@@ -50,7 +50,7 @@ class profile::mailserver::web {
   }
 
   exec { '/opt/mailadmin/manage.py syncdb --noinput':
-    refresh_only  => true,
+    refreshonly   => true,
     require       => [
                       Vcsrepo['/opt/mailadmin'],
                       Mysql::Db[$mysql_name],
