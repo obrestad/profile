@@ -119,4 +119,13 @@ class profile::mailserver::web {
     value   => $mysql_pass,
     require => Vcsrepo['/opt/mailadmin'],
   }
+
+  ini_setting { 'Mailadmin main host':
+    ensure  => present,
+    path    => '/opt/mailadmin/settings.ini',
+    section => 'hosts',
+    setting => 'main',
+    value   => $mailname,
+    require => Vcsrepo['/opt/mailadmin'],
+  }
 }
