@@ -33,11 +33,12 @@ class profile::mailserver::web {
     require       => Apache::Vhost["${mailname} http"],
     manage_cron   => true,
   }
-  package { 'python3-django':
-    ensure => 'present',
-  }
-  package { 'python3-mysqldb':
-    ensure => 'present',
+  package { [
+    'python3-django',
+    'python3-mysqldb',
+    'python3-passlib',
+    ] :
+    ensure => present,
   }
 
   vcsrepo { '/opt/mailadmin':
