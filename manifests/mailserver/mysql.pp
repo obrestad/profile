@@ -1,3 +1,5 @@
+# Creates a database for the mailing system, and configures postfix to use it
+# for mail delivery
 class profile::mailserver::mysql {
   $mysql_name = hiera('profile::mail::db::name')
   $mysql_host = hiera('profile::mail::db::host')
@@ -32,7 +34,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => '744',
+    mode    => '0744',
     content => $virtual_domains,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -40,7 +42,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => '744',
+    mode    => '0744',
     content => $virtual_mailbox,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -48,7 +50,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => '744',
+    mode    => '0744',
     content => $virtual_alias,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -56,7 +58,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => '744',
+    mode    => '0744',
     content => $virtual_email2email,
     require => Class['::profile::mailserver::postfix'],
   }
@@ -65,7 +67,10 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     user           => $mysql_user,
     password       => $mysql_pass,
     host           => $mysql_host,
-    grant          => ['ALL'],
+    grant          => ['CREATE', 'ALTER',
+                        'DELETE', 'INSERT',
+                        'SELECT', 'UPDATE',
+                      ],
     require        => Class['::mysql::server'],
   }
 }
