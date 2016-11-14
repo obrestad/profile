@@ -46,7 +46,10 @@ class profile::mailserver::web {
     ensure    => latest,
     provider  => git,
     source    => 'git://git.rothaugane.com/mailadmin.git',
-    notify    => Exec['/opt/mailadmin/manage.py syncdb --noinput'],
+    notify    => [
+                  Exec['/opt/mailadmin/manage.py syncdb --noinput'],
+                  Exec['/opt/mailadmin/manage.py collectstatic'],
+              ],
   }
 
   exec { '/opt/mailadmin/manage.py syncdb --noinput':
@@ -54,6 +57,21 @@ class profile::mailserver::web {
     require       => [
                       Vcsrepo['/opt/mailadmin'],
                       Mysql::Db[$mysql_name],
+                  ],
+  }
+
+  file { '/opt/mailadminstatic':
+    ensure  => directory,
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
+  exec { '/opt/mailadmin/manage.py collectstatic':
+    refreshonly   => true,
+    require       => [
+                      Vcsrepo['/opt/mailadmin'],
+                      File['/opt/mailadminstatic'],
                   ],
   }
 
@@ -127,5 +145,15 @@ class profile::mailserver::web {
     setting => 'main',
     value   => $mailname,
     require => Vcsrepo['/opt/mailadmin'],
+  }
+
+  ini_setting { 'Mailadmin staticpath':
+    ensure  => present,
+    path    => '/opt/mailadmin/settings.ini',
+    section => 'general',
+    setting => 'staticpath',
+    value   => '/opt/mailadminstatic',
+    require => Vcsrepo['/opt/mailadmin'],
+    before  => Exec['/opt/mailadmin/manage.py collectstatic'],
   }
 }
