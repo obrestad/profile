@@ -33,6 +33,9 @@ class profile::mailserver::web {
     require       => Apache::Vhost["${mailname} http"],
     manage_cron   => true,
   }
+  package { 'python-django':
+    ensure => 'present',
+  }
 
   vcsrepo { '/opt/mailadmin':
     ensure   => present,
