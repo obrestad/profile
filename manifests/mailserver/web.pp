@@ -33,7 +33,7 @@ class profile::mailserver::web {
     require       => Apache::Vhost["${mailname} http"],
     manage_cron   => true,
   }
-  package { 'python-django':
+  package { 'python3-django':
     ensure => 'present',
   }
 
