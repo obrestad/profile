@@ -36,6 +36,9 @@ class profile::mailserver::web {
   package { 'python3-django':
     ensure => 'present',
   }
+  package { 'python3-mysqldb':
+    ensure => 'present',
+  }
 
   vcsrepo { '/opt/mailadmin':
     ensure   => present,
