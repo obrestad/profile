@@ -71,7 +71,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     user           => $mysql_user,
     password       => $mysql_pass,
     host           => $mysql_host,
-    grant          => ['SELECT', 'UPDATE'],
+    grant          => ['CREATE', 'SELECT', 'UPDATE'],
     sql            => '/var/local/maildb-initial.sql',
     import_timeout => 900,
     require        => Class['::mysql::server'],
