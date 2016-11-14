@@ -43,7 +43,7 @@ class profile::mailserver::web {
   }
 
   vcsrepo { '/opt/mailadmin':
-    ensure    => present,
+    ensure    => latest,
     provider  => git,
     source    => 'git://git.rothaugane.com/mailadmin.git',
     notify    => Exec['/opt/mailadmin/manage.py syncdb --noinput'],
