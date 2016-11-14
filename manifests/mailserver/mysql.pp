@@ -70,7 +70,7 @@ query = SELECT email FROM virtual_users WHERE email='%s'"
     grant          => ['CREATE', 'ALTER',
                         'DELETE', 'INSERT',
                         'SELECT', 'UPDATE',
-                        'INDEX',
+                        'INDEX', 'DROP',
                       ],
     require        => Class['::mysql::server'],
   }
