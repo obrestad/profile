@@ -72,13 +72,13 @@ class profile::mailserver::web {
     wsgi_script_aliases         => {
       '/' => '/opt/mailadmin/mailadmin/wsgi.py'
     },
-    wsgi_daemon_process         => 'mailadmin-ssl',
+    wsgi_daemon_process         => 'mailadmin',
     wsgi_daemon_process_options =>
     { processes    => '2',
       threads      => '15',
       display-name => '%{GROUP}',
     },
-    wsgi_process_group          => 'mailadmin-ssl',
+    wsgi_process_group          => 'mailadmin',
     aliases                     => [
       { alias   => '/static/',
         path    => '/opt/mailadminstatic/',
