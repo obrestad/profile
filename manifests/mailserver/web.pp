@@ -103,7 +103,7 @@ class profile::mailserver::web {
       'python3-passlib',
     ] :
     ensure => present,
-    before => Exec["${location}/manage.py syncdb --noinput"],
+    before => Exec["${location}/mailadmin/manage.py syncdb --noinput"],
   }
 
   vcsrepo { "${location}/mailadmin":
