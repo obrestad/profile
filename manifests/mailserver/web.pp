@@ -253,6 +253,6 @@ class profile::mailserver::web {
               Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
-    before  => Exec["${location}/mailadmin/manage.py collectstatic --noinput"],
+    before  => Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
   }
 }
