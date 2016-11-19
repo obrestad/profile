@@ -1,10 +1,15 @@
+# Installs an apache webserver and configures the firewall to allow HTTP and
+# HTTPS traffic.
 class profile::webserver {
   class { 'apache':
     default_vhost => false,
     mpm_module    => 'prefork',
   }
 
-  include '::apache::mod::php', '::apache::mod::rewrite', '::apache::mod::ssl'
+  include '::apache::mod::php'
+  include '::apache::mod::rewrite'
+  include '::apache::mod::ssl'
+  include '::apache::mod::wsgi'
 
   apache::vhost { "${::fqdn} http":
     servername    => $::fqdn,

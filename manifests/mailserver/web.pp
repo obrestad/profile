@@ -23,11 +23,11 @@ class profile::mailserver::web {
       },
     ],
     custom_fragment     => '
-<Directory /opt/mailadmin/mailadmin>
-  <Files wsgi.py>
-    Require all granted
-  </Files>
-</Directory>',
+  <Directory /opt/mailadmin/mailadmin>
+    <Files wsgi.py>
+      Require all granted
+    </Files>
+  </Directory>',
     wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
     aliases             => [
       { alias   => '/static/',
@@ -49,11 +49,11 @@ class profile::mailserver::web {
       },
     ],
     custom_fragment     => '
-<Directory /opt/mailadmin/mailadmin>
-  <Files wsgi.py>
-    Require all granted
-  </Files>
-</Directory>',
+  <Directory /opt/mailadmin/mailadmin>
+    <Files wsgi.py>
+      Require all granted
+    </Files>
+  </Directory>',
     wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
     aliases             => [
       { alias   => '/static/',
