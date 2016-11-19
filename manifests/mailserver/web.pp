@@ -10,30 +10,29 @@ class profile::mailserver::web {
   $django_secret = hiera('profile::mail::django::secret')
 
   $configfile = '/etc/mailadmin/settings.ini'
-  $location = '/usr/lib/python3/dist-packages'
 
   apache::vhost { "${mailname} http":
     servername                  => $mailname,
     port                        => '80',
-    docroot                     => "${location}/mailadmin/",
+    docroot                     => '/opt/mailadmin/',
     docroot_owner               => 'www-data',
     docroot_group               => 'www-data',
     directories                 => [
-      { path     => "${location}/mailadmin/",
+      { path     => '/opt/mailadmin/',
         require  => 'all granted',
       },
       { path     => '/opt/mailadminstatic/',
         require  => 'all granted',
       },
     ],
-    custom_fragment             => "
-  <Directory ${location}/mailadmin/mailadmin>
+    custom_fragment             => '
+  <Directory /opt/mailadmin/mailadmin>
     <Files wsgi.py>
       Require all granted
     </Files>
-  </Directory>",
+  </Directory>',
     wsgi_script_aliases         => {
-      '/' => "${location}/mailadmin/mailadmin/wsgi.py"
+      '/' => '/opt/mailadmin/mailadmin/wsgi.py'
     },
     wsgi_daemon_process         => 'mailadmin',
     wsgi_daemon_process_options =>
@@ -44,14 +43,14 @@ class profile::mailserver::web {
     wsgi_process_group          => 'mailadmin',
     aliases                     => [
       { alias   => '/static/',
-        path    => "${location}/mailadminstatic/",
+        path    => '/opt/mailadminstatic/',
       },
     ],
   }
   apache::vhost { "${mailname} https":
     servername                  => $mailname,
     port                        => '443',
-    docroot                     => "${location}/mailadmin/",
+    docroot                     => '/opt/mailadmin/',
     ssl                         => true,
     ssl_cert                    =>
         "/etc/letsencrypt/live/${mailname}/fullchain.pem",
@@ -60,21 +59,18 @@ class profile::mailserver::web {
     require                     =>
         Letsencrypt::Certonly["${mailname}-${::fqdn}"],
     directories                 => [
-      { path     => "${location}/mailadmin/",
-        require  => 'all granted',
-      },
       { path     => '/opt/mailadminstatic/',
         require  => 'all granted',
       },
     ],
-    custom_fragment             => "
-  <Directory ${location}/mailadmin/mailadmin>
+    custom_fragment             => '
+  <Directory /opt/mailadmin/mailadmin>
     <Files wsgi.py>
       Require all granted
     </Files>
-  </Directory>",
+  </Directory>',
     wsgi_script_aliases         => {
-      '/' => "${location}/mailadmin/mailadmin/wsgi.py"
+      '/' => '/opt/mailadmin/mailadmin/wsgi.py'
     },
     wsgi_daemon_process         => 'mailadmin-ssl',
     wsgi_daemon_process_options =>
@@ -85,7 +81,7 @@ class profile::mailserver::web {
     wsgi_process_group          => 'mailadmin-ssl',
     aliases                     => [
       { alias   => '/static/',
-        path    => "${location}/mailadminstatic/",
+        path    => '/opt/mailadminstatic/',
       },
     ],
   }
@@ -103,24 +99,24 @@ class profile::mailserver::web {
       'python3-passlib',
     ] :
     ensure => present,
-    before => Exec["${location}/manage.py syncdb --noinput"],
+    before => Exec['/opt/mailadmin/manage.py syncdb --noinput'],
   }
 
-  vcsrepo { "${location}/mailadmin":
+  vcsrepo { '/opt/mailadmin':
     ensure    => latest,
     provider  => git,
     source    => 'git://git.rothaugane.com/mailadmin.git',
     revision  => 'master',
     notify    => [
-                Exec["${location}/mailadmin/manage.py syncdb --noinput"],
-                Exec["${location}/mailadmin/manage.py collectstatic --noinput"],
+                  Exec['/opt/mailadmin/manage.py syncdb --noinput'],
+                  Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
               ],
   }
 
-  exec { "${location}/mailadmin/manage.py syncdb --noinput":
+  exec { '/opt/mailadmin/manage.py syncdb --noinput':
     refreshonly   => true,
     require       => [
-                      Vcsrepo["${location}/mailadmin"],
+                      Vcsrepo['/opt/mailadmin'],
                       Mysql::Db[$mysql_name],
                   ],
   }
@@ -132,10 +128,10 @@ class profile::mailserver::web {
     group   => 'root',
   }
 
-  exec { "${location}/mailadmin/manage.py collectstatic --noinput":
+  exec { '/opt/mailadmin/manage.py collectstatic --noinput':
     refreshonly   => true,
     require       => [
-                      Vcsrepo["${location}/mailadmin"],
+                      Vcsrepo['/opt/mailadmin'],
                       File['/opt/mailadminstatic'],
                   ],
   }
