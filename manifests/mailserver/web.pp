@@ -27,7 +27,8 @@ class profile::mailserver::web {
     <Files wsgi.py>
       Require all granted
     </Files>
-  </Directory>',
+  </Directory>
+  WSGIPythonPath /opt/mailadmin/',
     wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
     aliases             => [
       { alias   => '/static/',
@@ -53,7 +54,8 @@ class profile::mailserver::web {
     <Files wsgi.py>
       Require all granted
     </Files>
-  </Directory>',
+  </Directory>
+  WSGIPythonPath /opt/mailadmin/',
     wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
     aliases             => [
       { alias   => '/static/',
