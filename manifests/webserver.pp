@@ -12,6 +12,7 @@ class profile::webserver {
 
   class { 'apache::mod::wsgi':
     wsgi_python_path => '/opt/mailadmin/',
+    package_name     => 'libapache2-mod-wsgi-py3',
   }
 
   apache::vhost { "${::fqdn} http":
