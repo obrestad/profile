@@ -44,7 +44,7 @@ class profile::mailserver::web {
     wsgi_process_group          => 'mailadmin',
     aliases                     => [
       { alias   => '/static/',
-        path    => '/opt/mailadminstatic/',
+        path    => "${location}/mailadminstatic/",
       },
     ],
   }
@@ -85,7 +85,7 @@ class profile::mailserver::web {
     wsgi_process_group          => 'mailadmin-ssl',
     aliases                     => [
       { alias   => '/static/',
-        path    => '/opt/mailadminstatic/',
+        path    => "${location}/mailadminstatic/",
       },
     ],
   }
