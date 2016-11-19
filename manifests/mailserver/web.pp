@@ -14,26 +14,9 @@ class profile::mailserver::web {
   apache::vhost { "${mailname} http":
     servername          => $mailname,
     port                => '80',
-    docroot             => "/var/www/${mailname}",
-    docroot_owner       => 'www-data',
-    docroot_group       => 'www-data',
-    directories         => [
-      { path     => '/opt/mailadminstatic/',
-        require  => 'all granted',
-      },
-    ],
-    custom_fragment     => '
-  <Directory /opt/mailadmin/mailadmin>
-    <Files wsgi.py>
-      Require all granted
-    </Files>
-  </Directory>',
-    wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
-    aliases             => [
-      { alias   => '/static/',
-        path    => '/opt/mailadminstatic/',
-      },
-    ],
+    redirect_source     => ['/'],
+    redirect_dest       => ["https://${mailname}"],
+    redirect_status =>  => ['permanent'],
   }
   apache::vhost { "${mailname} https":
     servername          => $mailname,
