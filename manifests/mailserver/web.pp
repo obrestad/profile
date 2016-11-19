@@ -48,6 +48,7 @@ class profile::mailserver::web {
     ensure    => latest,
     provider  => git,
     source    => 'git://git.rothaugane.com/mailadmin.git',
+    revision  => 'master',
     notify    => [
                   Exec['/opt/mailadmin/manage.py syncdb --noinput'],
                   Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
