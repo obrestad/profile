@@ -11,6 +11,10 @@ class profile::mailserver::web {
 
   $configfile = '/etc/mailadmin/settings.ini'
 
+  Class { 'apache::mod::wsgi':
+    wsgi_python_path => '/opt/mailadmin/',
+  }
+
   apache::vhost { "${mailname} http":
     servername          => $mailname,
     port                => '80',
@@ -27,8 +31,7 @@ class profile::mailserver::web {
     <Files wsgi.py>
       Require all granted
     </Files>
-  </Directory>
-  WSGIPythonPath /opt/mailadmin/',
+  </Directory>',
     wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
     aliases             => [
       { alias   => '/static/',
@@ -54,8 +57,7 @@ class profile::mailserver::web {
     <Files wsgi.py>
       Require all granted
     </Files>
-  </Directory>
-  WSGIPythonPath /opt/mailadmin/',
+  </Directory>',
     wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
     aliases             => [
       { alias   => '/static/',
