@@ -73,7 +73,7 @@ class profile::mailserver::dovecot::conf {
     ensure  => present,
     path    => '/etc/dovecot/dovecot-sql.conf.ext',
     setting => 'password_query',
-    value   => 'SELECT email as user, password FROM virtual_users WHERE email=\'%u\';',
+    value   => 'SELECT email as user, password FROM resources_account WHERE email=\'%u\';',
   }
 
   ini_setting { 'dovecot ssl require':
