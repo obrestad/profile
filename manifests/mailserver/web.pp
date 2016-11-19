@@ -12,20 +12,54 @@ class profile::mailserver::web {
   $configfile = '/etc/mailadmin/settings.ini'
 
   apache::vhost { "${mailname} http":
-    servername    => $mailname,
-    port          => '80',
-    docroot       => "/var/www/${mailname}",
-    docroot_owner => 'www-data',
-    docroot_group => 'www-data',
+    servername          => $mailname,
+    port                => '80',
+    docroot             => "/var/www/${mailname}",
+    docroot_owner       => 'www-data',
+    docroot_group       => 'www-data',
+    directories         => [
+      { path     => '/opt/mailadminstatic/',
+        require  => 'all granted',
+      },
+    ],
+    custom_fragment     => '
+<Directory /opt/mailadmin/mailadmin>
+  <Files wsgi.py>
+    Require all granted
+  </Files>
+</Directory>',
+    wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
+    aliases             => [
+      { alias   => '/static/',
+        path    => '/opt/mailadminstatic/',
+      },
+    ],
   }
   apache::vhost { "${mailname} https":
-    servername    => $mailname,
-    port          => '443',
-    docroot       => "/var/www/${mailname}",
-    ssl           => true,
-    ssl_cert      => "/etc/letsencrypt/live/${mailname}/fullchain.pem",
-    ssl_key       => "/etc/letsencrypt/live/${mailname}/privkey.pem",
-    require       => Letsencrypt::Certonly["${mailname}-${::fqdn}"],
+    servername          => $mailname,
+    port                => '443',
+    docroot             => "/var/www/${mailname}",
+    ssl                 => true,
+    ssl_cert            => "/etc/letsencrypt/live/${mailname}/fullchain.pem",
+    ssl_key             => "/etc/letsencrypt/live/${mailname}/privkey.pem",
+    require             => Letsencrypt::Certonly["${mailname}-${::fqdn}"],
+    directories         => [
+      { path     => '/opt/mailadminstatic/',
+        require  => 'all granted',
+      },
+    ],
+    custom_fragment     => '
+<Directory /opt/mailadmin/mailadmin>
+  <Files wsgi.py>
+    Require all granted
+  </Files>
+</Directory>',
+    wsgi_script_aliases => { '/' => '/opt/mailadmin/mailadmin/wsgi.py' },
+    aliases             => [
+      { alias   => '/static/',
+        path    => '/opt/mailadminstatic/',
+      },
+    ],
   }
 
   letsencrypt::certonly { "${mailname}-${::fqdn}":
