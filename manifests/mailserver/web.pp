@@ -154,7 +154,7 @@ class profile::mailserver::web {
     setting => 'debug',
     value   => false,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -166,7 +166,7 @@ class profile::mailserver::web {
     setting => 'secret',
     value   => $django_secret,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -178,7 +178,7 @@ class profile::mailserver::web {
     setting => 'type',
     value   => 'mysql',
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -190,7 +190,7 @@ class profile::mailserver::web {
     setting => 'host',
     value   => $mysql_host,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -202,7 +202,7 @@ class profile::mailserver::web {
     setting => 'name',
     value   => $mysql_name,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -214,7 +214,7 @@ class profile::mailserver::web {
     setting => 'user',
     value   => $mysql_user,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -226,7 +226,7 @@ class profile::mailserver::web {
     setting => 'password',
     value   => $mysql_pass,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -238,7 +238,7 @@ class profile::mailserver::web {
     setting => 'main',
     value   => $mailname,
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
   }
@@ -250,7 +250,7 @@ class profile::mailserver::web {
     setting => 'staticpath',
     value   => '/opt/mailadminstatic',
     require => [
-              Vcsrepo['/opt/mailadmin'],
+              Vcsrepo["${location}/mailadmin"],
               File['/etc/mailadmin'],
             ],
     before  => Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
