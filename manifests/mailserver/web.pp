@@ -14,6 +14,7 @@ class profile::mailserver::web {
   apache::vhost { "${mailname} http":
     servername          => $mailname,
     port                => '80',
+    docroot             => "/var/www/${mailname}",
     redirect_source     => ['/'],
     redirect_dest       => ["https://${mailname}"],
     redirect_status     => ['permanent'],
