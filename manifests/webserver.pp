@@ -9,11 +9,10 @@ class profile::webserver {
   include '::apache::mod::php'
   include '::apache::mod::rewrite'
   include '::apache::mod::ssl'
-  include '::apache::mod::wsgi'
 
-  #class { 'apache::mod::wsgi':
-  #  wsgi_python_path => '/opt/mailadmin/',
-  #}
+  class { 'apache::mod::wsgi':
+    wsgi_python_path => '/opt/mailadmin/',
+  }
 
   apache::vhost { "${::fqdn} http":
     servername    => $::fqdn,
