@@ -9,6 +9,8 @@ class profile::mailserver::web {
   $mysql_pass = hiera('profile::mail::db::pass')
   $django_secret = hiera('profile::mail::django::secret')
 
+  $configfile = '/etc/mailadmin/settings.ini'
+
   apache::vhost { "${mailname} http":
     servername    => $mailname,
     port          => '80',
@@ -75,85 +77,119 @@ class profile::mailserver::web {
                   ],
   }
 
+  file { '/etc/mailadmin':
+    ensure  => directory,
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   ini_setting { 'Mailadmin debug':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'general',
     setting => 'debug',
     value   => false,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin django secret':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'general',
     setting => 'secret',
     value   => $django_secret,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin db type':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'database',
     setting => 'type',
     value   => 'mysql',
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin db host':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'database',
     setting => 'host',
     value   => $mysql_host,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin db name':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'database',
     setting => 'name',
     value   => $mysql_name,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin db user':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'database',
     setting => 'user',
     value   => $mysql_user,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin db password':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'database',
     setting => 'password',
     value   => $mysql_pass,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin main host':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'hosts',
     setting => 'main',
     value   => $mailname,
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
   }
 
   ini_setting { 'Mailadmin staticpath':
     ensure  => present,
-    path    => '/opt/mailadmin/settings.ini',
+    path    => $configfile,
     section => 'general',
     setting => 'staticpath',
     value   => '/opt/mailadminstatic',
-    require => Vcsrepo['/opt/mailadmin'],
+    require => [
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
+            ],
     before  => Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
   }
 }
