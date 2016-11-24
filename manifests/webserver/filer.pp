@@ -3,11 +3,17 @@ class profile::webserver::filer {
   apache::vhost { 'filer.rothaugane.com http':
     servername      => 'filer.rothaugane.com',
     port            => '80',
-    allow_override  => ['All'],
     docroot         => '/home/eigil/www/filer.rothaugane.com',
     docroot_owner   => 'eigil',
     docroot_group   => 'www-data',
     require         => File['/home/eigil/www'],
+    directories     => [
+      { path            => '/home/eigil/www/filer.rothaugane.com',
+        options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+        allow_override  => ['All'],
+        require         => 'all granted',
+      },
+    ],
   }
 
   #apache::vhost { "${::fqdn} https":
