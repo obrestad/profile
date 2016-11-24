@@ -2,7 +2,6 @@
 # HTTPS traffic.
 class profile::webserver {
   class { 'apache':
-    default_vhost => false,
     mpm_module    => 'prefork',
   }
 
