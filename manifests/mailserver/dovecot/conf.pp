@@ -12,6 +12,13 @@ class profile::mailserver::dovecot::conf {
     value   => 'imap lmtp',
   }
 
+  ini_setting { 'Dovecot recipient_delimiter':
+    ensure  => present,
+    path    => '/etc/dovecot/dovecot.conf',
+    setting => 'recipient_delimiter',
+    value   => '-',
+  }
+
   ini_setting { 'Maildir location':
     ensure  => present,
     path    => '/etc/dovecot/conf.d/10-mail.conf',
