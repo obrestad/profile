@@ -25,12 +25,14 @@ class profile::owncloud {
   }
 
   apache::vhost { "${url} http":
-    servername    => $url,
-    port          => '80',
-    docroot       => '/var/www/owncloud/',
-    redirect_source     => ['/'],
-    redirect_dest       => ["https://${url}"],
-    redirect_status     => ['permanent'],
+    servername      => $url,
+    port            => '80',
+    docroot         => '/var/www/owncloud/',
+    docroot_owner   => 'www-data',
+    docroot_group   => 'www-data',
+    redirect_source => ['/'],
+    redirect_dest   => ["https://${url}"],
+    redirect_status => ['permanent'],
   }
 
   apache::vhost { "${url} https":
