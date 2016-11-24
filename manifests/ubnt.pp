@@ -4,7 +4,7 @@ class profile::ubnt {
     location   => 'http://www.ubnt.com/downloads/unifi/debian',
     repos      => 'ubiquiti',
     release    => 'unifi5',
-    key        => 'C0A52C50',
+    key        => '4A228B2D358A5094178285BE06E85760C0A52C50',
     key_server => 'keyserver.ubuntu.com',
   }
 
