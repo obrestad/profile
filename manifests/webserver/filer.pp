@@ -1,12 +1,13 @@
 # Sets up the webserver for filer.rothaugane.com
 class profile::webserver::filer {
   apache::vhost { 'filer.rothaugane.com http':
-    servername    => 'filer.rothaugane.com',
-    port          => '80',
-    docroot       => '/home/eigil/www/filer.rothaugane.com',
-    docroot_owner => 'eigil',
-    docroot_group => 'www-data',
-    require       => File['/home/eigil/www'],
+    servername      => 'filer.rothaugane.com',
+    port            => '80',
+    allow_override  => ['All'],
+    docroot         => '/home/eigil/www/filer.rothaugane.com',
+    docroot_owner   => 'eigil',
+    docroot_group   => 'www-data',
+    require         => File['/home/eigil/www'],
   }
 
   #apache::vhost { "${::fqdn} https":
