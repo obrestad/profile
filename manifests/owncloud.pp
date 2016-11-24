@@ -28,16 +28,9 @@ class profile::owncloud {
     servername    => $url,
     port          => '80',
     docroot       => '/var/www/owncloud/',
-    docroot_owner => 'www-data',
-    docroot_group => 'www-data',
-    directories   => [
-      { path            => '/var/www/owncloud',
-        options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
-        allow_override  => ['All'],
-        require         => 'all granted',
-        custom_fragment => 'Dav Off',
-      },
-    ],
+    redirect_source     => ['/'],
+    redirect_dest       => ["https://${url}"],
+    redirect_status     => ['permanent'],
   }
 
   apache::vhost { "${url} https":
