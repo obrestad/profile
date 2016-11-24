@@ -10,32 +10,12 @@ class profile::mailserver::webmail {
   $rc_des_key = hiera('profile::mail::web::deskey')
 
   apache::vhost { "${webmailname} http":
-    servername    => $webmailname,
-    port          => '80',
-    docroot       => '/var/lib/roundcube/',
-    docroot_owner => 'www-data',
-    docroot_group => 'www-data',
-    directories   => [
-      { path           => '/var/lib/roundcube/',
-        options        => ['+FollowSymLinks'],
-        allow_override => ['All'],
-        require        => 'all granted',
-      },
-      { path           => '/var/lib/roundcube/config',
-        options        => ['-FollowSymLinks'],
-        allow_override => ['None'],
-      },
-      { path           => '/var/lib/roundcube/temp',
-        options        => ['-FollowSymLinks'],
-        allow_override => ['None'],
-        require        => 'all denied',
-      },
-      { path           => '/var/lib/roundcube/logs',
-        options        => ['-FollowSymLinks'],
-        allow_override => ['None'],
-        require        => 'all denied',
-      },
-    ],
+    servername          => $webmailname,
+    port                => '80',
+    docroot             => "/var/lib/roundcube",
+    redirect_source     => ['/'],
+    redirect_dest       => ["https://${webmailname}"],
+    redirect_status     => ['permanent'],
   }
   apache::vhost { "${webmailname} https":
     servername    => $webmailname,
