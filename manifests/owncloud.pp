@@ -31,7 +31,7 @@ class profile::owncloud {
     docroot_owner   => 'www-data',
     docroot_group   => 'www-data',
     redirect_source => ['/'],
-    redirect_dest   => ["https://${url}"],
+    redirect_dest   => ["https://${url}/"],
     redirect_status => ['permanent'],
   }
 

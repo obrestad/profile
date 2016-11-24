@@ -14,7 +14,7 @@ class profile::mailserver::webmail {
     port                => '80',
     docroot             => "/var/lib/roundcube",
     redirect_source     => ['/'],
-    redirect_dest       => ["https://${webmailname}"],
+    redirect_dest       => ["https://${webmailname}/"],
     redirect_status     => ['permanent'],
   }
   apache::vhost { "${webmailname} https":
