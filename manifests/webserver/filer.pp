@@ -6,6 +6,7 @@ class profile::webserver::filer {
     docroot       => '/home/eigil/www/filer.rothaugane.com',
     docroot_owner => 'eigil',
     docroot_group => 'www-data',
+    require       => File['/home/eigil/www'],
   }
 
   #apache::vhost { "${::fqdn} https":
