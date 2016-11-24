@@ -1,5 +1,10 @@
 # Sets up the webserver for kpk-ukraina
 class profile::webserver::kpk {
+  $mysql_host = hiera('profile::webserver::kpk::mysql::host', 'localhost')
+  $mysql_name = hiera('profile::webserver::kpk::mysql::name', 'kpk')
+  $mysql_user = hiera('profile::webserver::kpk::mysql::user', 'kpk')
+  $mysql_pass = hiera('profile::webserver::kpk::mysql::pass')
+
   apache::vhost { 'www.kpk-ukraina.com http':
     servername    => 'www.kpk-ukraina.com',
     serveraliases => ['kpk-ukraina.com'],
@@ -25,4 +30,16 @@ class profile::webserver::kpk {
   #  require       => Apache::Vhost["${::fqdn} http"],
   #  manage_cron   => true,
   #}
+
+  mysql::db { $mysql_name:
+    user           => $mysql_user,
+    password       => $mysql_pass,
+    host           => $mysql_host,
+    grant          => ['CREATE', 'ALTER',
+                        'DELETE', 'INSERT',
+                        'SELECT', 'UPDATE',
+                        'INDEX', 'DROP',
+                      ],
+    require        => Class['::mysql::server'],
+  }
 }
