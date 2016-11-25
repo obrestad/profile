@@ -9,11 +9,23 @@ class profile::owncloud {
   class { '::owncloud':
     manage_apache => false,
     manage_vhost  => false,
+    manage_repo   => false,
     db_pass       => $dbpass,
     db_user       => $dbuser,
     db_name       => $dbname,
     datadirectory => '/srv/owncloud-data',
     require       => Lvm::Logical_volume['owncloud_data'],
+  }
+
+  apt::source { 'owncloud':
+    location => 'http://download.owncloud.org/download/repositories/stable/Debian_8.0/',
+    release  => ' ',
+    repos    => '/',
+    key      => {
+      id     => 'BCECA90325B072AB1245F739AB7C32C35180350A',
+      source => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
+    },
+    before   => Class['::owncloud'],
   }
 
   lvm::logical_volume { 'owncloud_data':
