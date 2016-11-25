@@ -22,7 +22,7 @@ class profile::owncloud {
     release  => ' ',
     repos    => '/',
     key      => {
-      id     => 'BCECA90325B072AB1245F739AB7C32C35180350A',
+      id     => 'DDA2C105C4B73A6649AD2BBD47AE7F72479BC94B',
       source => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
     },
     before   => Class['::owncloud'],
