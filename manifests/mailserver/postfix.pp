@@ -28,6 +28,7 @@ class profile::mailserver::postfix {
     'mynetworks':          value => '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128';
     'recipient_delimiter': value => '-';
     'relayhost':           ensure => 'blank';
+    'message_size_limit':  value => '104857600';
   }
 
   # SASL
