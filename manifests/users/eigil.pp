@@ -40,24 +40,17 @@ class profile::users::eigil {
     require  => User['eigil'],
   }
 
-  ssh_authorized_key { 'eigil@mocha':
+  ssh_authorized_key { 'eigil@win10-hjemme':
     user    => 'eigil',
     type    => 'ssh-rsa',
-    key     => 'AAAAB3NzaC1yc2EAAAABJQAAAQEAvZKZc91/Ga62TYSdGyDd+nbFwyYUwb23bye2XPOC30K/KsokMCemxxxQ2Y+1XmL8AZ2QvzVwvuN/DFpF9km54v9cZtjuby4VcJRGJzXoCTsXmshGn6JhIGKJ1CdeOU4LFLaDJIchugHk4D77XBmOB/4LPe8OqGEMQdRgRYolYTs708Mv/NHxKu/cp5o0dsRoEObUgaIcG5jfA1WnpRb4fWdX5NL/waOidGjO3GTNYOUH8iY8qZVZiW/QxTLxpIDwFtF9U1Eu6Kl/DPT/+0VaV0+2R7q30ZA5csdUkfdvxliMiu7kcFKI5HrAMcSgkrK/MGUWo5wXMCom7U9MezlC2Q==',
+    key     => 'AAAAB3NzaC1yc2EAAAABJQAAAQEAnwYKX2izaKOxO6k81NzJJnq5QKJtbDgH2xX0pvhEVJfn2I7uNMZ3F0PF8P2F4xk8DES0eGLuTSGPnFI0sSUXzPyMo0Nuh5MESAN4NDqQp35OcUnO9mZL8vwmhlas9ZLyeliMM0Bzh7s6VmufDIzItbV9nnlg79EyVWyQvxdoLLmoPD6rh5lJeWrdkAxMUS4ju6VGCbo9I7dri74bsIuzR0ROu04LidchoEwLXmHcZu0i0e6KwTOY2Jw74h9AHmQ4Qnaieoi0SNGvKYxSnU',
     require => File['/home/eigil/.ssh'],
   }
 
-  ssh_authorized_key { 'eigil@carajillo':
+  ssh_authorized_key { 'eigil@breve':
     user    => 'eigil',
     type    => 'ssh-rsa',
     key     =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDwe4N6Op3OEDYxe/SeHr58jgq7/Ip7uSDLYuOtJl40/IHVWyCwMfQwFWgIzNM+8Obpu9uRvwp85hF7PHoM5MTNgcPGhlJeFUkHbiUu3fhlj4k+YmiW9NpotNbVbTw0s3m2PLVruEvVm8fQ376XTJO2jTOfx7DC25dV+UqAe7XtmZra6l2wEZPr2UN5W7TGr3Th19dkBiQBQMxIGFd/toKOniFdq/+JBp6OH+ZMQ8QIgKkAQ/AKCxYROkxYvWblvOtjk0kehaJkn3b6wjgyMf80yxLvOd4jaX7LO/G8kXjXQ+1gwVImvG0Cw4yG5D20Y+UspwahXeRV5Ik72qsF3ezX',
-    require => File['/home/eigil/.ssh'],
-  }
-
-  ssh_authorized_key { 'eigil@ristretto':
-    user    => 'eigil',
-    type    => 'ssh-rsa',
-    key     => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCeqaOcZY9UWzQVTb+g9aArTP/VCdhdc3jfekbCPWsEaZMiSMEcKGkmnvzHqj9D4VeiqiKWYMJOkM1/KzK+6eh+HgChIR3D2iiM2K3jR060xWzD33hPMzR/d6aF2Iy+ZVaQG+m3rcAMzjBdWqDMechkKyGyc6/rmI/lQwtVfeDqUSYMbsRQ2Lr9uNLCvW0o91rcr46NlD5a/kSRNCydNbOcA19eAnOSxWohDZ45U8iy2lem+6C7Uy80Hs4N0F3Brrn8we8yw7gWeS+W1ElsFV8KpznFQF33phMdkH2H9UzaaWMQo2CIlMf57vsYZzUfbvJDmGszCQrc0BUQ2WPhsgfh',
     require => File['/home/eigil/.ssh'],
   }
 }
