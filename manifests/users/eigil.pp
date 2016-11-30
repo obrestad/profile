@@ -43,7 +43,7 @@ class profile::users::eigil {
   ssh_authorized_key { 'eigil@win10-hjemme':
     user    => 'eigil',
     type    => 'ssh-rsa',
-    key     => 'AAAAB3NzaC1yc2EAAAABJQAAAQEAnwYKX2izaKOxO6k81NzJJnq5QKJtbDgH2xX0pvhEVJfn2I7uNMZ3F0PF8P2F4xk8DES0eGLuTSGPnFI0sSUXzPyMo0Nuh5MESAN4NDqQp35OcUnO9mZL8vwmhlas9ZLyeliMM0Bzh7s6VmufDIzItbV9nnlg79EyVWyQvxdoLLmoPD6rh5lJeWrdkAxMUS4ju6VGCbo9I7dri74bsIuzR0ROu04LidchoEwLXmHcZu0i0e6KwTOY2Jw74h9AHmQ4Qnaieoi0SNGvKYxSnU',
+    key     => 'AAAAB3NzaC1yc2EAAAABJQAAAQEAnwYKX2izaKOxO6k81NzJJnq5QKJtbDgH2xX0pvhEVJfn2I7uNMZ3F0PF8P2F4xk8DES0eGLuTSGPnFI0sSUXzPyMo0Nuh5MESAN4NDqQp35OcUnO9mZL8vwmhlas9ZLyeliMM0Bzh7s6VmufDIzItbV9nnlg79EyVWyQvxdoLLmoPD6rh5lJeWrdkAxMUS4ju6VGCbo9I7dri74bsIuzR0ROu04LidchoEwLXmHcZu0i0e6KwTOY2Jw74h9AHmQ4Qnaieoi0SNGvKYxSnU+G1FJGY2kg/DXortfkE4lekyak9EPoDz2NQpPTrF7zjkJaQI3+XaY30D5cvZA8S8DLIQ',
     require => File['/home/eigil/.ssh'],
   }
 
