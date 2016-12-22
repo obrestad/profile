@@ -31,10 +31,10 @@ class profile::users::backup {
     key     => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDMLO39rOuIs20ndBn/nGFjYlYIj1RVyYr/UJMAVUSMbAT1iFkWZ/CL2GLHTw/mIGJuqFJFYVgzMX8Q/RXT9qAXqKBmc7yed2IEh18qC4Q3Gz0DkUf9znL4PFo+UjQ6+QSf2pXG3Sj7Fm44hI+2/2cb6IEP/8UhSy8287WAQrgGiocoqPmCwiy/MGVwMF41oCd6tQU5LoqRka2MWSNBo01wSIIjhHRejp6FxMfz79JEl/eddHGL/8A0PtZrBS/WIoIPorKuhVXZVV9NpxXdGMlKONBndKd67OvM+zV0RmuNSNqqGC5v6TWLjeuTJIaIy7Mo32XHR+E+JwqLHMbExZn3',
     require => File['/home/remote-backup/.ssh'],
   }
-  ssh_authorized_key { 'b-eigil@carajillo':
+  ssh_authorized_key { 'b-eigil@breve':
     user    => 'remote-backup',
     type    => 'ssh-rsa',
-    key     =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDwe4N6Op3OEDYxe/SeHr58jgq7/Ip7uSDLYuOtJl40/IHVWyCwMfQwFWgIzNM+8Obpu9uRvwp85hF7PHoM5MTNgcPGhlJeFUkHbiUu3fhlj4k+YmiW9NpotNbVbTw0s3m2PLVruEvVm8fQ376XTJO2jTOfx7DC25dV+UqAe7XtmZra6l2wEZPr2UN5W7TGr3Th19dkBiQBQMxIGFd/toKOniFdq/+JBp6OH+ZMQ8QIgKkAQ/AKCxYROkxYvWblvOtjk0kehaJkn3b6wjgyMf80yxLvOd4jaX7LO/G8kXjXQ+1gwVImvG0Cw4yG5D20Y+UspwahXeRV5Ik72qsF3ezX',
+    key     => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCk5kzcxD5AJi1rhTVtEsMfjr6+7J8F8bJ+jWS+vkNeId2SXxhzk2Rl1jBpG/1b5n1AsakpHBHdjte9S0siSiTKQpM55Lak4ngWXpLYPgKof/6YoY0FmCNvAbN8KWs0eGsJL9Kb7CfO6W85g3T8LnOfjVMQK+PCPm6diXkmjNN8uHf7gkdgXZq4GVEoEye57rs6wrNluduTstXReZoy5M4CuWQ+QAPOXLpe3VUi7ukOp2wVX+eYhhUhyx1ca+cGKmdOakg2lsYa0pbYyqBaecmV+lFYRWB2ZHwPpW2jBWKtFMQujXPPXnlyi6wSAumS2W6A6qtdhSAC/BlRqzdwrlqL',
     require => File['/home/remote-backup/.ssh'],
   }
 }
