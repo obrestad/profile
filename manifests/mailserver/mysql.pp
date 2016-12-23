@@ -10,25 +10,25 @@ class profile::mailserver::mysql {
 password = ${mysql_pass}
 hosts = ${mysql_host}
 dbname = ${mysql_name}
-query = SELECT 1 FROM resources_domain WHERE name='%s'"
+query = SELECT 1 FROM resources_domain WHERE name='%s' AND active=1"
 
   $virtual_mailbox = "user = ${mysql_user}
 password = ${mysql_pass}
 hosts = ${mysql_host}
 dbname = ${mysql_name}
-query = SELECT 1 FROM resources_account WHERE email='%s'"
+query = SELECT 1 FROM resources_account WHERE email='%s' AND active=1"
 
   $virtual_alias = "user = ${mysql_user}
 password = ${mysql_pass}
 hosts = ${mysql_host}
 dbname = ${mysql_name}
-query = SELECT destination FROM resources_alias WHERE source='%s'"
+query = SELECT destination FROM resources_alias WHERE source='%s' AND active=1"
 
   $virtual_email2email = "user = ${mysql_user}
 password = ${mysql_pass}
 hosts = ${mysql_host}
 dbname = ${mysql_name}
-query = SELECT email FROM resources_account WHERE email='%s'"
+query = SELECT email FROM resources_account WHERE email='%s' AND active=1"
 
   file { '/etc/postfix/mysql-virtual-mailbox-domains.cf':
     ensure  => 'file',
