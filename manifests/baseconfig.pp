@@ -1,3 +1,5 @@
+# Performs a basic configuration of the hosts. Sets up ntp, ssh, backup and
+# installs some useful tools.
 class profile::baseconfig {
   package { [
     'bc',
@@ -6,10 +8,11 @@ class profile::baseconfig {
     'hdparm',
     'htop',
     'iperf3',
-	'lsb-release',
+    'lsb-release',
     'nmap',
     'pwgen',
     'screen',
+    'speedtest-cli',
     'sysstat',
     'vim'
   ] :
