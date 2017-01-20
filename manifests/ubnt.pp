@@ -35,12 +35,13 @@ class profile::ubnt {
   }
 
   apache::vhost { "${unifiurl} http":
-    servername    => $unifiurl,
-    serveraliases => [$unifiurl],
-    port          => '80',
-    docroot       => "/var/www/${unifiurl}",
-    docroot_owner => 'www-data',
-    docroot_group => 'www-data',
+    servername      => $unifiurl,
+    serveraliases   => [$unifiurl],
+    port            => '80',
+    docroot         => "/var/www/${unifiurl}",
+    redirect_source => ['/'],
+    redirect_dest   => ["https://${unifiurl}/"],
+    redirect_status => ['permanent'],
   }
 
   letsencrypt::certonly { $unifiurl:
