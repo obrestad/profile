@@ -25,7 +25,7 @@ class profile::ubnt {
     dport   => [8080, 8443],
     iniface => 'eth0',
     action  => 'accept',
-  }49
+  }
   firewall { '011 v6 accept incoming UAPs and management':
     proto    => 'tcp',
     dport    => [8080, 8443],
@@ -34,7 +34,7 @@ class profile::ubnt {
     provider => 'ip6tables',
   }
 
-  apache::vhost { '${unifiurl} http':
+  apache::vhost { "${unifiurl} http":
     servername    => $unifiurl,
     serveraliases => [$unifiurl],
     port          => '80',
@@ -52,12 +52,12 @@ class profile::ubnt {
   }
 
   apache::vhost { "${unifiurl} https":
-    servername    => $unifiurl,
-    port          => '443',
-    docroot       => "/var/www/${unifiurl}",
-    ssl           => true,
-    ssl_cert      => "/etc/letsencrypt/live/${unifiurl}/fullchain.pem",
-    ssl_key       => "/etc/letsencrypt/live/${unifiurl}/privkey.pem",
+    servername => $unifiurl,
+    port       => '443',
+    docroot    => "/var/www/${unifiurl}",
+    ssl        => true,
+    ssl_cert   => "/etc/letsencrypt/live/${unifiurl}/fullchain.pem",
+    ssl_key    => "/etc/letsencrypt/live/${unifiurl}/privkey.pem",
   }
 
   file { '/usr/local/sbin/unifi-backup':
