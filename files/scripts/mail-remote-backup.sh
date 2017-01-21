@@ -5,14 +5,14 @@ hostname=$(hostname)
 
 remoteUser="remote-backup"
 remoteHost="antoccino.rothaugane.com"
-remotePath="/srv/backup/unifi/$hostname"
+remotePath="/srv/backup/mail/$hostname"
 
 date=$(date +%y%m%d-%H%M%S)
 
 if [[ $1 == "-v" ]]; then
   output="/dev/fd/1"
 else
-  output=/tmp/autobackup.unifi.$date.log
+  output=/tmp/autobackup.mail.$date.log
 fi
 
 # Function which creates a folder on a remote host, if this folder did not
@@ -42,11 +42,11 @@ remote=${remoteUser}@${remoteHost}:$fullRPath
 # if no previous backup is found, perform a full backup
 if [[ -z $lastBackup ]]; then
   echo "No previous backups were found. Performing a full backup." >> $output
-  rsync -a -v /var/lib/unifi/ $remote 2> /dev/null >> $output
+  rsync -a -v /srv/mail/ $remote 2> /dev/null >> $output
 else
   echo "Performing an incremental backup" >> $output
   link="../$lastBackup/"
-  rsync -a -v /var/lib/unifi/ $remote --link-dest=$link 2> /dev/null >> $output
+  rsync -a -v /srv/mail/ $remote --link-dest=$link 2> /dev/null >> $output
 fi
 
 if [[ $output != "/dev/fd/1" ]]; then

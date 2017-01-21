@@ -1,23 +1,7 @@
 #!/bin/bash
 
-# Configuration
-hostname=$(hostname)
-
-backupUser="remote-backup"
-backupHost="antoccino.rothaugane.com"
-backupPath="/srv/backup/puppet/$hostname"
-
 mailPath="/srv/mail"
 mailSnap="/srv/mail-backup/snap"
-
-# Create root backupfolder if it doesnt exist
-ssh $backupUser@$backupHost [ -e $backupPath ] 2> /dev/null
-if [ $? == 1 ]; then
-	ssh $backupUser@$backupHost mkdir $backupPath 2> /dev/null
-fi
-
-# Syncronize /srv/mail 
-rsync -a --delete $mailPath $backupUser@$backupHost:$backupPath/ 2> /dev/null > /dev/null
 
 if [ ! -e $mailSnap ]; then
 	mkdir $mailSnap
