@@ -1,3 +1,4 @@
+# Installs and configures the postfix smtp for mailserver use.
 class profile::mailserver::postfix {
   $mailname = hiera('profile::mail::hostname')
 
@@ -25,7 +26,8 @@ class profile::mailserver::postfix {
   postfix::config {
     'myhostname':          value => $::fqdn;
     'mydestination':       value => $::fqdn;
-    'mynetworks':          value => '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128';
+    'mynetworks':
+        value => '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128';
     'recipient_delimiter': value => '-';
     'relayhost':           ensure => 'blank';
     'message_size_limit':  value => '104857600';
@@ -38,6 +40,9 @@ class profile::mailserver::postfix {
     'smtpd_sasl_auth_enable': value => 'yes';
   }
 
+  $mysqlVirtAlias = 'mysql:/etc/postfix/mysql-virtual-alias-maps.cf'
+  $mysqlVirtMail2 = 'mysql:/etc/postfix/mysql-virtual-email2email.cf'
+
   # Virtual mailbox settings
   postfix::config {
     'virtual_transport':
@@ -47,15 +52,16 @@ class profile::mailserver::postfix {
     'virtual_mailbox_maps':
       value => 'mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf';
     'virtual_alias_maps':
-      value => 'mysql:/etc/postfix/mysql-virtual-alias-maps.cf, mysql:/etc/postfix/mysql-virtual-email2email.cf';
+      value => "${mysqlVirtAlias}, ${mysqlVirtMail2}"
   }
 
+  $restrictionPermit = 'permit_sasl_authenticated, permit_mynetworks'
   # Deny relay access etc.
   postfix::config {
     'smtpd_recipient_restrictions':
-      value => 'permit_sasl_authenticated, permit_mynetworks, defer_unauth_destination';
+      value => "${restrictionPermit}, defer_unauth_destination";
     'smtpd_relay_restrictions':
-      value => 'permit_sasl_authenticated, permit_mynetworks, defer_unauth_destination';
+      value => "${restrictionPermit}, defer_unauth_destination";
   }
 
   # Implement TLS
@@ -67,5 +73,6 @@ class profile::mailserver::postfix {
     'smtpd_tls_key_file':
       value  => "/etc/letsencrypt/live/${mailname}/privkey.pem";
     'smtpd_tls_security_level':  value  => 'may';
+    'smtp_tls_security_level':  value  => 'may';
   }
 }
