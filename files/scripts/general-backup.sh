@@ -30,6 +30,12 @@ ensureFolder () {
   fi
 }
 
+ping6 -w 1 -c 1 $remoteHost &> /dev/null
+if [ $? != "0" ]; then
+  logger "Cannot ping remote host. Aborting backup"
+  exit 1
+fi 
+
 ensureFolder $remotePath
 ensureFolder "${remotePath}/snapshots"
 ensureFolder "${remotePath}/logfiles"
