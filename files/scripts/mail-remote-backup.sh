@@ -26,7 +26,7 @@ ensureFolder () {
   ssh ${remoteUser}@$remoteHost [ -e $folder ] 2> /dev/null
   if [ $? -eq 1 ]; then
     echo "Remote directory is missing. Creating $folder" >> $output
-    ssh ${remoteUser}@$hostname mkdir -p $folder 2> /dev/null >> $output
+    ssh ${remoteUser}@$remoteHost mkdir -p $folder 2> /dev/null >> $output
   fi
 }
 
