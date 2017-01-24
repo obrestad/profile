@@ -1,5 +1,5 @@
 # This class sets up backup of the git repositories.
-class profile::git {
+class profile::git::backup {
   $usr = hiera('profile::backup::user')
   $hst = hiera('profile::backup::host')
   $base_path = hiera('profile::backup::base_path')
