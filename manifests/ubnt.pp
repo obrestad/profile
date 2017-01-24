@@ -2,6 +2,10 @@
 class profile::ubnt {
   $unifiurl = hiera('profile::unifi::url')
 
+  $usr = hiera('profile::backup::user')
+  $hst = hiera('profile::backup::host')
+  $base_path = hiera('profile::backup::base_path')
+
   apt::source { 'ubnt':
     location   => 'http://www.ubnt.com/downloads/unifi/debian',
     repos      => 'ubiquiti',
@@ -61,16 +65,18 @@ class profile::ubnt {
     ssl_key    => "/etc/letsencrypt/live/${unifiurl}/privkey.pem",
   }
 
-  file { '/usr/local/sbin/unifi-backup':
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0744',
-    source => 'puppet:///modules/profile/scripts/unifi-backup.sh',
-  }->
+  $pth = "${base_path}/unifi/${::fqdn}"
+  $folders = '/var/lib/unifi'
+
   cron { 'unifi-backup':
-    command => '/usr/local/sbin/unifi-backup',
+    command => "/usr/local/sbin/remote-backup ${usr} ${hst} ${pth} ${folders}",
     user    => root,
     hour    => [3, 9, 15, 21],
-    minute  => [49],
+    minute  => [30],
+    require => File['/usr/local/sbin/remote-backup'],
+  }
+
+  file { '/usr/local/sbin/unifi-backup':
+    ensure => absent,
   }
 }

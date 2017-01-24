@@ -3,6 +3,7 @@
 class profile::git {
   $admin_key = hiera('profile::gitolite::admin-key')
 
+  include ::profile::git::backup
   include ::profile::git::gitweb
   include ::profile::git::firewall
 
@@ -49,18 +50,5 @@ class profile::git {
     user        => 'git',
     creates     => '/srv/git/.gitolite.rc',
     require     => File['/srv/git/admin_pub_key.pub'],
-  }
-
-  file { '/usr/local/sbin/git-backup':
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0744',
-    source => 'puppet:///modules/profile/scripts/git-backup.sh',
-  }->
-  cron { 'git-backup':
-    command => '/usr/local/sbin/git-backup',
-    user    => root,
-    hour    => [3, 9, 15, 21],
-    minute  => [45],
   }
 }

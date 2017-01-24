@@ -2,7 +2,10 @@
 
 . /var/lib/backup-lib.sh
 
+logger "Starting a remote-backup"
+
 if [[ $# -lt 4 ]]; then
+  logger "Cannot perform remote-backup. Too few arguments."
   echo "Usage: $0 <remote-user> <remote-host> <remote-path> <paths>"
   exit 1
 fi
@@ -19,8 +22,13 @@ paths=$@
 date=$(date +%y%m%d-%H%M%S)
 output=/tmp/autobackup.$date.log
 
+logger "Backing up the folders \"$paths\""
+logger "Sending the backup to ${remoteUser}@${remoteHost}:${remotePath}"
+
+logger "Verifying that the remote host is reachable...."
 testHost $remoteHost
 
+logger "Verifying that the remote folders needed are present"
 ensureFolder $remoteUser $remoteHost $remotePath
 ensureFolder $remoteUser $remoteHost "${remotePath}/snapshots"
 ensureFolder $remoteUser $remoteHost "${remotePath}/logfiles"
