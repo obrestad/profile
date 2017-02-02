@@ -72,7 +72,7 @@ class profile::munin::master {
           '%{REQUEST_URI}                 !^/static',
         ],
         rewrite_rule => [
-          'RewriteRule ^/(.*.png)$  /munin-cgi/munin-cgi-graph/$1 [L,PT]',
+          '^/(.*.png)$  /munin-cgi/munin-cgi-graph/$1 [L,PT]',
         ],
       },
     ],
