@@ -3,6 +3,7 @@
 class profile::webserver {
   class { 'apache':
     mpm_module    => 'prefork',
+    confd_dir     => '/etc/apache2/conf-available'
   }
 
   include '::apache::mod::php'
