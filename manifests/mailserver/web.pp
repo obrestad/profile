@@ -70,6 +70,7 @@ class profile::mailserver::web {
     notify    => [
                   Exec['/opt/mailadmin/manage.py syncdb --noinput'],
                   Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
+                  Service['httpd'],
               ],
   }
 

@@ -42,6 +42,7 @@ class profile::webserver::bryllup {
     notify    => [
                   Exec['/opt/wedding/manage.py syncdb --noinput'],
                   Exec['/opt/wedding/manage.py collectstatic --noinput'],
+                  Service['httpd'],
               ],
   }
 
