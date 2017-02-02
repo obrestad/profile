@@ -10,7 +10,7 @@ class profile::webserver {
   include '::apache::mod::ssl'
 
   class { 'apache::mod::wsgi':
-    wsgi_python_path => '/opt/mailadmin/',
+    wsgi_python_path => '/opt/mailadmin/:/opt/wedding/',
     package_name     => 'libapache2-mod-wsgi-py3',
     mod_path         => '/usr/lib/apache2/modules/mod_wsgi.so',
   }
