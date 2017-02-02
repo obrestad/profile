@@ -1,7 +1,7 @@
 # Installs our wedding page!
-class profile::webserver::bryllupp {
-  $url = hiera('profile::bryllupp::url')
-  $url_alt = hiera('profile::bryllupp::url_alt')
+class profile::webserver::bryllup {
+  $url = hiera('profile::bryllup::url')
+  $url_alt = hiera('profile::bryllup::url_alt')
 
   apache::vhost { "${url_alt} http":
     servername      => $url_alt,
