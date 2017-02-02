@@ -58,22 +58,22 @@ class profile::munin::master {
     rewrites       => [
       { rewrite_rule => [
           '^/favicon.ico /var/cache/munin/www/static/favicon.ico [L]',
-        ]
+        ],
       },
       { rewrite_rule => [
           '^/static/(.*) /var/cache/munin/www/static/$1          [L]',
-        ]
+        ],
       },
       { rewrite_rule => [
           '^/munin-cgi/munin-cgi-graph/(.*) /$1',
-        ]
+        ],
       },
       { rewrite_cond => [
           '%{REQUEST_URI}                 !^/static',
-        ]
+        ],
         rewrite_rule => [
           'RewriteRule ^/(.*.png)$  /munin-cgi/munin-cgi-graph/$1 [L,PT]',
-        ]
+        ],
       },
     ],
   }
