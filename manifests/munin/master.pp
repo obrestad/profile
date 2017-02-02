@@ -15,7 +15,7 @@ class profile::munin::master {
     directories   => [
       { path            => '/munin-cgi/munin-cgi-graph',
         provider        => 'location',
-        require         => 'local',
+        require         => 'all granted',
         custom_fragment => '
       <IfModule mod_fcgid.c>
         SetHandler fcgid-script
@@ -25,7 +25,7 @@ class profile::munin::master {
       </IfModule>',
       },
       { path    => '/var/cache/munin/www',
-        require => 'local',
+        require => 'all granted',
         options => ['None'],
       },
     ],
