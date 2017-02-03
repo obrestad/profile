@@ -21,6 +21,10 @@ class profile::munin::node {
     setMuninIf { $interfacesToConfigure: }
   }
 
+  package { 'libcache-cache-perl':
+    ensure => present,
+  }
+
   class{ '::munin::node':
     allow         => [ '^127\.0\.0\.1$', $munin_master_v4, $munin_master_v6 ],
     purge_configs => true,
