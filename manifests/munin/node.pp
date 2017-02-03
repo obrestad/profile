@@ -22,7 +22,7 @@ class profile::munin::node {
   }
 
   class{ '::munin::node':
-    allow         => [ '^127\.0\.0\.1$', $munin_master_v4, $munin_master_v6 ]
+    allow         => [ '^127\.0\.0\.1$', $munin_master_v4, $munin_master_v6 ],
     purge_configs => true,
   }
 
