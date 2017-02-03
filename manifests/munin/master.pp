@@ -10,7 +10,6 @@ class profile::munin::master {
 
   munin::plugin { 'munin_stats':
     ensure  => link,
-    require => Class['munin::node'],
   }
 
   apache::vhost { "${munin_url} http":
