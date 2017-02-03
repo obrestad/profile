@@ -1,7 +1,7 @@
 # Installs the munin node
 class profile::munin::node {
   $munin_master_v4 = hiera('profile::munin::master::v4')
-  $munin_master_v6 = hiera('profile::munin::master::v4')
+  $munin_master_v6 = hiera('profile::munin::master::v6')
 
   class{ '::munin::node':
     allow => [ '^127\.0\.0\.1$', $munin_master_v4, $munin_master_v6 ]
