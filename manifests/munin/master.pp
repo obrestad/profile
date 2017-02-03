@@ -16,6 +16,10 @@ class profile::munin::master {
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
     directories   => [
+      { path            => '/munin-cgi',
+        provider        => 'location',
+        require         => 'all granted',
+      },
       { path            => '/munin-cgi/munin-cgi-html',
         provider        => 'location',
         require         => 'all granted',
@@ -48,6 +52,12 @@ class profile::munin::master {
       },
     ],
     aliases       => [
+      { alias       => '/munin-cgi/static',
+        path        => '/var/cache/munin/www/static',
+      },
+      { scriptalias => '/munin-cgi',
+        path        => '/usr/lib/munin/cgi/munin-cgi-html',
+      },
       { scriptalias => '/munin-cgi/munin-cgi-html',
         path        => '/usr/lib/munin/cgi/munin-cgi-html',
       },
