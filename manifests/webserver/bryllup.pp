@@ -11,8 +11,8 @@ class profile::webserver::bryllup {
   $configfile = '/etc/wedding/settings.ini'
 
   # URL's
-  $url = hiera('profile::bryllup::url')
-  $url_alt = hiera('profile::bryllup::url_alt')
+  $url = hiera('profile::wedding::url')
+  $url_alt = hiera('profile::wedding::url_alt')
 
   apache::vhost { "${url_alt} http":
     servername      => $url_alt,
