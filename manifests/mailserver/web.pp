@@ -59,7 +59,7 @@ class profile::mailserver::web {
       'python3-passlib',
     ] :
     ensure => present,
-    before => Exec['/opt/mailadmin/manage.py syncdb --noinput'],
+    before => Exec['/opt/mailadmin/manage.py migrate --noinput'],
   }
 
   vcsrepo { '/opt/mailadmin':
@@ -68,13 +68,13 @@ class profile::mailserver::web {
     source    => 'git://git.rothaugane.com/mailadmin.git',
     revision  => 'master',
     notify    => [
-                  Exec['/opt/mailadmin/manage.py syncdb --noinput'],
+                  Exec['/opt/mailadmin/manage.py migrate --noinput'],
                   Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
                   Service['httpd'],
               ],
   }
 
-  exec { '/opt/mailadmin/manage.py syncdb --noinput':
+  exec { '/opt/mailadmin/manage.py migrate --noinput':
     refreshonly   => true,
     require       => [
                       Vcsrepo['/opt/mailadmin'],

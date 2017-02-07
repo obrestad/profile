@@ -63,13 +63,13 @@ class profile::webserver::bryllup {
     source    => 'git://git.rothaugane.com/wedding.git',
     revision  => 'master',
     notify    => [
-                  Exec['/opt/wedding/manage.py syncdb --noinput'],
+                  Exec['/opt/wedding/manage.py migrate --noinput'],
                   Exec['/opt/wedding/manage.py collectstatic --noinput'],
                   Service['httpd'],
               ],
   }
 
-  exec { '/opt/wedding/manage.py syncdb --noinput':
+  exec { '/opt/wedding/manage.py migrate --noinput':
     refreshonly   => true,
     require       => [
                       Vcsrepo['/opt/wedding'],
