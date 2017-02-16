@@ -11,6 +11,7 @@ class profile::baseconfig {
     'lsb-release',
     'nmap',
     'pwgen',
+    'python3-pil',
     'screen',
     'speedtest-cli',
     'sysstat',
