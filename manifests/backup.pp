@@ -21,6 +21,12 @@ class profile::backup {
     source  => 'puppet:///modules/profile/scripts/remote-backup.sh',
     require => File['/var/lib/backup-lib.sh'],
   }
+  file { '/usr/local/sbin/clean-backup':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => 'puppet:///modules/profile/scripts/clean-backup.py',
+  }
   cron { 'general-backup':
     command => "/usr/local/sbin/remote-backup ${usr} ${hst} ${pth} ${folders}",
     user    => root,
