@@ -33,7 +33,7 @@ class CleanBackups:
   def retrieveFileLists(self):
     self.backups = os.listdir(os.path.join(self.path, 'snapshots'))
     self.backups.sort()
-    self.logs = os.listdir(os.path.join(self.path, 'logs'))
+    self.logs = os.listdir(os.path.join(self.path, 'logfiles'))
     self.logs.sort()
 
   def parseArgs(self):
@@ -41,7 +41,7 @@ class CleanBackups:
         description='Clean up old snapshot based backups to save diskspace.')
     
     parser.add_argument('path', help='The path where the backups are stored.' + \
-        'This folder needs to contain the folders "snapshots" and "logs"')
+        'This folder needs to contain the folders "snapshots" and "logfiles"')
     parser.add_argument('-y', '--years', action='store', type=int, default=5,
         help='For how many years should the yearly be stored? (default = 5)')
     parser.add_argument('-m', '--months', action='store', type=int, default=24,
@@ -56,7 +56,7 @@ class CleanBackups:
     parser.add_argument('--silent', action='store_true',
         help='Suppress all output to STDOUT.')
     parser.add_argument('--delete', action='store_true',
-        help='Actually delete the backups/logs which should not be kept.')
+        help='Actually delete the backups/logfiles which should not be kept.')
     
     self.args = parser.parse_args()
     self.path = self.args.path
@@ -117,7 +117,7 @@ class CleanBackups:
       if match.group(0) not in self.keep:
         self.output("%s should be DELETED" % log)
         if self.delete:
-          os.unlink(os.path.join(self.path, "logs", log))
+          os.unlink(os.path.join(self.path, "logfiles", log))
           self.output("%s is now DELETED" % log)
       else:
         self.output("%s is kept" % log)
