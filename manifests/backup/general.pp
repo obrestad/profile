@@ -36,7 +36,7 @@ class profile::backup::general {
   }
 
   @@cron{ "clean-general-backup${::fqdn}":
-    command => "/usr/local/sbin/clean-backup ${pth} --silent --delete"
+    command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
     user    => root,
     hour    => [4],
     minute  => [56],
