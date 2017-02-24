@@ -76,6 +76,15 @@ class profile::ubnt {
     require => File['/usr/local/sbin/remote-backup'],
   }
 
+  @@cron{ "clean-unifi-backup-${::fqdn}":
+    command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
+    user    => root,
+    hour    => [4],
+    minute  => [37],
+    require => File['/usr/local/sbin/clean-backup'],
+    tag     => 'clean-backups',
+  }
+
   file { '/usr/local/sbin/unifi-backup':
     ensure => absent,
   }

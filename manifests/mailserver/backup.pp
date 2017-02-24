@@ -15,6 +15,15 @@ class profile::mailserver::backup {
     require => File['/usr/local/sbin/remote-backup'],
   }
 
+  @@cron{ "clean-mailserver-backup-${::fqdn}":
+    command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
+    user    => root,
+    hour    => [4],
+    minute  => [37],
+    require => File['/usr/local/sbin/clean-backup'],
+    tag     => 'clean-backups',
+  }
+
   cron { 'mail-remote-backup':
     ensure => absent,
   }

@@ -15,6 +15,15 @@ class profile::git::backup {
     require => File['/usr/local/sbin/remote-backup'],
   }
 
+  @@cron{ "clean-git-backup-${::fqdn}":
+    command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
+    user    => root,
+    hour    => [4],
+    minute  => [17],
+    require => File['/usr/local/sbin/clean-backup'],
+    tag     => 'clean-backups',
+  }
+
   file { '/usr/local/sbin/git-backup':
     ensure => absent,
   }
