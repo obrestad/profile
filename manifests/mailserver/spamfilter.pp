@@ -9,6 +9,14 @@ class profile::mailserver::spamfilter {
     enable => true,
   }
 
+  file { '/var/lib/spamassassin/bayes/':
+    ensure  => 'directory',
+    user    => 'debian_spamd',
+    group   => 'debian_spamd',
+    mode    => '0755',
+    require => Package['spamassassin'],
+  }
+
   ini_setting { 'spamfilter_header':
     ensure            => present,
     path              => '/etc/spamassassin/local.cf',
@@ -49,7 +57,7 @@ class profile::mailserver::spamfilter {
     ensure            => present,
     path              => '/etc/spamassassin/local.cf',
     setting           => 'bayes_path',
-    value             => '/var/lib/spamassassin/bayes_',
+    value             => '/var/lib/spamassassin/bayes/bayes_',
     key_val_separator => ' ',
     notify            => Service['spamassassin'],
   }
