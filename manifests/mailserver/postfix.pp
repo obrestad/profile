@@ -7,19 +7,24 @@ class profile::mailserver::postfix {
   }
 
   class { '::postfix':
-    master_smtp       => 'smtp inet n - n - - smtpd',
+    master_smtp       => 'smtp inet n - n - - smtpd
+  -o content_filter=spamassassin',
     master_smtps      => 'smtps inet n - n - - smtpd
   -o syslog_name=postfix/smtps
   -o smtpd_tls_wrappermode=yes
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-  -o milter_macro_daemon_name=ORIGINATING',
+  -o milter_macro_daemon_name=ORIGINATING
+  -o content_filter=spamassassin',
     master_submission => 'submission inet n - n - - smtpd
   -o syslog_name=postfix/submission
   -o smtpd_tls_security_level=encrypt
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-  -o milter_macro_daemon_name=ORIGINATING',
+  -o milter_macro_daemon_name=ORIGINATING
+  -o content_filter=spamassassin
+spamassassin unix - n n - - pipe
+  user=debian-spamd argv=/usr/bin/spamc -f -e /usr/sbin/sendmail -oi -f ${sender} ${recipient}',
   }
 
   # Various settings
