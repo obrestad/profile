@@ -4,7 +4,7 @@ class profile::mailserver::spamfilter {
     ensure => 'present',
   }
 
-  service { 'spamassasin':
+  service { 'spamassassin':
     ensure => 'running',
     enable => true,
   }
@@ -15,7 +15,7 @@ class profile::mailserver::spamfilter {
     setting           => 'rewrite_header',
     value             => 'Subject **SPAM**',
     key_val_separator => ' ',
-    notify            => Service['spamassasin'],
+    notify            => Service['spamassassin'],
   }
 
   ini_setting { 'spamfilter_report_safe':
@@ -24,7 +24,7 @@ class profile::mailserver::spamfilter {
     setting           => 'report_safe',
     value             => '1',
     key_val_separator => ' ',
-    notify            => Service['spamassasin'],
+    notify            => Service['spamassassin'],
   }
 
   ini_setting { 'spamfilter_use_bayes':
@@ -33,7 +33,7 @@ class profile::mailserver::spamfilter {
     setting           => 'use_bayes',
     value             => '1',
     key_val_separator => ' ',
-    notify            => Service['spamassasin'],
+    notify            => Service['spamassassin'],
   }
 
   ini_setting { 'spamfilter_bayes_auto_learn':
@@ -42,7 +42,7 @@ class profile::mailserver::spamfilter {
     setting           => 'bayes_auto_learn',
     value             => '1',
     key_val_separator => ' ',
-    notify            => Service['spamassasin'],
+    notify            => Service['spamassassin'],
   }
 
   ini_setting { 'spamfilter_bayes_path':
@@ -51,7 +51,7 @@ class profile::mailserver::spamfilter {
     setting           => 'bayes_path',
     value             => '/var/lib/spamassassin/',
     key_val_separator => ' ',
-    notify            => Service['spamassasin'],
+    notify            => Service['spamassassin'],
   }
 
   ini_setting { 'spamfilter_bayes_file_mode':
@@ -60,6 +60,6 @@ class profile::mailserver::spamfilter {
     setting           => 'bayes_file_mode',
     value             => '0666',
     key_val_separator => ' ',
-    notify            => Service['spamassasin'],
+    notify            => Service['spamassassin'],
   }
 }
