@@ -3,4 +3,63 @@ class profile::mailserver::spamfilter {
   package {['spamassassin', 'spamc']:
     ensure => 'present',
   }
+
+  service { 'spamassasin':
+    ensure => 'running',
+    enable => true,
+  }
+
+  ini_setting { 'spamfilter_header':
+    ensure            => present,
+    path              => '/etc/spamassassin/local.cf',
+    setting           => 'rewrite_header',
+    value             => 'Subject **SPAM**',
+    key_val_separator => ' ',
+    notify            => Service['spamassasin'],
+  }
+
+  ini_setting { 'spamfilter_report_safe':
+    ensure            => present,
+    path              => '/etc/spamassassin/local.cf',
+    setting           => 'report_safe',
+    value             => '1',
+    key_val_separator => ' ',
+    notify            => Service['spamassasin'],
+  }
+
+  ini_setting { 'spamfilter_use_bayes':
+    ensure            => present,
+    path              => '/etc/spamassassin/local.cf',
+    setting           => 'use_bayes',
+    value             => '1',
+    key_val_separator => ' ',
+    notify            => Service['spamassasin'],
+  }
+
+  ini_setting { 'spamfilter_bayes_auto_learn':
+    ensure            => present,
+    path              => '/etc/spamassassin/local.cf',
+    setting           => 'bayes_auto_learn',
+    value             => '1',
+    key_val_separator => ' ',
+    notify            => Service['spamassasin'],
+  }
+
+  ini_setting { 'spamfilter_bayes_path':
+    ensure            => present,
+    path              => '/etc/spamassassin/local.cf',
+    setting           => 'bayes_path',
+    value             => '/var/lib/spamassassin/',
+    key_val_separator => ' ',
+    notify            => Service['spamassasin'],
+  }
+
+  ini_setting { 'spamfilter_bayes_file_mode':
+    ensure            => present,
+    path              => '/etc/spamassassin/local.cf',
+    setting           => 'bayes_file_mode',
+    value             => '0666',
+    key_val_separator => ' ',
+    notify            => Service['spamassasin'],
+  }
 }
