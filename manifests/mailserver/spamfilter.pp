@@ -11,7 +11,7 @@ class profile::mailserver::spamfilter {
 
   file { '/var/lib/spamassassin/bayes/':
     ensure  => 'directory',
-    user    => 'debian_spamd',
+    owner   => 'debian_spamd',
     group   => 'debian_spamd',
     mode    => '0755',
     require => Package['spamassassin'],
