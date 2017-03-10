@@ -49,7 +49,7 @@ class profile::mailserver::spamfilter {
     ensure            => present,
     path              => '/etc/spamassassin/local.cf',
     setting           => 'bayes_path',
-    value             => '/var/lib/spamassassin/',
+    value             => '/var/lib/spamassassin/bayes_',
     key_val_separator => ' ',
     notify            => Service['spamassassin'],
   }
