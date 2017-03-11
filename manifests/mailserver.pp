@@ -1,4 +1,5 @@
 class profile::mailserver {
+  include ::profile::mailserver::munin
   include ::profile::mailserver::spamfilter
   include ::profile::mailserver::dovecot
   include ::profile::mailserver::postfix
