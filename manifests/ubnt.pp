@@ -77,7 +77,7 @@ class profile::ubnt {
   }
 
   @@cron{ "clean-unifi-backup-${::fqdn}":
-    command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
+    command => "/usr/local/sbin/clean-backup ${pth} -d 10 -l 10 --silent --delete",
     user    => root,
     hour    => [4],
     minute  => [37],
