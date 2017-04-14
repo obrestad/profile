@@ -9,6 +9,14 @@ class profile::mailserver::spamfilter {
     enable => true,
   }
 
+  file { '/usr/local/sbin/bayes-learn':
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
+    source => 'puppet:///modules/profile/scripts/bayes-register.sh'
+  }
+
   file { '/var/lib/spamassassin/bayes/':
     ensure  => 'directory',
     owner   => 'debian-spamd',
