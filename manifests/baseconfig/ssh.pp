@@ -7,8 +7,8 @@ class profile::baseconfig::ssh {
       'PasswordAuthentication'   => 'yes',
       'X11Forwarding'            => 'no',
       'Match User remote-backup' => {
-        'ChrootDirectory'        => '/srv/backup/',
-        'ForceCommand'           => 'internal-sftp',
+#        'ChrootDirectory'        => '/srv/backup/',
+#        'ForceCommand'           => 'internal-sftp',
         'PasswordAuthentication' => 'no',
         'AllowTcpForwarding'     => 'no',
       },
