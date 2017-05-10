@@ -14,8 +14,9 @@ class profile::baseconfig::software {
     'screen',
     'speedtest-cli',
     'sysstat',
+    'tcpdump',
     'vim'
   ] :
-    ensure => 'latest',
+    ensure => 'present',
   }
 }
