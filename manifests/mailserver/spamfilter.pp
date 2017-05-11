@@ -19,7 +19,7 @@ class profile::mailserver::spamfilter {
 
   sudo::conf { 'bayes-learn':
     priority => 60,
-    content  => "%admins ALL=(root) NOPASSWD: bayes-learn",
+    content  => "%admins ALL=(root)NOPASSWD: /usr/local/sbin/bayes-learn",
   }
 
   file { '/var/lib/spamassassin/bayes/':
