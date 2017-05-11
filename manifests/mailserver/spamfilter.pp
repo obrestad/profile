@@ -17,6 +17,11 @@ class profile::mailserver::spamfilter {
     source => 'puppet:///modules/profile/scripts/bayes-register.sh'
   }
 
+  sudo::conf { 'bayes-learn':
+    priority => 60,
+    content  => "%admins ALL=(root) NOPASSWD: bayes-learn",
+  }
+
   file { '/var/lib/spamassassin/bayes/':
     ensure  => 'directory',
     owner   => 'debian-spamd',
