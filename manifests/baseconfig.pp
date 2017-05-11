@@ -3,4 +3,5 @@ class profile::baseconfig {
   include ::profile::baseconfig::ntp
   include ::profile::baseconfig::ssh
   include ::profile::baseconfig::software
+  include ::profile::baseconfig::sudo
 }
