@@ -6,5 +6,10 @@ class profile::baseconfig::upgrades {
   class {'::unattended_upgrades':
     blacklist => $upgrade_blacklist,
     email     => $mail_recipient,
+    repos     => {
+      stable => {
+        label => 'Debian-Security',
+      },
+    },
   }
 }
