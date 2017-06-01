@@ -14,14 +14,14 @@ class profile::mailserver::postfix {
   -o syslog_name=postfix/smtps
   -o smtpd_tls_wrappermode=yes
   -o smtpd_sasl_auth_enable=yes
-  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o smtpd_client_restrictions=permit_sasl_authenticated,permit_mynetworks,reject
   -o milter_macro_daemon_name=ORIGINATING
   -o content_filter=spamassassin',
     master_submission => 'submission inet n - n - - smtpd
   -o syslog_name=postfix/submission
   -o smtpd_tls_security_level=encrypt
   -o smtpd_sasl_auth_enable=yes
-  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o smtpd_client_restrictions=permit_sasl_authenticated,permit_mynetworks,reject
   -o milter_macro_daemon_name=ORIGINATING
   -o content_filter=spamassassin
 spamassassin unix - n n - - pipe
