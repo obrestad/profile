@@ -1,6 +1,7 @@
 # Installs and configures the postfix smtp for mailserver use.
 class profile::mailserver::postfix {
   $mailname = hiera('profile::mail::hostname')
+  $mynetworks = hiera_array('profile::mail::mynetworks')
 
   package { 'postfix-mysql':
     ensure  => 'present',
@@ -31,8 +32,7 @@ spamassassin unix - n n - - pipe
   postfix::config {
     'myhostname':          value => $::fqdn;
     'mydestination':       value => $::fqdn;
-    'mynetworks':
-        value => '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128';
+    'mynetworks':          value => join($mynetworks, ' '); 
     'recipient_delimiter': value => '-';
     'relayhost':           ensure => 'blank';
     'message_size_limit':  value => '104857600';
