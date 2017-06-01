@@ -6,7 +6,6 @@ class profile::baseconfig::mail {
 
   class { '::postfix':
     inet_interfaces     => '127.0.0.1',
-    mydestination       => '',
     mynetworks          => '127.0.0.0/8, [::1]/128',
     relayhost           => $relay,
     root_mail_recipient => $rootmail,
