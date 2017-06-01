@@ -7,8 +7,9 @@ class profile::baseconfig::upgrades {
     blacklist => $upgrade_blacklist,
     email     => $mail_recipient,
     repos     => {
-      stable => {
-        label => 'Debian-Security',
+      $::facts['os']['distro']['codename'] => {
+        origin => $::facts['os']['distro']['id'],
+        label  => 'Debian-Security',
       },
     },
   }
