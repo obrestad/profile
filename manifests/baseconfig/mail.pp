@@ -14,4 +14,7 @@ class profile::baseconfig::mail {
     satellite           => true,
     smtp_listen         => '127.0.0.1',
   }
+  postfix::config {
+    'smtp_tls_security_level':  value  => 'may';
+  }
 }
