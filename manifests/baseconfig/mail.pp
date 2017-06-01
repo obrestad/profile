@@ -5,7 +5,6 @@ class profile::baseconfig::mail {
   $rootmail = hiera('profile::mail::recipient')
 
   class { '::postfix':
-    relay               => $relay,
     inet_interfaces     => '127.0.0.1',
     mydestination       => '',
     mynetworks          => '127.0.0.0/8, [::1]/128',
