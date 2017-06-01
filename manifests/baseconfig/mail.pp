@@ -11,7 +11,7 @@ class profile::baseconfig::mail {
     mynetworks          => '127.0.0.0/8, [::1]/128',
     relayhost           => $relay,
     root_mail_recipient => $rootmail,
-    satellite           => True,
+    satellite           => true,
     smtp_listen         => '127.0.0.1',
   }
 }
