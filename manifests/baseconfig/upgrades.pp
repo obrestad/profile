@@ -4,8 +4,8 @@ class profile::baseconfig::upgrades {
   $mail_recipient = hiera('profile::mail::recipient')
 
   class {'::unattended_upgrades':
-    blacklist => $upgrade_blacklist,
-    email     => $mail_recipient,
+    blacklist     => $upgrade_blacklist,
+    mail          => $mail_recipient,
     minimal_steps => false,
   }
 }
