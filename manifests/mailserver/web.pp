@@ -31,6 +31,9 @@ class profile::mailserver::web {
       { path     => '/opt/mailadminstatic/',
         require  => 'all granted',
       },
+      { path     => "/var/www/${mailname}/.well-known/",
+        require  => 'all granted',
+      },
     ],
     custom_fragment     => '
   <Directory /opt/mailadmin/mailadmin>
@@ -42,6 +45,9 @@ class profile::mailserver::web {
     aliases             => [
       { alias   => '/static/',
         path    => '/opt/mailadminstatic/',
+      },
+      { alias   => '/.well-known/',
+        path    => "/var/www/${mailname}/.well-known/",
       },
     ],
   }
@@ -80,6 +86,13 @@ class profile::mailserver::web {
                       Vcsrepo['/opt/mailadmin'],
                       Mysql::Db[$mysql_name],
                   ],
+  }
+
+  file { "/var/www/${mailname}/.well-known":
+    ensure  => directory,
+    mode    => '0750',
+    owner   => 'www-data',
+    group   => 'www-data',
   }
 
   file { '/opt/mailadminstatic':
