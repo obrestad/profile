@@ -5,7 +5,10 @@ class profile::baseconfig::upgrades {
 
   class {'::unattended_upgrades':
     blacklist     => $upgrade_blacklist,
-    mail          => $mail_recipient,
+    mail          => {
+      'to'            => $mail_recipient,
+      'only_on_error' => false,
+    },
     minimal_steps => false,
   }
 }
