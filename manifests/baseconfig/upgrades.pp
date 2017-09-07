@@ -6,11 +6,6 @@ class profile::baseconfig::upgrades {
   class {'::unattended_upgrades':
     blacklist => $upgrade_blacklist,
     email     => $mail_recipient,
-    repos     => {
-      $::facts['os']['distro']['codename'] => {
-        origin => $::facts['os']['distro']['id'],
-        label  => 'Debian-Security',
-      },
-    },
+    minimal_steps => false,
   }
 }
