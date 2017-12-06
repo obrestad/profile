@@ -7,11 +7,13 @@ class profile::ubnt {
   $base_path = hiera('profile::backup::base_path')
 
   apt::source { 'ubnt':
-    location   => 'http://www.ubnt.com/downloads/unifi/debian',
-    repos      => 'ubiquiti',
-    release    => 'unifi5',
-    key        => '4A228B2D358A5094178285BE06E85760C0A52C50',
-    key_server => 'keyserver.ubuntu.com',
+    location => 'http://www.ubnt.com/downloads/unifi/debian',
+    repos    => 'ubiquiti',
+    release  => 'unifi5',
+    key      => {
+      'id'     => '4A228B2D358A5094178285BE06E85760C0A52C50',
+      'server' => 'keyserver.ubuntu.com',
+    },
   }
 
   package { 'unifi':
