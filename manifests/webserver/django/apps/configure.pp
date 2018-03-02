@@ -51,6 +51,6 @@ define profile::webserver::django::apps::configure {
               Vcsrepo["/opt/${name}"],
               File["/etc/${name}"],
             ],
-    before  => Exec["${installpath}/manage.py collectstatic --noinput"],
+    before  => Exec["/opt/${name}/manage.py collectstatic --noinput"],
   }
 }

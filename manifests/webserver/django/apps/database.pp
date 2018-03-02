@@ -5,7 +5,7 @@ define profile::webserver::django::apps::database {
   $dbuser = hiera("profile::web::djangoapp::${name}::db::user")
   $dbpass = hiera("profile::web::djangoapp::${name}::db::pass")
 
-  $installpath = "/opt/${name}" 
+  $installpath = "/opt/${name}"
   $configfile = "/etc/${name}/settings.ini"
 
   mysql::db { $dbname:

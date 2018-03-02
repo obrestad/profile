@@ -7,12 +7,12 @@ define profile::webserver::django::apps::vhost {
 
   if($ssl) {
     apache::vhost { "${url} http":
-      servername          => $url,
-      port                => '80',
-      docroot             => "/var/www/${url}",
-      redirect_source     => ['/'],
-      redirect_dest       => ["https://${url}/"],
-      redirect_status     => ['permanent'],
+      servername      => $url,
+      port            => '80',
+      docroot         => "/var/www/${url}",
+      redirect_source => ['/'],
+      redirect_dest   => ["https://${url}/"],
+      redirect_status => ['permanent'],
     }
     apache::vhost { "${url} https":
       servername          => $url,
@@ -53,10 +53,10 @@ define profile::webserver::django::apps::vhost {
     }
 
     file { "/var/www/${url}/.well-known":
-      ensure  => directory,
-      mode    => '0750',
-      owner   => 'www-data',
-      group   => 'www-data',
+      ensure => directory,
+      mode   => '0750',
+      owner  => 'www-data',
+      group  => 'www-data',
     }
   } else {
     apache::vhost { "${url} http":
