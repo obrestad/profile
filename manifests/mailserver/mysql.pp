@@ -62,16 +62,4 @@ query = SELECT email FROM resources_account WHERE email='%s' AND active=1"
     content => $virtual_email2email,
     require => Class['::profile::mailserver::postfix'],
   }
-
-  mysql::db { $mysql_name:
-    user           => $mysql_user,
-    password       => $mysql_pass,
-    host           => $mysql_host,
-    grant          => ['CREATE', 'ALTER',
-                        'DELETE', 'INSERT',
-                        'SELECT', 'UPDATE',
-                        'INDEX', 'DROP',
-                      ],
-    require        => Class['::mysql::server'],
-  }
 }
