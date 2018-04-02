@@ -28,13 +28,27 @@ class profile::ubnt {
 
   firewall { '011 accept incoming UAPs and management':
     proto   => 'tcp',
-    dport   => [8080, 8443, 3478],
+    dport   => [8080, 8443],
     iniface => 'eth0',
     action  => 'accept',
   }
   firewall { '011 v6 accept incoming UAPs and management':
     proto    => 'tcp',
-    dport    => [8080, 8443, 3478],
+    dport    => [8080, 8443],
+    action   => 'accept',
+    iniface  => 'eth0',
+    provider => 'ip6tables',
+  }
+
+  firewall { '012 accept incoming UAPs and management':
+    proto   => 'udp',
+    dport   => 3478,
+    iniface => 'eth0',
+    action  => 'accept',
+  }
+  firewall { '012 v6 accept incoming UAPs and management':
+    proto    => 'udp',
+    dport    => 3478,
     action   => 'accept',
     iniface  => 'eth0',
     provider => 'ip6tables',
