@@ -33,4 +33,5 @@ class profile::users {
   }
   
   include ::profile::users::eigil
+  include ::profile::users::ingeborg
 }
