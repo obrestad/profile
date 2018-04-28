@@ -25,7 +25,7 @@ class profile::samba {
       guest_account => 'nobody',
       browsable     => $data['browsable'],
       force_group   => 'users',
-      read_onlu     => $data['read_only'],
+      read_only     => $data['read_only'],
     }
   }
 
