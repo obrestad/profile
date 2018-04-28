@@ -17,7 +17,7 @@ class profile::samba {
   }
 
   $shares.each | $sharename, $data | {
-    samba::server::share {'archive':
+    samba::server::share { $sharename :
       comment       => $data['comment'],
       path          => $data['path'],
       guest_only    => false,
