@@ -1,6 +1,8 @@
 # Installs an apache webserver and configures the firewall to allow HTTP and
 # HTTPS traffic.
 class profile::webserver {
+  $djangoapps = hiera_array('profile::web::djangoapps', [])
+
   class { 'apache':
     mpm_module    => 'prefork',
     confd_dir     => '/etc/apache2/conf-enabled'
@@ -11,7 +13,7 @@ class profile::webserver {
   include '::apache::mod::ssl'
 
   class { 'apache::mod::wsgi':
-    wsgi_python_path => '/opt/mailadmin/:/opt/wedding/',
+    wsgi_python_path => join($djangoapps, ':'), 
     package_name     => 'libapache2-mod-wsgi-py3',
     mod_path         => '/usr/lib/apache2/modules/mod_wsgi.so',
   }
