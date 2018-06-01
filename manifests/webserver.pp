@@ -2,6 +2,9 @@
 # HTTPS traffic.
 class profile::webserver {
   $djangoapps = hiera_array('profile::web::djangoapps', [])
+  $paths = $djangoapps.map | $app | {
+    "/opt/${app}/"
+  }
 
   class { 'apache':
     mpm_module    => 'prefork',
@@ -13,7 +16,7 @@ class profile::webserver {
   include '::apache::mod::ssl'
 
   class { 'apache::mod::wsgi':
-    wsgi_python_path => join($djangoapps, ':'), 
+    wsgi_python_path => join($paths, ':'), 
     package_name     => 'libapache2-mod-wsgi-py3',
     mod_path         => '/usr/lib/apache2/modules/mod_wsgi.so',
   }
