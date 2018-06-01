@@ -82,6 +82,9 @@ define profile::webserver::django::apps::vhost {
         { alias => '/static/',
           path  => "/opt/${name}static/",
         },
+        { alias => '/.well-known/',
+          path  => "/var/www/${url}/.well-known/",
+        },
       ],
     }
   }
