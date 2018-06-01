@@ -1,7 +1,7 @@
 # This define creates an apache vhost for a django application, and optionally
 # installs a letsencrypt certificate and configures 
 define profile::webserver::django::apps::vhost {
-  $alsofqdn = hiera('profile::web::djangoapp::mailadmin::ssl::alsofqdn', false)
+  $alsofqdn = hiera("profile::web::djangoapp::${name}::ssl::alsofqdn", false)
   $url = hiera("profile::web::djangoapp::${name}::url")
   $appname = hiera("profile::web::djangoapp::${name}::appname", $name)
   $ssl = hiera("profile::web::djangoapp::${name}::ssl", true)
