@@ -1,6 +1,7 @@
 # This define creates an apache vhost for a django application, and optionally
 # installs a letsencrypt certificate and configures 
 define profile::webserver::django::apps::vhost {
+  $alsofqdn = hiera('profile::web::djangoapp::mailadmin::ssl::alsofqdn', false)
   $url = hiera("profile::web::djangoapp::${name}::url")
   $appname = hiera("profile::web::djangoapp::${name}::appname", $name)
   $ssl = hiera("profile::web::djangoapp::${name}::ssl", true)
@@ -47,12 +48,22 @@ define profile::webserver::django::apps::vhost {
       ],
     }
 
-    letsencrypt::certonly { "${url}-${::fqdn}":
-      domains       => [$url, $::fqdn],
-      plugin        => 'webroot',
-      webroot_paths => ["/var/www/${url}", "/var/www/${::fqdn}"],
-      require       => Apache::Vhost["${url} http"],
-      manage_cron   => true,
+    if($alsofqdn) {
+      letsencrypt::certonly { "${url}-${::fqdn}":
+        domains       => [$url, $::fqdn],
+        plugin        => 'webroot',
+        webroot_paths => ["/var/www/${url}", "/var/www/${::fqdn}"],
+        require       => Apache::Vhost["${url} http"],
+        manage_cron   => true,
+      }
+    } else {
+      letsencrypt::certonly { "${url}-${::fqdn}":
+        domains       => [$url],
+        plugin        => 'webroot',
+        webroot_paths => ["/var/www/${url}"],
+        require       => Apache::Vhost["${url} http"],
+        manage_cron   => true,
+      }
     }
 
     file { "/var/www/${url}/.well-known":
