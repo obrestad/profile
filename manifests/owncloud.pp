@@ -31,7 +31,7 @@ class profile::owncloud {
   lvm::logical_volume { 'owncloud_data':
     ensure            => present,
     volume_group      => 'hdd',
-    size              => '100G',
+    size              => '150G',
     mountpath         => '/srv/owncloud-data',
     mountpath_require => true,
   }
