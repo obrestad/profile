@@ -53,4 +53,10 @@ class profile::users::eigil {
     key     =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDwe4N6Op3OEDYxe/SeHr58jgq7/Ip7uSDLYuOtJl40/IHVWyCwMfQwFWgIzNM+8Obpu9uRvwp85hF7PHoM5MTNgcPGhlJeFUkHbiUu3fhlj4k+YmiW9NpotNbVbTw0s3m2PLVruEvVm8fQ376XTJO2jTOfx7DC25dV+UqAe7XtmZra6l2wEZPr2UN5W7TGr3Th19dkBiQBQMxIGFd/toKOniFdq/+JBp6OH+ZMQ8QIgKkAQ/AKCxYROkxYvWblvOtjk0kehaJkn3b6wjgyMf80yxLvOd4jaX7LO/G8kXjXQ+1gwVImvG0Cw4yG5D20Y+UspwahXeRV5Ik72qsF3ezX',
     require => File['/home/eigil/.ssh'],
   }
+  ssh_authorized_key { 'eigil@galao':
+    user    => 'eigil',
+    type    => 'ssh-rsa',
+    key     =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDGykJUGLzh+HaaQA+ifz+2IZuInG+TVPz21TMP7Tm/BqGslwJdm6jBec5WjVzaTLri5grIZpHmnj+mcGnuUrCg7Pbpx4K4PAXf+dA2c6qWWjuXoxwkcd5xeJMVDTeL8oQFig1F9ihX3eehj1S4MaSXGvePQTKU8W/Zipq3Saw0EF6YFqlAdDLMLPOUTtcQZL7yPBeupSONX/4+R/CA2awghAc6kyBGM+tukdpfanq1tpKnnT3F4kFl/vsl2VQVIzKL1JEpsyFu7OkqryH1/dhpRx07DbEiV8hm2XraKRlyIOO0r4Wuom+RWP2NxBn09Ig6cV/I9Wj5mBz2gY3GCZQf',
+    require => File['/home/eigil/.ssh'],
+  }
 }
