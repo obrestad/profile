@@ -18,7 +18,7 @@ class profile::owncloud {
   }
 
   apt::source { 'owncloud':
-    location => 'http://download.owncloud.org/download/repositories/stable/Debian_8.0/',
+    location => 'deb http://download.owncloud.org/download/repositories/production/Debian_8.0/',
     release  => ' ',
     repos    => '/',
     key      => {
