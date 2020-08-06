@@ -9,27 +9,30 @@ class profile::users {
   })
 
   $users.map | $username, $data | {
+    $group = pick($data['gid'], 'users')
+
     user { $username:
-      ensure     => $data['ensure'],
-      gid        => $data['gid'],
-      uid        => $data['uid'],
-      groups     => $data['groups'],
-      shell      => '/bin/bash',
-      home       => "/home/${username}",
-      managehome => true,
-      password   => $data['password'],
+      ensure         => $data['ensure'],
+      gid            => $group,
+      groups         => pick($data['groups'], []),
+      home           => pick($data['home'], "/home/${username}"),
+      managehome     => true,
+      password       => pick($data['password'], '*'),
+      purge_ssh_keys => true,
+      shell          => pick($data['shell'], '/bin/bash'),
+      uid            => $data['uid'],
     }
 
     file { "/home/${username}/.bashrc":
       owner   => $username,
-      group   => $data['gid'],
+      group   => $group,
       mode    => '0440',
       source  => 'puppet:///modules/profile/userpref/bashrc',
       require => User[$username],
     }
     file { "/home/${username}/.vimrc":
       owner   => $username,
-      group   => $data['gid'],
+      group   => $group,
       mode    => '0440',
       source  => 'puppet:///modules/profile/userpref/vimrc',
       require => User[$username],
@@ -37,7 +40,7 @@ class profile::users {
     file { "/home/${username}/.ssh":
       ensure  => 'directory',
       owner   => $username,
-      group   => $data['gid'],
+      group   => $group,
       mode    => '0700',
       require => User[$username],
     }
