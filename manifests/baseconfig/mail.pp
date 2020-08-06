@@ -1,8 +1,12 @@
 # Install postfix in sattelite mode, and configures it to relay mails trough a
 # mailserver.
 class profile::baseconfig::mail {
-  $relay = hiera('profile::mail::relayhost')
-  $rootmail = hiera('profile::mail::recipient')
+  $relay = lookup('profile::mail::relayhost', {
+    'value_type' => String,
+  })
+  $rootmail = lookup('profile::mail::admin', {
+    'value_type' => String,
+  })
 
   include ::augeas
 
