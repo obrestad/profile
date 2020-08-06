@@ -1,7 +1,13 @@
 # Configures autoupgrades
 class profile::baseconfig::upgrades {
-  $upgrade_blacklist = hiera_array('profile::upgrade::exclude')
-  $mail_recipient = hiera('profile::mail::recipient')
+  $upgrade_blacklist = lookup('profile::upgrade::exclude', {
+    'default_value' => [],
+    'merge'         => 'unique',
+    'value_type'    => Array[String],
+  })
+  $mail_recipient = lookup('profile::mail::admin', {
+    'value_type' => String,
+  })
 
   class {'::unattended_upgrades':
     blacklist     => $upgrade_blacklist,
