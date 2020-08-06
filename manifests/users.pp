@@ -23,26 +23,28 @@ class profile::users {
       uid            => $data['uid'],
     }
 
-    file { "/home/${username}/.bashrc":
-      owner   => $username,
-      group   => $group,
-      mode    => '0440',
-      source  => 'puppet:///modules/profile/userpref/bashrc',
-      require => User[$username],
-    }
-    file { "/home/${username}/.vimrc":
-      owner   => $username,
-      group   => $group,
-      mode    => '0440',
-      source  => 'puppet:///modules/profile/userpref/vimrc',
-      require => User[$username],
-    }
-    file { "/home/${username}/.ssh":
-      ensure  => 'directory',
-      owner   => $username,
-      group   => $group,
-      mode    => '0700',
-      require => User[$username],
+    if($data['ensure'] == 'present') {
+      file { "/home/${username}/.bashrc":
+        owner   => $username,
+        group   => $group,
+        mode    => '0440',
+        source  => 'puppet:///modules/profile/userpref/bashrc',
+        require => User[$username],
+      }
+      file { "/home/${username}/.vimrc":
+        owner   => $username,
+        group   => $group,
+        mode    => '0440',
+        source  => 'puppet:///modules/profile/userpref/vimrc',
+        require => User[$username],
+      }
+      file { "/home/${username}/.ssh":
+        ensure  => 'directory',
+        owner   => $username,
+        group   => $group,
+        mode    => '0700',
+        require => User[$username],
+      }
     }
 
     $sshkeys = pick($data['sshkeys'], {})
