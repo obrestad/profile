@@ -45,7 +45,8 @@ class profile::users {
       require => User[$username],
     }
 
-    $data['sshkeys'].map | $keyname, $sshkey | {
+    $sshkeys = pick($data['sshkeys'], {})
+    $sshkeys.map | $keyname, $sshkey | {
       ssh_authorized_key { $keyname:
         user    => $username,
         type    => $sshkey['type'],
