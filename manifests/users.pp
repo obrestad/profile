@@ -45,15 +45,14 @@ class profile::users {
         mode    => '0700',
         require => User[$username],
       }
-    }
-
-    $sshkeys = pick($data['sshkeys'], {})
-    $sshkeys.map | $keyname, $sshkey | {
-      ssh_authorized_key { $keyname:
-        user    => $username,
-        type    => $sshkey['type'],
-        key     => $sshkey['key'],
-        require => File["/home/${username}/.ssh"],
+      $sshkeys = pick($data['sshkeys'], {})
+      $sshkeys.map | $keyname, $sshkey | {
+        ssh_authorized_key { $keyname:
+          user    => $username,
+          type    => $sshkey['type'],
+          key     => $sshkey['key'],
+          require => File["/home/${username}/.ssh"],
+        }
       }
     }
   }
