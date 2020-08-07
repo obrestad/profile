@@ -5,4 +5,7 @@ class profile::baseconfig {
   include ::profile::baseconfig::software
   include ::profile::baseconfig::sudo
   include ::profile::baseconfig::upgrades
+
+  include ::profile::firewall
+  include ::profile::users
 }
