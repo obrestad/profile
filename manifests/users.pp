@@ -3,7 +3,7 @@ class profile::users {
   require ::profile::users::groups
   include ::profile::users::root
 
-  $users = hiera('profile::users', {
+  $users = lookup('profile::users', {
     'default_value' => {},
     'merge'         => 'deep',
   })
