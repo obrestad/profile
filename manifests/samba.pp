@@ -1,12 +1,24 @@
 # Installs a samba-server and sets up users and shares.
 class profile::samba {
-  $samba_users = hiera_hash('profile::user::samba')
-  $shares = hiera_hash('profile::samba::shares')
+  include ::profile::firewall
+
+  $samba_users = lookup('profile::user::samba' {
+    'value_type'    => Hash,
+    'default_value' => {},
+  })
+  $shares = lookup('profile::samba::shares', {
+    'value_type'    => Hash,
+    'default_value' => {},
+  })
+  $interfaces = lookup('profile::interfaces', {
+    'value_type'    => Array[String],
+    'default_value' => ['lo'],
+  }
 
   class {'samba::server':
     workgroup     => 'rothaugane',
     server_string => 'Antoccino',
-    interfaces    => 'eth0 lo',
+    interfaces    => join($interfaces, ' '),
     security      => 'user'
   }
 
