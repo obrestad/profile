@@ -2,7 +2,7 @@
 class profile::samba {
   include ::profile::firewall
 
-  $samba_users = lookup('profile::user::samba' {
+  $samba_users = lookup('profile::user::samba', {
     'value_type'    => Hash,
     'default_value' => {},
   })
