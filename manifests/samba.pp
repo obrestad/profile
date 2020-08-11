@@ -13,7 +13,7 @@ class profile::samba {
   $interfaces = lookup('profile::interfaces', {
     'value_type'    => Array[String],
     'default_value' => ['lo'],
-  }
+  })
 
   class {'samba::server':
     workgroup     => 'rothaugane',
