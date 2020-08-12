@@ -6,6 +6,10 @@ class profile::firewall {
   
   include ::profile::firewall::pre
   include ::profile::firewall::post
+
+  resources { 'firewall':
+    purge => true,
+  }
   
   include ::firewall
 }
