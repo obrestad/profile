@@ -1,0 +1,4 @@
+---
+profile::samba::interface: "%{alias('profile::interface::main')}"
+profile::samba::networks::ipv4: "%{alias('profile::networks::internal::ipv4')}"
+profile::samba::networks::ipv6: "%{alias('profile::networks::internal::ipv6')}"
