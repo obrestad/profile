@@ -11,7 +11,7 @@ class profile::samba {
   class {'samba::server':
     workgroup     => 'rothaugane',
     server_string => 'Antoccino',
-    interfaces    => [$interface, 'lo'],
+    interfaces    => "${interface} lo",
     security      => 'user'
   }
 }
