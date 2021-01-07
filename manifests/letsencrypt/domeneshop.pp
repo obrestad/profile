@@ -11,6 +11,13 @@ class profile::letsencrypt::domeneshop {
     provider => 'pip3',
   }
 
+  file { '/root/.certbot.domeneshop.secrets':
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
+  }
+
   ini_setting { 'certbot domeneshop token':
     ensure  => 'present',
     path    => '/root/.certbot.domeneshop.secrets',
