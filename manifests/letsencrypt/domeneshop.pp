@@ -15,22 +15,24 @@ class profile::letsencrypt::domeneshop {
     ensure => 'file',
     owner  => 'root',
     group  => 'root',
-    mode   => '0700',
+    mode   => '0400',
   }
 
   ini_setting { 'certbot domeneshop token':
-    ensure  => 'present',
-    path    => '/root/.certbot.domeneshop.secrets',
-    section => '',
-    setting => 'certbot_dns_domeneshop:dns_domeneshop_client_token',
-    value   => $token,
+    ensure            => 'present',
+    path              => '/root/.certbot.domeneshop.secrets',
+    section           => '',
+    setting           => 'certbot_dns_domeneshop:dns_domeneshop_client_token',
+    key_val_separator => '=',
+    value             => $token,
   }
 
   ini_setting { 'certbot domeneshop secret':
-    ensure  => 'present',
-    path    => '/root/.certbot.domeneshop.secrets',
-    section => '',
-    setting => 'certbot_dns_domeneshop:dns_domeneshop_client_secret',
-    value   => $secret,
+    ensure            => 'present',
+    path              => '/root/.certbot.domeneshop.secrets',
+    section           => '',
+    setting           => 'certbot_dns_domeneshop:dns_domeneshop_client_secret',
+    key_val_separator => '=',
+    value             => $secret,
   }
 }
