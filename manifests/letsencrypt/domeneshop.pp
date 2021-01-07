@@ -1,6 +1,6 @@
 # Configures letsencrypt to use the domeneshop.no API for DNS-based
 # domain-validation. 
-class profile::letsencrypt {
+class profile::letsencrypt::domeneshop {
   $token = lookup('profile::domeneshop::token')
   $secret = lookup('profile::domeneshop::secret')
 
