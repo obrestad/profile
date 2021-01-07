@@ -8,8 +8,9 @@ define profile::letsencrypt::certificate (
 
   letsencrypt::certonly { $name:
     domains         => $domains, 
-    plugin          => 'certbot-dns-domeneshop:dns-domeneshop',
+    custom_plugin   => true,
     additional_args => [
+      "--authenticator certbot-dns-domeneshop:dns-domeneshop",
       "--certbot-dns-domeneshop:dns-domeneshop-credentials ${file}", 
       "--certbot-dns-domeneshop:dns-domeneshop-propagation-seconds 120", 
     ],
