@@ -8,7 +8,7 @@ class profile::letsencrypt {
 
   class { 'letsencrypt':
     config => {
-      email  => $certmail, 
+      email  => $certmail,
       server => 'https://acme-v02.api.letsencrypt.org/directory',
     }
   }
