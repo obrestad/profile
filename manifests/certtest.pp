@@ -4,4 +4,10 @@ class profile::certtest {
       'fjas.rothaugane.com',
     ]
   }
+  profile::letsencrypt::certificate { 'wildcardtestcert':
+    domains => [
+      'obrestad.org',
+      '*.obrestad.org',
+    ]
+  }
 }
