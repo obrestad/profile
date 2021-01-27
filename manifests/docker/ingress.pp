@@ -2,7 +2,7 @@
 # containers. 
 class profile::docker::ingress {
   $proxies = lookup('profile::docker::nginx::proxy', {
-    value_type    => Hash[Hash],
+    value_type    => Hash[String, Hash],
     default_value => {}
   })
 
