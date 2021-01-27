@@ -5,6 +5,8 @@ class profile::docker {
     'default_value' => [],
   })
 
+  include ::profile::docker::ingress
+
   class { 'docker':
     ensure       => present,
     docker_users => $users,
