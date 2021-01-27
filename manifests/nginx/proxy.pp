@@ -28,6 +28,7 @@ define profile::nginx::proxy (
   }
 
   profile::letsencrypt::certificate { "nginxproxy-${name}":
-    domains => [ $name ] + $alias,
+    domains              => [ $name ] + $alias,
+    cron_success_command => '/bin/systemctl reload nginx.service',
   }
 }

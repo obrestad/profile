@@ -1,15 +1,19 @@
 # Retrieves a certificate from letsencrypt.
 define profile::letsencrypt::certificate (
-  Array[String] $domains,
+  Array[String]       $domains,
+  Optional[String[1]] $cron_before_command = undef
+  Optional[String[1]] $cron_success_command = undef
 ) {
   require ::profile::letsencrypt
 
   $file = '/root/.certbot.domeneshop.secrets'
 
   letsencrypt::certonly { $name:
-    domains         => $domains,
-    custom_plugin   => true,
-    additional_args => [
+    domains              => $domains,
+    cron_before_command  => $cron_before_command,
+    cron_success_command => $cron_success_command,
+    custom_plugin        => true,
+    additional_args      => [
       '--authenticator certbot-dns-domeneshop:dns-domeneshop',
       "--certbot-dns-domeneshop:dns-domeneshop-credentials ${file}",
       '--certbot-dns-domeneshop:dns-domeneshop-propagation-seconds 120',
