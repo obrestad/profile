@@ -2,8 +2,8 @@
 define profile::letsencrypt::certificate (
   Array[String]       $domains,
   Boolean             $manage_cron = false,
-  Optional[String[1]] $cron_before_command = undef
-  Optional[String[1]] $cron_success_command = undef
+  Optional[String[1]] $cron_before_command = undef,
+  Optional[String[1]] $cron_success_command = undef,
 ) {
   require ::profile::letsencrypt
 
