@@ -6,4 +6,9 @@ class profile::nginx {
     protocol => 'tcp',
     port     => [80, 443],
   }
+  
+  file { '/etc/nginx/conf.d/default.conf': 
+    ensure => absent,
+    notify => Service['nginx'],
+  }
 }
