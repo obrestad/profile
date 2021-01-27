@@ -3,7 +3,7 @@ define profile::nginx::proxy (
   $target,
   $alias = [],
 ){
-  include ::nginx
+  include ::profile::nginx
 
   $certdir = $::facts['letsencrypt_directory'][$name]
 
