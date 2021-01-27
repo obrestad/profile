@@ -5,7 +5,7 @@ define profile::nginx::proxy (
 ){
   include ::nginx
 
-  $certdir = $::facts['letsencrypt_directory']["nginxproxy-${name}"]
+  $certdir = $::facts['letsencrypt_directory'][$name]
 
   if($certdir) {
     $sslconf = {
