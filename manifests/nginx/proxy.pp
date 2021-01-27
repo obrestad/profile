@@ -5,17 +5,25 @@ define profile::nginx::proxy (
 ){
   include ::nginx
 
-  $certdir = $::facter['letsencrypt_directory']["nginxproxy-${name}"]
+  $certdir = $::facts['letsencrypt_directory']["nginxproxy-${name}"]
+
+  if($certdir) {
+    $sslconf = {
+      'ssl'      => true,
+      'ssl_cert' => "${certdir}/fullchain.pem",
+      'ssl_key'  => "${certdir}/privkey.pem",
+      'ssl_port' => 443,
+      'require'  => Profile::Letsencrypt::Certificate["nginxproxy-${name}"],
+    }
+  } else {
+    $sslconf = {}
+  }
 
   nginx::resource::server { $name:
     listen_port => 80,
     proxy       => $target,
     server_name => [ $name ] + $alias,
-    ssl         => true,
-    ssl_cert    => "${certdir}/fullchain.pem",
-    ssl_key     => "${certdir}/privkey.pem",
-    ssl_port    => 443,
-    require     => Profile::Letsencrypt::Certificate["nginxproxy-${name}"],
+    *           => $sslconf
   }
 
   profile::letsencrypt::certificate { "nginxproxy-${name}":
