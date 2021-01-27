@@ -9,11 +9,12 @@ define profile::nginx::proxy (
 
   if($certdir) {
     $sslconf = {
-      'ssl'      => true,
-      'ssl_cert' => "${certdir}/fullchain.pem",
-      'ssl_key'  => "${certdir}/privkey.pem",
-      'ssl_port' => 443,
-      'require'  => Profile::Letsencrypt::Certificate["nginxproxy-${name}"],
+      'ssl'          => true,
+      'ssl_cert'     => "${certdir}/fullchain.pem",
+      'ssl_key'      => "${certdir}/privkey.pem",
+      'ssl_port'     => 443,
+      'ssl_redirect' => true,
+      'require'      => Profile::Letsencrypt::Certificate["nginxproxy-${name}"],
     }
   } else {
     $sslconf = {}
