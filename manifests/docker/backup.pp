@@ -2,7 +2,7 @@
 class profile::docker::backup {
   $mysql_containers = lookup('profile::docker::backup::mysql', {
     'default_value' => [],
-    'value_type'    => Hash[String, Hash[String, Strin]],
+    'value_type'    => Hash[String, Hash[String, String]],
   })
 
   $mysql_containers.each | $container, $data | {
