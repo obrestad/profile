@@ -13,7 +13,7 @@ class profile::docker::backup {
     $params = "${::fqdn} ${container} ${user} ${pass} ${db}"
     @@cron { "docker-mysql-backup-${::fqdn}-${container}":
       command => "/usr/local/sbin/backup-docker-mysql ${params}",
-      user    => 'backup',
+      user    => 'backups',
       hour    => fqdn_rand(24, "${::fqdn}-${container}"),
       minute  => fqdn_rand(60, "${::fqdn}-${container}"),
       tag     => 'backup-pulls',
