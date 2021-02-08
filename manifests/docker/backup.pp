@@ -16,7 +16,7 @@ class profile::docker::backup {
       user    => 'backup',
       hour    => fqdn_rand(24, "${::fqdn}-${container}"),
       minute  => fqdn_rand(60, "${::fqdn}-${container}"),
-      tag     => 'backup',
+      tag     => 'backup-pulls',
     }
   }
 }

@@ -3,6 +3,6 @@
 class profile::backup::server {
   include ::profile::backup::scripts
 
-  Cron <<| tag == 'backups' |>>
+  Cron <<| tag == 'backup-pulls' |>>
   Cron <<| tag == 'clean-backups' |>>
 }
