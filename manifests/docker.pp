@@ -5,6 +5,7 @@ class profile::docker {
     'default_value' => [],
   })
 
+  include ::profile::docker::backup
   include ::profile::docker::ingress
 
   class { 'docker':
