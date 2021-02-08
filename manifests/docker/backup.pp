@@ -10,7 +10,7 @@ class profile::docker::backup {
     $user = $data['username']
     $pass = $data['password']
 
-    $params = "${::fqdn} ${container} ${user} ${pass} ${db}",
+    $params = "${::fqdn} ${container} ${user} ${pass} ${db}"
     @@cron { "docker-mysql-backup-${::fqdn}-${container}":
       command => "/usr/local/sbin/backup-docker-mysql ${params}",
       user    => 'backup',
