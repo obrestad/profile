@@ -22,6 +22,7 @@ define profile::nginx::proxy (
 
   nginx::resource::server { $name:
     listen_port => 80,
+    ipv6_enable => true,
     proxy       => $target,
     server_name => [ $name ] + $alias,
     *           => $sslconf
