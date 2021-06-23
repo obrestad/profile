@@ -1,9 +1,13 @@
 # Installs a couple of dependencies for letsencrypt
 class profile::letsencrypt::dependencies {
-  package { [
-    'python3-openssl',
-    'python3-cryptography',
-  ]:
+  require ::profile::utilities::pip3
+
+  package { 'python3-openssl',:
     ensure => 'present',
+  }
+
+  package { 'cryptography',:
+    ensure   => 'latest',
+    provider => 'pip3',
   }
 }
