@@ -1,6 +1,6 @@
 # Installs and configures a MX, mailserver, spamfilter and a webmail-interface.
 class profile::mailserver {
-  include ::profile::mailserver::certs
+  include ::profile::mailadmin
   # include ::profile::mailserver::spamfilter
   # include ::profile::mailserver::dovecot
   # include ::profile::mailserver::postfix
