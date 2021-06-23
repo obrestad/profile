@@ -1,6 +1,6 @@
 # This class configures the mailadmin app. 
 class profile::mailadmin::configure {
-  $secret = lookup(' profile::mailadmin::django::secret', String)
+  $secret = lookup('profile::mailadmin::django::secret', String)
   $url = lookup('profile::mailserver::name', String)
 
   $configfile = '/etc/mailadmin/settings.ini'
