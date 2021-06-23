@@ -15,6 +15,7 @@ class profile::mailserver::database {
                   'DELETE', 'INSERT',
                   'SELECT', 'UPDATE',
                   'INDEX', 'DROP',
+                  'REFERENCES',
                 ],
     require  => Class['::mysql::server'],
   }
