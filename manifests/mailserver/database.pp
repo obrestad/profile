@@ -1,5 +1,5 @@
 # this class configures the mysql-database used by the mailserver. 
-define profile::mailserver::database {
+class profile::mailserver::database {
   $dbname = lookup('profile::mailserver::db::name')
   $dbhost = lookup('profile::mailserver::db::host')
   $dbuser = lookup('profile::mailserver::db::user')
