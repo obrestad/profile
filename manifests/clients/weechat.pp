@@ -3,7 +3,7 @@ class profile::clients::weechat {
   package { [
     'weechat',
     'weechat-curses',
-    'weechat-plugin',
+    'weechat-plugins',
   ]:
     ensure  => 'present',
   }
