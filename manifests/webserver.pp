@@ -1,14 +1,12 @@
 # Installs an apache webserver and configures the firewall to allow HTTP and
 # HTTPS traffic.
 class profile::webserver {
-  include ::apache::mod::rewrite
-  include ::apache::mod::ssl
   include ::profile::webserver::firewall
   require ::profile::webserver::hostcert
 
   class { 'apache':
     mpm_module => 'prefork',
-    confd_dir  => '/etc/apache2/conf-enabled'
+    confd_dir  => '/etc/apache2/conf-enabled',
   }
 
   apache::vhost { "${::fqdn} http":
