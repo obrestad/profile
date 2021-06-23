@@ -7,52 +7,52 @@ class profile::mailadmin::configure {
 
   include ::profile::mailadmin::install
 
-  ini_setting { "Djangoapp ${name} debug":
+  ini_setting { 'mailadmin debug':
     ensure  => present,
     path    => $configfile,
     section => 'general',
     setting => 'debug',
     value   => false,
     require => [
-              Vcsrepo["/opt/${name}"],
-              File["/etc/${name}"],
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
             ],
   }
 
-  ini_setting { "Djangoapp ${name} django secret":
+  ini_setting { 'mailadmin django secret':
     ensure  => present,
     path    => $configfile,
     section => 'general',
     setting => 'secret',
     value   => $secret,
     require => [
-              Vcsrepo["/opt/${name}"],
-              File["/etc/${name}"],
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
             ],
   }
 
-  ini_setting { "Djangoapp ${name} main host":
+  ini_setting { 'mailadmin main host':
     ensure  => present,
     path    => $configfile,
     section => 'hosts',
     setting => 'main',
     value   => $url,
     require => [
-              Vcsrepo["/opt/${name}"],
-              File["/etc/${name}"],
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
             ],
   }
 
-  ini_setting { "Djangoapp ${name} staticpath":
+  ini_setting { 'mailadmin staticpath':
     ensure  => present,
     path    => $configfile,
     section => 'general',
     setting => 'staticpath',
-    value   => "/opt/${name}static",
+    value   => '/opt/mailadminstatic',
     require => [
-              Vcsrepo["/opt/${name}"],
-              File["/etc/${name}"],
+              Vcsrepo['/opt/mailadmin'],
+              File['/etc/mailadmin'],
             ],
-    before  => Exec["/opt/${name}/manage.py collectstatic --noinput"],
+    before  => Exec['/opt/mailadmin/manage.py collectstatic --noinput'],
   }
 }
