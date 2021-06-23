@@ -4,7 +4,7 @@ class profile::letsencrypt {
     'value_type' => String,
   })
 
-  include ::profile::letsencrypt::dependencies
+  require ::profile::letsencrypt::dependencies
   include ::profile::letsencrypt::domeneshop
 
   class { 'letsencrypt':
