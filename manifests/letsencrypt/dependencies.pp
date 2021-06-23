@@ -2,11 +2,11 @@
 class profile::letsencrypt::dependencies {
   require ::profile::utilities::pip3
 
-  package { 'python3-openssl',:
+  package { 'python3-openssl':
     ensure => 'present',
   }
 
-  package { 'cryptography',:
+  package { 'cryptography':
     ensure   => 'latest',
     provider => 'pip3',
   }
