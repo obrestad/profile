@@ -3,7 +3,7 @@
 class profile::git {
   $admin_key = hiera('profile::gitolite::admin-key')
 
-  include ::profile::git::backup
+  #include ::profile::git::backup
   include ::profile::git::firewall
 
   package{ 'gitolite3':
