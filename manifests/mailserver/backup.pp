@@ -7,8 +7,8 @@ class profile::mailserver::backup {
   $folders = '/srv/mail'
 
   @@cron { "mailbox-backup-${::fqdn}":
-    command => "/usr/local/sbin/remote-backup ${usr} ${hst} ${pth} ${folders}",
-    user    => root,
+    command => "/usr/local/sbin/backup-folders ${usr} ${::fqdn} ${pth} ${folders}",
+    user    => $usr,
     hour    => [3, 9, 15, 21],
     minute  => [10],
     tag     => 'backup-pulls',
@@ -16,7 +16,7 @@ class profile::mailserver::backup {
 
   @@cron{ "clean-mailserver-backup-${::fqdn}":
     command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
-    user    => root,
+    user    => $usr,
     hour    => [4],
     minute  => [37],
     tag     => 'clean-backups',
