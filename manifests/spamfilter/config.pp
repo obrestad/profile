@@ -1,13 +1,7 @@
-# This class installs and configures the spamfilter
-class profile::mailserver::spamfilter {
-  package {['spamassassin', 'spamc']:
-    ensure => 'present',
-  }
-
-  service { 'spamassassin':
-    ensure => 'running',
-    enable => true,
-  }
+# This class configures the spamfilter
+class profile::spamfilter::config {
+  require ::profile::spamfilter::install
+  include ::profile::spamfilter::service
 
   file { '/usr/local/sbin/bayes-learn':
     ensure => 'file',
@@ -27,7 +21,6 @@ class profile::mailserver::spamfilter {
     owner   => 'debian-spamd',
     group   => 'debian-spamd',
     mode    => '0755',
-    require => Package['spamassassin'],
   }
 
   ini_setting { 'spamfilter_header':
