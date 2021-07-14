@@ -1,6 +1,6 @@
 # Installs a simple mysql server
 class profile::mysql::server {
-  $mysql_bind = hiera('profile::mysql::bind', {
+  $mysql_bind = lookup('profile::mysql::bind', {
     'default_value' => '127.0.0.1',
     'value_type'    => Stdlib::IP::Address::Nosubnet,
   })
