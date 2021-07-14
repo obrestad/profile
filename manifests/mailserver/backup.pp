@@ -11,6 +11,7 @@ class profile::mailserver::backup {
     user    => root,
     hour    => [3, 9, 15, 21],
     minute  => [10],
+    tag     => 'backup-pulls',
   }
 
   @@cron{ "clean-mailserver-backup-${::fqdn}":
