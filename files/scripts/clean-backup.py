@@ -73,7 +73,7 @@ class CleanBackups:
     lastDay = None
 
     for backup in self.backups:
-      match = self.backupPattern.match(backup)
+      match = self.backupPattern.search(backup)
       if(match):
         year, month, day, hour, minute, second = match.groups()
         self.every.append(backup)
@@ -113,7 +113,7 @@ class CleanBackups:
     
   def deleteLogs(self):
     for log in self.logs:
-      match = self.backupPattern.match(log)
+      match = self.backupPattern.search(log)
       if match.group(0) not in self.keep:
         self.output("%s should be DELETED" % log)
         if self.delete:
