@@ -1,5 +1,4 @@
-# Creates a database for the mailing system, and configures postfix to use it
-# for mail delivery
+# Configures postfix to use mysql for mail delivery
 class profile::mailserver::mysql {
   $mysql_name = hiera('profile::mail::db::name')
   $mysql_host = hiera('profile::mail::db::host')

@@ -1,9 +1,12 @@
+# Configures the dovecot-server
 class profile::mailserver::dovecot::conf {
   $mailname = hiera('profile::mail::hostname')
   $dbname = hiera('profile::mail::db::name')
   $dbhost = hiera('profile::mail::db::host')
   $dbuser = hiera('profile::mail::db::user')
   $dbpass = hiera('profile::mail::db::pass')
+
+  require ::profile::mailserver::certs
 
   ini_setting { 'Dovecot protocols':
     ensure  => present,

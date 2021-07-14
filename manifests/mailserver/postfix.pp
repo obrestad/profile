@@ -3,6 +3,10 @@ class profile::mailserver::postfix {
   $mailname = hiera('profile::mail::hostname')
   $mynetworks = hiera_array('profile::mail::mynetworks')
 
+  require ::profile::mailserver::certs
+  include ::profile::mailserver::mysql
+  include ::profile::mailserver::firewall::smtp
+
   package { 'postfix-mysql':
     ensure  => 'present',
   }

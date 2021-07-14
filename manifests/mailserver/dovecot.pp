@@ -1,4 +1,9 @@
+# Installs and configures a dovecot-server
 class profile::mailserver::dovecot {
-  class { '::profile::mailserver::dovecot::install' : } ->
-  class { '::profile::mailserver::dovecot::conf' : }
+  include ::profile::mailserver::dovecot::conf
+  include ::profile::mailserver::dovecot::install
+  include ::profile::mailserver::firewall::imap
+  
+  Class['::profile::mailserver::dovecot::install'] 
+  -> Class['::profile::mailserver::dovecot::conf']
 }
