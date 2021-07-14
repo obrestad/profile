@@ -2,6 +2,7 @@
 class profile::backup::scripts {
   $scripts = {
     'backup-docker-mysql.sh' => 'backup-docker-mysql',
+    'backup-folders.sh'      => 'backup-folders',
     'clean-backup.py'        => 'clean-backup',
   }
 
@@ -12,5 +13,12 @@ class profile::backup::scripts {
       mode   => '0755',
       source => "puppet:///modules/profile/scripts/${source}",
     }
+  }
+
+  file { '/var/lib/backup-lib.sh':
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/profile/scripts/backup-lib.sh',
   }
 }
