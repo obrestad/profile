@@ -1,9 +1,9 @@
 # Configures postfix to use mysql for mail delivery
 class profile::mailserver::mysql {
-  $mysql_name = hiera('profile::mail::db::name')
-  $mysql_host = hiera('profile::mail::db::host')
-  $mysql_user = hiera('profile::mail::db::user')
-  $mysql_pass = hiera('profile::mail::db::pass')
+  $mysql_name = lookup('profile::mailserver::db::name', String)
+  $mysql_host = lookup('profile::mailserver::db::host', String)
+  $mysql_user = lookup('profile::mailserver::db::user', String)
+  $mysql_pass = lookup('profile::mailserver::db::pass', String)
 
   $virtual_domains = "user = ${mysql_user}
 password = ${mysql_pass}

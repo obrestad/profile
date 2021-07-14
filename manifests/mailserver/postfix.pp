@@ -1,7 +1,7 @@
 # Installs and configures the postfix smtp for mailserver use.
 class profile::mailserver::postfix {
-  $mailname = hiera('profile::mail::hostname')
-  $mynetworks = hiera_array('profile::mail::mynetworks')
+  $mailname = lookup('profile::mailserver::name', String)
+  $mynetworks = lookup('profile::mail::mynetworks', Array[String])
 
   require ::profile::mailserver::certs
   include ::profile::mailserver::mysql
@@ -36,7 +36,7 @@ spamassassin unix - n n - - pipe
   postfix::config {
     'myhostname':          value => $::fqdn;
     'mydestination':       value => $::fqdn;
-    'mynetworks':          value => join($mynetworks, ' '); 
+    'mynetworks':          value => join($mynetworks, ' ');
     'recipient_delimiter': value => '-';
     'relayhost':           ensure => 'blank';
     'message_size_limit':  value => '104857600';
@@ -49,8 +49,8 @@ spamassassin unix - n n - - pipe
     'smtpd_sasl_auth_enable': value => 'yes';
   }
 
-  $mysqlVirtAlias = 'mysql:/etc/postfix/mysql-virtual-alias-maps.cf'
-  $mysqlVirtMail2 = 'mysql:/etc/postfix/mysql-virtual-email2email.cf'
+  $mysql_virt_alias = 'mysql:/etc/postfix/mysql-virtual-alias-maps.cf'
+  $mysql_virt_mailto = 'mysql:/etc/postfix/mysql-virtual-email2email.cf'
 
   # Virtual mailbox settings
   postfix::config {
@@ -61,16 +61,16 @@ spamassassin unix - n n - - pipe
     'virtual_mailbox_maps':
       value => 'mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf';
     'virtual_alias_maps':
-      value => "${mysqlVirtAlias}, ${mysqlVirtMail2}"
+      value => "${mysql_virt_alias}, ${mysql_virt_mailto}"
   }
 
-  $restrictionPermit = 'permit_sasl_authenticated, permit_mynetworks'
+  $restriction_permit = 'permit_sasl_authenticated, permit_mynetworks'
   # Deny relay access etc.
   postfix::config {
     'smtpd_recipient_restrictions':
-      value => "${restrictionPermit}, defer_unauth_destination";
+      value => "${restriction_permit}, defer_unauth_destination";
     'smtpd_relay_restrictions':
-      value => "${restrictionPermit}, defer_unauth_destination";
+      value => "${restriction_permit}, defer_unauth_destination";
   }
 
   # Implement TLS

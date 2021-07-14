@@ -1,10 +1,10 @@
 # Configures the dovecot-server
 class profile::mailserver::dovecot::conf {
-  $mailname = hiera('profile::mail::hostname')
-  $dbname = hiera('profile::mail::db::name')
-  $dbhost = hiera('profile::mail::db::host')
-  $dbuser = hiera('profile::mail::db::user')
-  $dbpass = hiera('profile::mail::db::pass')
+  $mailname = lookup('profile::mailserver::name', String)
+  $dbname = lookup('profile::mailserver::db::name', String)
+  $dbhost = lookup('profile::mailserver::db::host', String)
+  $dbuser = lookup('profile::mailserver::db::user', String)
+  $dbpass = lookup('profile::mailserver::db::pass', String)
 
   require ::profile::mailserver::certs
 
