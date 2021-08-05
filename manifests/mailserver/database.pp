@@ -5,7 +5,7 @@ class profile::mailserver::database {
   $dbuser = lookup('profile::mailserver::db::user')
   $dbpass = lookup('profile::mailserver::db::pass')
 
-  include ::profile::mysql::server
+  require ::profile::mysql::server
 
   mysql::db { $dbname:
     user     => $dbuser,
@@ -17,6 +17,5 @@ class profile::mailserver::database {
                   'INDEX', 'DROP',
                   'REFERENCES',
                 ],
-    require  => Class['::mysql::server'],
   }
 }
