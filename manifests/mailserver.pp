@@ -5,6 +5,5 @@ class profile::mailserver {
   include ::profile::mailserver::dovecot
   include ::profile::mailserver::postfix
   include ::profile::spamfilter
-  # TODO:webmail
-  # include ::profile::mailserver::webmail
+  include ::profile::mailserver::webmail
 }
