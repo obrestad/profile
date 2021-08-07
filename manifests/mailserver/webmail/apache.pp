@@ -2,6 +2,8 @@
 class profile::mailserver::webmail::apache {
   $webmailname = hiera('profile::mailserver::web::name')
 
+  include ::apache::mod::php
+  include ::apache::mod::rewrite
   require ::profile::mailserver::webmail::certs
   require ::profile::mailserver::webmail::install
   require ::profile::webserver
