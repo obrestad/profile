@@ -4,6 +4,7 @@ class profile::backup::scripts {
     'backup-docker-mysql.sh' => 'backup-docker-mysql',
     'backup-mysql.sh'        => 'backup-mysql',
     'backup-folders.sh'      => 'backup-folders',
+    'backup-folders-sudo.sh' => 'backup-folders-sudo',
     'clean-backup.py'        => 'clean-backup',
   }
 

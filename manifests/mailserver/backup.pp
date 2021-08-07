@@ -6,8 +6,13 @@ class profile::mailserver::backup {
   $pth = "${base_path}/mailboxes/${::fqdn}"
   $folders = '/srv/mail'
 
+  sudo::conf { 'mailbackup':
+    priority => 15,
+    content  => "backups ALL=(vmail) NOPASSWD:/usr/bin/rsync",
+  }
+
   @@cron { "mailbox-backup-${::fqdn}":
-    command => "/usr/local/sbin/backup-folders ${usr} ${::fqdn} ${pth} ${folders}",
+    command => "/usr/local/sbin/backup-folders-sudo ${usr} ${::fqdn} ${pth} vmail ${folders}",
     user    => $usr,
     hour    => [3, 9, 15, 21],
     minute  => [10],
