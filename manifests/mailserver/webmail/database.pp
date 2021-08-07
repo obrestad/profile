@@ -1,11 +1,11 @@
 # Configures the database for the webmail-interface
 class profile::mailserver::webmail::database {
-  $mysql_name = hiera('profile::mailserver::web::db::name')
-  $mysql_host = hiera('profile::mailserver::web::db::host')
-  $mysql_user = hiera('profile::mailserver::web::db::user')
-  $mysql_pass = hiera('profile::mailserver::web::db::pass')
+  $mysql_name = lookup('profile::mailserver::web::db::name')
+  $mysql_host = lookup('profile::mailserver::web::db::host')
+  $mysql_user = lookup('profile::mailserver::web::db::user')
+  $mysql_pass = lookup('profile::mailserver::web::db::pass')
 
-  $schema = hiera('profile::mailserver::web::db::schema::apply', {
+  $schema = lookup('profile::mailserver::web::db::schema::apply', {
     'default_value' => false,
     'value_type'    => Boolean,
   })
