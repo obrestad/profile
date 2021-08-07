@@ -10,7 +10,7 @@ store="/srv/backup/mysql"
 TIME=$(date +%y%m%d-%H%M%S)
 filename="${DATABASE}.${TIME}.sql.gz"
 
-backupcmd="/usr/bin/mysqldump -u $USERNAME -p$PASSWORD $DATABASE 2> /dev/null"
+backupcmd="/usr/bin/mysqldump -h 127.0.0.1 --no-tablespaces --skip-lock-tables -u $USERNAME -p$PASSWORD $DATABASE 2> /dev/null"
 ssh $HOST "${backupcmd} | gzip > ${filename}"
 
 # Create backup target-directory if it doesnt exist
@@ -19,5 +19,5 @@ if [ ! -e ${store}/${HOST} ]; then
 fi
 
 # Copy out the backup, and delete the remote file.
-scp $HOST:${filename} "${store}/${HOST}/${filename}"
+scp $HOST:${filename} "${store}/${HOST}/${filename}" 2> /dev/null
 ssh $HOST "rm ${filename}"
