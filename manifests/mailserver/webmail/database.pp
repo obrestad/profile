@@ -29,6 +29,6 @@ class profile::mailserver::webmail::database {
 
   profile::mysql::backup { $mysql_name:
     username => $mysql_user,
-    password => $mysql_host,
+    password => $mysql_pass,
   }
 }
