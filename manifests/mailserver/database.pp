@@ -18,4 +18,9 @@ class profile::mailserver::database {
                   'REFERENCES',
                 ],
   }
+
+  profile::mysql::backup { $dbname:
+    username => $dbuser,
+    password => $dbpass,
+  }
 }

@@ -26,4 +26,9 @@ class profile::mailserver::webmail::database {
     grant    => ['ALL'],
     *        => $opt,
   }
+
+  profile::mysql::backup { $mysql_name:
+    username => $mysql_user,
+    password => $mysql_host,
+  }
 }

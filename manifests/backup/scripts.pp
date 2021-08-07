@@ -2,6 +2,7 @@
 class profile::backup::scripts {
   $scripts = {
     'backup-docker-mysql.sh' => 'backup-docker-mysql',
+    'backup-mysql.sh'        => 'backup-mysql',
     'backup-folders.sh'      => 'backup-folders',
     'clean-backup.py'        => 'clean-backup',
   }
