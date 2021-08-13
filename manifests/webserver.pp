@@ -3,6 +3,7 @@
 class profile::webserver {
   include ::profile::webserver::firewall
   require ::profile::webserver::hostcert
+  include ::profile::webserver::sites
 
   class { 'apache':
     mpm_module => 'prefork',
