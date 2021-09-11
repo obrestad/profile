@@ -5,30 +5,21 @@ class profile::monitoring::influxdb {
   $telegrafpw = lookup('profile::influx::telegraf::password', String)
 
   class{'influxdb':
-    auth_enabled   => true,
-    auth_superuser => 'superuser',
-    auth_superpass => $password,
   }
 
-  influx_database { 'serverstatus' :
-    ensure    => present,
-    superuser => 'superuser',
-    superpass => $password,
+  influxdb::database { 'serverstatus' :
+  }
+  influxdb::user { 'serverstatus':
+    passwd => $statuspass,
+  }
+  influxdb::privilege { 'serverstatus' :
+    db_name => 'serverstatus',
+    db_user => 'serverstatus',
   }
 
-  influx_user { 'homer':
-    ensure    => present,
-    database  => 'serverstatus',
-    password  => $statuspass,
-    superuser => 'superuser',
-    superpass => $password,
-  }
-
-  influx_user { 'telegraf':
-    ensure    => present,
-    admin     => true,
-    password  => $telegrafpw,
-    superuser => 'superuser',
-    superpass => $password,
+  influx::user { 'telegraf':
+    ensure   => present,
+    is_admin => true,
+    passwd   => $telegrafpw,
   }
 }
