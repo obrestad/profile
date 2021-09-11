@@ -17,7 +17,7 @@ class profile::monitoring::influxdb {
     db_user => 'serverstatus',
   }
 
-  influx::user { 'telegraf':
+  influxdb::user { 'telegraf':
     ensure   => present,
     is_admin => true,
     passwd   => $telegrafpw,
