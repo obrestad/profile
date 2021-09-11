@@ -3,7 +3,7 @@ class profile::monitoring::chronograf {
   $influxpass = lookup('profile::influx::telegraf::password', String)
 
   class { 'chronograf':
-    manage_repo     => true,
+    manage_repo     => false,
   }
   
   chronograf::connection::influx { 'Influx':
