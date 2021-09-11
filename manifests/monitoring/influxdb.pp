@@ -5,6 +5,10 @@ class profile::monitoring::influxdb {
   $telegrafpw = lookup('profile::influx::telegraf::password', String)
 
   class{'influxdb':
+    admin_enable      => true,
+    admin_username    => 'superuser',
+    admin_password    => $password,
+    http_auth_enabled => true,
   }
 
   influxdb::database { 'serverstatus' :
