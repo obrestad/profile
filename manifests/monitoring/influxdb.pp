@@ -18,7 +18,7 @@ class profile::monitoring::influxdb {
 
   influx_user { 'homer':
     ensure    => present,
-    database  => 'serverstatus'
+    database  => 'serverstatus',
     password  => $statuspass,
     superuser => 'superuser',
     superpass => $password,
