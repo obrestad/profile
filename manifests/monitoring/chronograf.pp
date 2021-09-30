@@ -18,4 +18,8 @@ class profile::monitoring::chronograf {
     telegraf             => 'telegraf',
     organization         => 'rothaugane',
   }
+
+  profile::nginx::proxy { $::fqdn:
+    target => 'http://localhost:8888',
+  }
 }
