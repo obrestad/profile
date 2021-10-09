@@ -12,6 +12,7 @@ class profile::baseconfig::software {
     'pwgen',
     'python3-pil',
     'screen',
+    'smartmontools',
     'speedtest-cli',
     'sysstat',
     'tcpdump',
