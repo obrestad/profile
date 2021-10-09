@@ -26,4 +26,9 @@ class profile::monitoring::influxdb {
     is_admin => true,
     passwd   => $telegrafpw,
   }
+
+  ::profile::firewall::generic { 'influx':
+    protocol => 'tcp',
+    port     => 8086,
+  }
 }
