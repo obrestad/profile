@@ -8,8 +8,9 @@ class profile::docker::ingress {
 
   $proxies.each | $target, $data | {
     profile::nginx::proxy { $target:
-      alias  => pick($data['alias'], []),
-      target => $data['target'],
+      alias        => pick($data['alias'], []),
+      target       => $data['target'],
+      request_size => pick_default($data['request_size'], undef)
     }
   }
 }

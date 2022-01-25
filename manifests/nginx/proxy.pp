@@ -1,6 +1,7 @@
 # Configures an nginx reverse proxy, and issuing a certificate for it.
 define profile::nginx::proxy (
   $target,
+  $request_size = undef,,
   $alias = [],
 ){
   include ::profile::nginx
@@ -21,12 +22,13 @@ define profile::nginx::proxy (
   }
 
   nginx::resource::server { $name:
-    ipv6_enable         => true,
-    ipv6_listen_options => '',
-    listen_port         => 80,
-    proxy               => $target,
-    server_name         => [ $name ] + $alias,
-    *                   => $sslconf
+    ipv6_enable          => true,
+    ipv6_listen_options  => '',
+    client_max_body_size => $request_size,
+    listen_port          => 80,
+    proxy                => $target,
+    server_name          => [ $name ] + $alias,
+    *                    => $sslconf
   }
 
   profile::letsencrypt::certificate { "nginxproxy-${name}":
