@@ -1,7 +1,7 @@
 # Configures an nginx reverse proxy, and issuing a certificate for it.
 define profile::nginx::proxy (
   $target,
-  $request_size = undef,,
+  $request_size = undef,
   $alias = [],
 ){
   include ::profile::nginx
