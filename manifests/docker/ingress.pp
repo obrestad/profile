@@ -10,7 +10,7 @@ class profile::docker::ingress {
     profile::nginx::proxy { $target:
       alias        => pick($data['alias'], []),
       target       => $data['target'],
-      request_size => pick_default($data['request_size'], undef)
+      request_size => $data['request_size'],
     }
   }
 }
