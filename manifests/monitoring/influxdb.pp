@@ -8,7 +8,7 @@ class profile::monitoring::influxdb {
     admin_enable      => true,
     admin_username    => 'superuser',
     admin_password    => $password,
-    http_auth_enabled => true,
+    http_auth_enabled => false,
   }
 
   influxdb::database { 'serverstatus' :
