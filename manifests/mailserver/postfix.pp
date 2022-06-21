@@ -13,11 +13,7 @@ class profile::mailserver::postfix {
 
   class { '::postfix':
     master_smtp       => 'smtp inet n - n - - smtpd
-  -o smtpd_recipient_restrictions=reject_invalid_helo_hostname,
-    reject_non_fqdn_sender,reject_unknown_sender_domain,
-    reject_non_fqdn_recipient,reject_unknown_recipient_domain,
-    reject_unauth_destination,reject_rbl_client,zen.spamhaus.org,
-    permit
+  -o smtpd_recipient_restrictions=reject_invalid_helo_hostname,reject_non_fqdn_sender,reject_unknown_sender_domain,reject_non_fqdn_recipient,reject_unknown_recipient_domain,reject_unauth_destination,reject_rbl_client,zen.spamhaus.org,permit
   -o smtpd_helo_required=yes
   -o disable_vrfy_command=yes
   -o content_filter=spamassassin',
