@@ -12,7 +12,7 @@ use strict;
 <% } elsif $element =~ Integer { -%>
 $<%= "${key} = ${element};" %>
 <% } else { -%>
-$<%= "${key} = \"${element};\"" %>
+$<%= "${key} = \"${element}\";" %>
 <% } -%>
 <% } -%>
 
