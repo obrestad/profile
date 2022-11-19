@@ -17,7 +17,7 @@ class profile::mailserver::amavis {
     mode    => 0644,
     owner   => 'root',
     group   => 'root',
-    content => epp('mailserver/amavis-config.epp', $amavisconfig),
+    content => epp('profile/mailserver/amavis-config.epp', $amavisconfig),
     notify  => Service['amavisd-new'],
   }
 }
