@@ -2,7 +2,7 @@
 define profile::mailserver::amavis::config (
   Hash[String, Variant[String, Array[String]]] $data
 ) {
-  require ::profile::mailserver::amavis::service
+  include ::profile::mailserver::amavis::service
 
   $amavisconfig = { 'data' => $data }
   file { "/etc/amavis/conf.d/60-${name}":
