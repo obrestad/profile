@@ -9,8 +9,10 @@ use strict;
 <% if $element =~ Array[String] { 
   $elements = join($element, ", ") -%>
 @<%= "${key} = ( ${elements} );" %>
-<% } else { -%>
+<% } elsif $element =~ Integer { -%>
 $<%= "${key} = ${element};" %>
+<% } else { -%>
+$<%= "${key} = \"${element};\"" %>
 <% } -%>
 <% } -%>
 

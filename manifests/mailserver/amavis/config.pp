@@ -1,6 +1,6 @@
 # Creates an amavis config-file
 define profile::mailserver::amavis::config (
-  Hash[String, Variant[String, Array[String]]] $data
+  Hash[String, Variant[String, Integer, Array[String]]] $data
 ) {
   include ::profile::mailserver::amavis::service
 
