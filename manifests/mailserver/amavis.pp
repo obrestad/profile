@@ -16,7 +16,7 @@ class profile::mailserver::amavis {
       'mailfrom_notify_admin' => $postmaster,
       'mailfrom_notify_recip' => $postmaster,
       'mailfrom_notify_spamadmin' => $postmaster,
-      'recipient_delimiter' => '-'
+      'recipient_delimiter' => '-',
       'notify_method' => 'smtp:[127.0.0.1]:10025',
       'forward_method' => 'smtp:[127.0.0.1]:10025',
       'local_domains_acl' => [ '.$mydomain', $domains ],
