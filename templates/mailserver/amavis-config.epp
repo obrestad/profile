@@ -6,14 +6,12 @@ use strict;
 # overwritten.
 
 <% $data.each |$key,$element| { -%>
-
 <% if $element =~ Array[String] { 
   $elements = join($element, ", ") -%>
 @<%= "${key} = ( ${elements} );" %>
 <% } else { -%>
 $<%= "${key} = ${element};" %>
 <% } -%>
-
 <% } -%>
 
 #------------ Do not modify anything below this line -------------
