@@ -14,7 +14,7 @@ class profile::mailserver::amavis {
 
   file { '/etc/amavis/conf.d/60-puppet':
     ensure  => file,
-    mode    => 0644,
+    mode    => '0644',
     owner   => 'root',
     group   => 'root',
     content => epp('profile/mailserver/amavis-config.epp', $amavisconfig),
