@@ -10,7 +10,7 @@ use strict;
   $elements = join($element, ", ") -%>
 @<%= "${key} = ( ${elements} );" %>
 <% } elsif $element =~ Undef { -%>
-$<%= "${key} = ${element};" %>
+$<%= "${key} = undef;" %>
 <% } elsif $element =~ Integer { -%>
 $<%= "${key} = ${element};" %>
 <% } else { -%>
