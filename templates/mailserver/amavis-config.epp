@@ -11,6 +11,8 @@ use strict;
 @<%= "${key} = ( ${elements} );" %>
 <% } elsif $element =~ Integer { -%>
 $<%= "${key} = ${element};" %>
+<% } elsif $element =~ Undef { -%>
+$<%= "${key} = undef %>
 <% } else { -%>
 $<%= "${key} = \"${element}\";" %>
 <% } -%>
