@@ -1,0 +1,13 @@
+<%- | Hash $data,
+| -%>
+use strict;
+
+# This configuration-file is managed by puppet. Manual changes will be
+# overwritten.
+
+<% $data.each |$key,$element| { -%>
+\$${key} = $element
+<% } -%>
+
+#------------ Do not modify anything below this line -------------
+1;  # ensure a defined return
