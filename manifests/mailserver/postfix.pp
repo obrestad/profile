@@ -17,6 +17,7 @@ class profile::mailserver::postfix {
   class { '::postfix':
     master_smtp       => 'smtp inet n - n - - smtpd
       -o smtpd_recipient_restrictions=reject_invalid_helo_hostname,reject_non_fqdn_sender,reject_unknown_sender_domain,reject_non_fqdn_recipient,reject_unknown_recipient_domain,reject_unauth_destination,reject_rbl_client,zen.spamhaus.org,permit
+      -o smtpd_relay_restrictions=check_policy_service,unix:private/policy-spf,permit
       -o smtpd_helo_required=yes
       -o disable_vrfy_command=yes
       -o content_filter=smtp-amavis:[127.0.0.1]:10024',
@@ -112,7 +113,7 @@ class profile::mailserver::postfix {
     'smtpd_recipient_restrictions':
       value => "${restriction_permit}, defer_unauth_destination";
     'smtpd_relay_restrictions':
-      value => "${restriction_permit}, defer_unauth_destination, check_policy_service unix:private/policy-spf";
+      value => "${restriction_permit}, defer_unauth_destination";
   }
 
   # Implement TLS
