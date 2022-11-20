@@ -8,6 +8,9 @@ class profile::mailserver::amavis {
     'default_value' => [],
     'value_type'    => Array[String],
   })
+  $domains_quoted = $domains.map | $domain | {
+    "\'${domain}\'"
+  }
 
   profile::mailserver::amavis::config { 'general':
     data => {
@@ -19,7 +22,7 @@ class profile::mailserver::amavis {
       'recipient_delimiter'       => '-',
       'notify_method'             => 'smtp:[127.0.0.1]:10025',
       'forward_method'            => 'smtp:[127.0.0.1]:10025',
-      'local_domains_acl'         => [ '.$mydomain' ] + $domains,
+      'local_domains_acl'         => [ '\".$mydomain\"' ] + $domains_quoted,
     }
   }
 

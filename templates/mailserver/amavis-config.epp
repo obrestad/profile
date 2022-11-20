@@ -7,8 +7,7 @@ use strict;
 
 <% $data.each |$key,$element| { -%>
 <% if $element =~ Array[String] { 
-  $e = join($element, "\", \"")
-  $elements = "\"${e}\"" -%>
+  $elements = join($element, ", ")
 @<%= "${key} = ( ${elements} );" %>
 <% } elsif $element =~ Undef { -%>
 $<%= "${key} = undef;" %>
