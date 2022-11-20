@@ -8,7 +8,7 @@ class profile::mailserver::postfix {
   include ::profile::mailserver::firewall::smtp
 
   $packages = [ 'libnet-dns-perl', 'libmail-spf-perl', 
-      'pyzor', 'razor', 'postfix-mysql']
+      'pyzor', 'razor', 'postfix-mysql', 'postfix-policyd-spf-python']
 
   package { $packages : 
     ensure  => 'present',
@@ -63,6 +63,8 @@ class profile::mailserver::postfix {
       -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks,no_milters
       -o local_header_rewrite_clients=
       -o smtpd_milters=',
+  'policyd-spf    unix    -    n    n    -    0
+      spawn user=policyd-spf argv=/usr/libexec/postfix/policyd-spf',
     ],
   }
 
@@ -82,6 +84,11 @@ class profile::mailserver::postfix {
     'smtpd_sasl_type':        value => 'dovecot';
     'smtpd_sasl_path':        value => 'private/auth';
     'smtpd_sasl_auth_enable': value => 'yes';
+  }
+
+  # SPF
+  postfix::config {
+    'policyd-spf_time_limit': value => '3600';
   }
 
   $mysql_virt_alias = 'mysql:/etc/postfix/mysql-virtual-alias-maps.cf'
@@ -105,7 +112,7 @@ class profile::mailserver::postfix {
     'smtpd_recipient_restrictions':
       value => "${restriction_permit}, defer_unauth_destination";
     'smtpd_relay_restrictions':
-      value => "${restriction_permit}, defer_unauth_destination";
+      value => "${restriction_permit}, defer_unauth_destination, check_policy_service unix:private/policy-spf";
   }
 
   # Implement TLS
