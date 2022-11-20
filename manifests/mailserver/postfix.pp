@@ -30,9 +30,11 @@ class profile::mailserver::postfix {
   -o smtpd_relay_restrictions=permit_sasl_authenticated,reject_unauth_destination,reject
   -o milter_macro_daemon_name=ORIGINATING
   -o disable_vrfy_command=yes
-  -o content_filter=spamassassin
-spamassassin unix - n n - - pipe
+  -o content_filter=spamassassin',
+    master_entries => [
+  'spamassassin unix - n n - - pipe
   user=debian-spamd argv=/usr/bin/spamc -f -e /usr/sbin/sendmail -oi -f ${sender} ${recipient}',
+    ],
   }
 
   # Various settings
