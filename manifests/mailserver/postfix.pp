@@ -7,7 +7,10 @@ class profile::mailserver::postfix {
   include ::profile::mailserver::mysql
   include ::profile::mailserver::firewall::smtp
 
-  package { 'postfix-mysql':
+  $packages = [ 'libnet-dns-perl', 'libmail-spf-perl', 
+      'pyzor', 'razor', 'postfix-mysql']
+
+  package { $packages : 
     ensure  => 'present',
   }
 
