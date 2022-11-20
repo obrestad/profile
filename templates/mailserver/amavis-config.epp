@@ -7,14 +7,17 @@ use strict;
 
 <% $data.each |$key,$element| { -%>
 <% if $element =~ Array[String] { 
-  $elements = join($element, ", ") -%>
+  $e = join($element, "\", \"")
+  $elements = "\"${e}\"" -%>
 @<%= "${key} = ( ${elements} );" %>
 <% } elsif $element =~ Undef { -%>
 $<%= "${key} = undef;" %>
 <% } elsif $element =~ Integer { -%>
 $<%= "${key} = ${element};" %>
-<% } else { -%>
+<% } elsif $element =~ /\$/ { -%>
 $<%= "${key} = \"${element}\";" %>
+<% } else { -%>
+$<%= "${key} = \'${element}\';" %>
 <% } -%>
 <% } -%>
 
