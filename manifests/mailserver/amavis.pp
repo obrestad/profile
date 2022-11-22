@@ -8,6 +8,7 @@ class profile::mailserver::amavis {
     'default_value' => [],
     'value_type'    => Array[String],
   })
+  $dkim_key = lookup('profile::mail::dkim::key::private', String)
   $domains_quoted = $domains.map | $domain | {
     "\'${domain}\'"
   }
@@ -39,6 +40,22 @@ class profile::mailserver::amavis {
     mode   => '0644',
     notify => Service['amavisd-new'],
     source => 'puppet:///modules/profile/config/amavis/dkim.conf',
+  }
+
+  file { '/etc/amavis/dkim.key':
+    owner   => 'root',
+    group   => 'amavi',
+    mode    => '0640',
+    notify  => Service['amavisd-new'],
+    content => $dkim_key,
+  }
+
+  $domains.each | $domain | {
+    profile::mailserver::amavis::config::dkim { $domain :
+      domain => $domain,
+      keyfile => '/etc/amavis/dkim.key',
+      keyname => 'dkimpuppet',
+    }
   }
 
   profile::mailserver::amavis::config { 'spamfilter':

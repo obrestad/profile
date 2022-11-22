@@ -1,0 +1,25 @@
+<%- | String $domain,
+      String $keyname,
+      String $keyfile,
+| -%>
+use strict;
+
+# This configuration-file is managed by puppet. Manual changes will be
+# overwritten.
+
+dkim_key(
+  '<%= ${domain} %>',
+  '<%= ${keyname} %>',
+  '<%= ${keyfile} %>'
+  );
+@dkim_signature_options_bysender_maps = ( {
+  "<%= ${domain} %>" => {
+    d   => '<%= ${domain} %>',
+    a   => 'rsa-sha256',
+    c   => 'relaxed/simple',
+    ttl => 10*24*3600
+    }
+  } );
+
+#------------ Do not modify anything below this line -------------
+1;  # ensure a defined return
