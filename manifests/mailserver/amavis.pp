@@ -52,7 +52,7 @@ class profile::mailserver::amavis {
         group   => 'amavis',
         mode    => '0640',
         notify  => Service['amavisd-new'],
-        content => $dkim_key,
+        content => $key,
       }
 
       profile::mailserver::amavis::config::dkim { $domain :
