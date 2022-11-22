@@ -8,13 +8,13 @@ use strict;
 # overwritten.
 
 dkim_key(
-  '<%= ${domain} %>',
-  '<%= ${keyname} %>',
-  '<%= ${keyfile} %>'
+  <%= "\'${domain}\'" %>',
+  <%= "\'${keyname}\'" %>',
+  <%= "\'${keyfile}\'" %>',
   );
 @dkim_signature_options_bysender_maps = ( {
   "<%= ${domain} %>" => {
-    d   => '<%= ${domain} %>',
+    d   => <%= "\'${domain}\'" %>,
     a   => 'rsa-sha256',
     c   => 'relaxed/simple',
     ttl => 10*24*3600
