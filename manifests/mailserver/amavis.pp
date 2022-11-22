@@ -47,7 +47,8 @@ class profile::mailserver::amavis {
 
   $dkim_keys.each | $domain, $keys | {
     $keys.each | $keyname, $key | {
-      file { "/etc/amavis/${domain}-${keyname}.key":
+      $filename = regsubst("/etc/amavis/${domain}-${keyname}.key", '\.', '-')
+      file { $filename:
         owner   => 'root',
         group   => 'amavis',
         mode    => '0640',
@@ -56,8 +57,8 @@ class profile::mailserver::amavis {
       }
 
       profile::mailserver::amavis::config::dkim { $domain :
-        domain => $domain,
-        keyfile => "/etc/amavis/${domain}-${keyname}.key",
+        domain  => $domain,
+        keyfile => $filename,
         keyname => $keyname,
       }
     }
