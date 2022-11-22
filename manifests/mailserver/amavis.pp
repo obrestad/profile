@@ -30,6 +30,7 @@ class profile::mailserver::amavis {
     data => {
       'enable_dkim_verification' => 1,
       'enable_dkim_signing'      => 1,
+      'inet_socket_port'         => '[10024,10026]',
     }
   }
 
