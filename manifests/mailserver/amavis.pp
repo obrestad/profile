@@ -30,8 +30,14 @@ class profile::mailserver::amavis {
     data => {
       'enable_dkim_verification' => 1,
       'enable_dkim_signing'      => 1,
-      'inet_socket_port'         => '[10024,10026]',
     }
+  }
+
+  file { '/etc/amavis/conf.d/65-DKIM':
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/profile/config/amavis/dkim.conf',
   }
 
   profile::mailserver::amavis::config { 'spamfilter':
