@@ -58,7 +58,7 @@ class profile::mailserver::amavis {
       profile::mailserver::amavis::config::dkim { $domain :
         domain => $domain,
         keyfile => "/etc/amavis/${domain}-${selector}.key",
-        keyname => ${selector},
+        keyname => $selector,
       }
     }
   }
