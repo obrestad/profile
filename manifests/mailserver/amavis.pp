@@ -37,6 +37,7 @@ class profile::mailserver::amavis {
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
+    notify => Service['amavisd-new'],
     source => 'puppet:///modules/profile/config/amavis/dkim.conf',
   }
 
