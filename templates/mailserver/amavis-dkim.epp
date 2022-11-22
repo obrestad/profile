@@ -13,7 +13,7 @@ dkim_key(
   <%= "\'${keyfile}\'" %>',
   );
 @dkim_signature_options_bysender_maps = ( {
-  "<%= ${domain} %>" => {
+  <%= "\"${domain}\"" %> => {
     d   => <%= "\'${domain}\'" %>,
     a   => 'rsa-sha256',
     c   => 'relaxed/simple',
