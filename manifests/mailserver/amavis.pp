@@ -11,7 +11,7 @@ class profile::mailserver::amavis {
   $dkim_keys = lookup('profile::mail::dkim::key::private', {
     'default_value' => {},
     'value_type'    => Hash[String, Hash[String, String]],
-  )
+  })
   $domains_quoted = $domains.map | $domain | {
     "\'${domain}\'"
   }
