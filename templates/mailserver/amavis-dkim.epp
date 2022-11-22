@@ -8,9 +8,9 @@ use strict;
 # overwritten.
 
 dkim_key(
-  <%= "\'${domain}\'" %>',
-  <%= "\'${keyname}\'" %>',
-  <%= "\'${keyfile}\'" %>',
+  <%= "\'${domain}\'" %>,
+  <%= "\'${keyname}\'" %>,
+  <%= "\'${keyfile}\'" %>,
   );
 @dkim_signature_options_bysender_maps = ( {
   <%= "\"${domain}\"" %> => {
