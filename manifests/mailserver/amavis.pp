@@ -8,7 +8,7 @@ class profile::mailserver::amavis {
     'default_value' => [],
     'value_type'    => Array[String],
   })
-  $dkim_keys = lookup('profile::mail::dkim::key::private', {
+  $dkim_keys = lookup('profile::mail::dkim::keys', {
     'default_value' => {},
     'value_type'    => Hash[String, Hash[String, String]],
   })
