@@ -8,7 +8,10 @@ class profile::mailserver::amavis {
     'default_value' => [],
     'value_type'    => Array[String],
   })
-  $dkim_key = lookup('profile::mail::dkim::key::private', String)
+  $dkim_keys = lookup('profile::mail::dkim::key::private', {
+    'default_value' => {},
+    'value_type'    => Hash[String, Hash[String, String]],
+  )
   $domains_quoted = $domains.map | $domain | {
     "\'${domain}\'"
   }
@@ -42,19 +45,21 @@ class profile::mailserver::amavis {
     source => 'puppet:///modules/profile/config/amavis/dkim.conf',
   }
 
-  file { '/etc/amavis/dkim.key':
-    owner   => 'root',
-    group   => 'amavi',
-    mode    => '0640',
-    notify  => Service['amavisd-new'],
-    content => $dkim_key,
-  }
+  $dkim_keys.each | $domain, $keys | {
+    $keys.each | $keyname, $key | {
+      file { "/etc/amavis/${domain}-${selector}.key":
+        owner   => 'root',
+        group   => 'amavis',
+        mode    => '0640',
+        notify  => Service['amavisd-new'],
+        content => $dkim_key,
+      }
 
-  $domains.each | $domain | {
-    profile::mailserver::amavis::config::dkim { $domain :
-      domain => $domain,
-      keyfile => '/etc/amavis/dkim.key',
-      keyname => 'dkimpuppet',
+      profile::mailserver::amavis::config::dkim { $domain :
+        domain => $domain,
+        keyfile => "/etc/amavis/${domain}-${selector}.key",
+        keyname => ${selector},
+      }
     }
   }
 
