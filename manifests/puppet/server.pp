@@ -4,11 +4,6 @@ class profile::puppet::server {
 
   $r10krepo = lookup('profile::puppet::r10k::repo', Stdlib::HTTPUrl)
 
-  class { '::postgresql::globals':
-    manage_package_repo => true,
-    version             => '15',
-  }
-
   # Install and configure r10k
   class { 'r10k':
     remote => $r10krepo,
