@@ -9,6 +9,6 @@ class profile::firewall::post {
     proto    => 'all',
     jump     => 'drop',
     before   => undef,
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 }

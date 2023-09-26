@@ -9,6 +9,6 @@ class profile::firewall::minecraft {
     proto    => 'tcp',
     dport    => 25565,
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 }

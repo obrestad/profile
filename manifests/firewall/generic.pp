@@ -15,6 +15,6 @@ define profile::firewall::generic (
     proto    => $protocol,
     dport    => $port,
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 }

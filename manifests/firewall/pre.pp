@@ -34,30 +34,30 @@ class profile::firewall::pre {
   firewall { '000 v6 accept all icmp':
     proto    => 'ipv6-icmp',
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }->
   firewall { '001 v6 accept all to lo interface':
     proto    => 'all',
     iniface  => 'lo',
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }->
   firewall { '002 v6 allow link-local':
     proto    => 'all',
     source   => 'fe80::/10',
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }->
   firewall { '003 v6 accept related established rules':
     proto    => 'all',
     state    => ['RELATED', 'ESTABLISHED'],
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }->
   firewall { '004 v6 accept incoming SSH':
     proto    => 'tcp',
     dport    => 22,
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 }
