@@ -8,13 +8,13 @@ define profile::firewall::generic (
   firewall { "5 Accept global v4 access to service ${name}":
     proto  => $protocol,
     dport  => $port,
-    action => 'accept',
+    jump   => 'accept',
   }
 
   firewall { "5 Accept global v6 access to service ${name}":
     proto    => $protocol,
     dport    => $port,
-    action   => 'accept',
+    jump     => 'accept',
     provider => 'ip6tables',
   }
 }

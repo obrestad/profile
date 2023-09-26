@@ -6,58 +6,58 @@ class profile::firewall::pre {
   # Default firewall rules
   firewall { '000 accept all icmp':
     proto  => 'icmp',
-    action => 'accept',
+    jump   => 'accept',
   }->
   firewall { '001 accept all to lo interface':
     proto   => 'all',
     iniface => 'lo',
-    action  => 'accept',
+    jump    => 'accept',
   }->
   firewall { '002 reject local traffic not on loopback interface':
     iniface     => '! lo',
     proto       => 'all',
     destination => '127.0.0.1/8',
-    action      => 'reject',
+    jump        => 'reject',
   }->
   firewall { '003 accept related established rules':
     proto  => 'all',
     state  => ['RELATED', 'ESTABLISHED'],
-    action => 'accept',
+    jump   => 'accept',
   }->
   firewall { '004 accept incoming SSH':
     proto  => 'tcp',
     dport  => 22,
-    action => 'accept',
+    jump   => 'accept',
   }
 
   # Default firewall IPv6 rules
   firewall { '000 v6 accept all icmp':
     proto    => 'ipv6-icmp',
-    action   => 'accept',
+    jump     => 'accept',
     provider => 'ip6tables',
   }->
   firewall { '001 v6 accept all to lo interface':
     proto    => 'all',
     iniface  => 'lo',
-    action   => 'accept',
+    jump     => 'accept',
     provider => 'ip6tables',
   }->
   firewall { '002 v6 allow link-local':
     proto    => 'all',
     source   => 'fe80::/10',
-    action   => 'accept',
+    jump     => 'accept',
     provider => 'ip6tables',
   }->
   firewall { '003 v6 accept related established rules':
     proto    => 'all',
     state    => ['RELATED', 'ESTABLISHED'],
-    action   => 'accept',
+    jump     => 'accept',
     provider => 'ip6tables',
   }->
   firewall { '004 v6 accept incoming SSH':
     proto    => 'tcp',
     dport    => 22,
-    action   => 'accept',
+    jump     => 'accept',
     provider => 'ip6tables',
   }
 }
