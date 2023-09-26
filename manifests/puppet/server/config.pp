@@ -1,5 +1,5 @@
 # Configures the puppetmaster
-class profile::services::puppet::server::config {
+class profile::puppet::server::config {
   $puppetca = lookup('profile::puppet::caserver', Stdlib::Fqdn)
 
   $puppetdb = lookup('profile::puppet::db::server', {
@@ -7,7 +7,7 @@ class profile::services::puppet::server::config {
     'value_type'    => Variant[Stdlib::Fqdn, Boolean],
   })
 
-  include ::profile::services::puppet::altnames
+  include ::profile::puppet::altnames
 
   if($puppetca == $::fqdn) {
     $template = 'ca.enabled.cfg'

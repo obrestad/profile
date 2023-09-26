@@ -1,5 +1,5 @@
 # Manages the puppetserver service
-class profile::services::puppet::server::service {
+class profile::puppet::server::service {
   service { 'puppetserver':
     ensure  => 'running',
     enable  => true,
