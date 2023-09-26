@@ -5,13 +5,13 @@ class profile::puppet::server::firewall {
   firewall { '005 accept incoming puppetmaster':
     proto  => 'tcp',
     dport  => 8140,
-    action => 'accept',
+    jump   => 'accept',
   }
 
   firewall { '005 v6 accept incoming puppetmaster':
     proto    => 'tcp',
     dport    => 8140,
-    action   => 'accept',
-    provider => 'ip6tables',
+    jump     => 'accept',
+    protocol => 'ip6tables',
   }
 }
