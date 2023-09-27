@@ -6,4 +6,5 @@ class profile::puppet::server {
   include ::profile::puppet::server::hiera
   include ::profile::puppet::server::install
   include ::profile::puppet::server::service
+  include ::shiftleader::worker::puppet
 }
