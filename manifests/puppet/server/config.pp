@@ -8,7 +8,7 @@ class profile::puppet::server::config {
   })
 
   include ::profile::puppet::altnames
-  include ::shiftleader::integration::puppetenc
+  include ::shiftleader::integration::puppet
 
   if($puppetca == $::fqdn) {
     $template = 'ca.enabled.cfg'
