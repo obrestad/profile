@@ -12,7 +12,7 @@ class profile::webserver {
 
   apache::vhost { "${::fqdn} http":
     servername    => $::fqdn,
-    port          => '80',
+    port          => 80,
     docroot       => "/var/www/${::fqdn}",
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
@@ -20,7 +20,7 @@ class profile::webserver {
 
   apache::vhost { "${::fqdn} https":
     servername => $::fqdn,
-    port       => '443',
+    port       => 443,
     docroot    => "/var/www/${::fqdn}",
     ssl        => true,
     ssl_cert   => "/etc/letsencrypt/live/${::fqdn}/fullchain.pem",
