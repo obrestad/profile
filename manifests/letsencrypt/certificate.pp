@@ -16,9 +16,9 @@ define profile::letsencrypt::certificate (
     custom_plugin        => true,
     manage_cron          => $manage_cron,
     additional_args      => [
-      '--authenticator certbot-dns-domeneshop:dns-domeneshop',
-      "--certbot-dns-domeneshop:dns-domeneshop-credentials ${file}",
-      '--certbot-dns-domeneshop:dns-domeneshop-propagation-seconds 120',
+      '--authenticator dns-domeneshop',
+      "--dns-domeneshop-credentials ${file}",
+      '--dns-domeneshop-propagation-seconds 120',
     ],
   }
 }
