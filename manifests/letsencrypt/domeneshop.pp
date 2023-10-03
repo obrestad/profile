@@ -22,7 +22,7 @@ class profile::letsencrypt::domeneshop {
     ensure            => 'present',
     path              => '/root/.certbot.domeneshop.secrets',
     section           => '',
-    setting           => 'certbot_dns_domeneshop:dns_domeneshop_client_token',
+    setting           => 'dns_domeneshop_client_token',
     key_val_separator => '=',
     value             => $token,
   }
@@ -31,7 +31,7 @@ class profile::letsencrypt::domeneshop {
     ensure            => 'present',
     path              => '/root/.certbot.domeneshop.secrets',
     section           => '',
-    setting           => 'certbot_dns_domeneshop:dns_domeneshop_client_secret',
+    setting           => 'dns_domeneshop_client_secret',
     key_val_separator => '=',
     value             => $secret,
   }
