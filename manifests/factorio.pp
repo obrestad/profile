@@ -10,7 +10,7 @@ class profile::factorio {
   firewall { '50 Accept factorio':
     proto  => 'udp',
     dport  => $ports,
-    action => 'accept',
+    jump   => 'accept',
   }
 
   user { 'factorio':

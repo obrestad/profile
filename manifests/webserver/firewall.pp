@@ -3,13 +3,13 @@ class profile::webserver::firewall {
   firewall { '010 accept incoming HTTP(S)':
     proto  => 'tcp',
     dport  => [80, 443],
-    action => 'accept',
+    jump   => 'accept',
   }
 
   firewall { '010 v6 accept incoming HTTP(S)':
     proto    => 'tcp',
     dport    => [80, 443],
-    action   => 'accept',
-    provider => 'ip6tables',
+    jump     => 'accept',
+    protocol => 'ip6tables',
   }
 }

@@ -18,14 +18,14 @@ class profile::samba::firewall {
 
   $v4nets.each | $net | {
     firewall { "50 accept SAMBA TCP from ${net}":
-      action  => 'accept',
+      jump    => 'accept',
       dport   => [139, 445],
       iniface => $interface,
       proto   => 'tcp',
       source  => $net,
     }
     firewall { "50 accept SAMBA UDP from ${net}":
-      action  => 'accept',
+      jump    => 'accept',
       dport   => [137, 138],
       iniface => $interface,
       proto   => 'udp',
@@ -35,19 +35,19 @@ class profile::samba::firewall {
 
   $v6nets.each | $net | {
     firewall { "50 accept SAMBA TCP from ${net}":
-      action   => 'accept',
+      jump     => 'accept',
       dport    => [139, 445],
       iniface  => $interface,
       proto    => 'tcp',
-      provider => 'ip6tables',
+      protocol => 'ip6tables',
       source   => $net,
     }
     firewall { "50 accept SAMBA UDP from ${net}":
-      action   => 'accept',
+      jump     => 'accept',
       dport    => [137, 138],
       iniface  => $interface,
       proto    => 'udp',
-      provider => 'ip6tables',
+      protocol => 'ip6tables',
       source   => $net,
     }
   }

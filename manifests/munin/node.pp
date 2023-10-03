@@ -33,13 +33,13 @@ class profile::munin::node {
   firewall { '015 accept incoming munin monitoring':
     proto  => 'tcp',
     dport  => [4949],
-    action => 'accept',
+    jump   => 'accept',
   }
   firewall { '015 v6 accept incoming munin monitoring':
     proto    => 'tcp',
     dport    => [4949],
-    action   => 'accept',
-    provider => 'ip6tables',
+    jump     => 'accept',
+    protocol => 'ip6tables',
   }
 
   munin::plugin { 'apt':

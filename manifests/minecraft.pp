@@ -12,6 +12,6 @@ class profile::minecraft {
   firewall { '50 Accept minecraft':
     proto  => 'tcp',
     dport  => $ports,
-    action => 'accept',
+    jump   => 'accept',
   }
 }

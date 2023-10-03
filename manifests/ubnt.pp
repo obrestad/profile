@@ -30,28 +30,28 @@ class profile::ubnt {
     proto   => 'tcp',
     dport   => [8080, 8443],
     iniface => 'eth0',
-    action  => 'accept',
+    jump    => 'accept',
   }
   firewall { '011 v6 accept incoming UAPs and management':
     proto    => 'tcp',
     dport    => [8080, 8443],
-    action   => 'accept',
+    jump     => 'accept',
     iniface  => 'eth0',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 
   firewall { '012 accept incoming UAPs and management':
     proto   => 'udp',
     dport   => 3478,
     iniface => 'eth0',
-    action  => 'accept',
+    jump    => 'accept',
   }
   firewall { '012 v6 accept incoming UAPs and management':
     proto    => 'udp',
     dport    => 3478,
-    action   => 'accept',
+    jump     => 'accept',
     iniface  => 'eth0',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 
   apache::vhost { "${unifiurl} http":
