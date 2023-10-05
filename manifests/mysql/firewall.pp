@@ -13,7 +13,8 @@ class profile::mysql::firewall {
     } else {
       fail("${prefix} is not an v4 or v6 CIDR")
     }
-    firewall { '010 v6 accept incoming HTTP(S)':
+
+    firewall { "010 v6 accept incoming MySQL from ${prefix}":
       proto    => 'tcp',
       dport    => 3306,
       jump     => 'accept',
