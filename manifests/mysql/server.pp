@@ -6,6 +6,8 @@ class profile::mysql::server {
   })
   $mysql_root_pw = lookup('profile::mysql::rootpw', String)
 
+  include ::profile::mysql::firewall
+
   class { '::mysql::server':
     root_password           => $mysql_root_pw,
     remove_default_accounts => true,
