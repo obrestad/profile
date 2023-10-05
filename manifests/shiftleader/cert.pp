@@ -4,6 +4,7 @@ class profile::shiftleader::cert {
   $web = lookup('shiftleader::params::web_name', String)
 
   ::profile::letsencrypt::certificate { 'Shiftleader':
-    domains => [ $api, $web ],
+    domains              => [ $api, $web ],
+    cron_success_command => '/bin/systemctl reload apache2.service',
   }
 }
