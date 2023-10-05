@@ -1,7 +1,7 @@
 # Configures the firewall to allow mysql-clients 
 class profile::mysql::firewall {
   $prefixes = lookup('profile::mysql::client::prefixes', {
-    'default-value' => [],
+    'default_value' => [],
     'value_type'    => Array[Stdlib::IP::Address],
   })
 
@@ -17,7 +17,7 @@ class profile::mysql::firewall {
       proto    => 'tcp',
       dport    => 3306,
       jump     => 'accept',
-      protocol => $protocol, 
+      protocol => $protocol,
       source   => $prefix,
     }
   }
