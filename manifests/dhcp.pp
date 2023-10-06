@@ -11,6 +11,10 @@ class profile::dhcp {
 
   $omapi_name = lookup('profile::dhcp::omapi::name', String)
   $omapi_key = lookup('profile::dhcp::omapi::key', String)
+  $omapi_algorithm = lookup('profile::dhcp::omapi::algorithm', {
+    'default_value' => 'HMAC-MD5',
+    'value_type'    => String,
+  })
   $omapi_port = lookup('profile::dhcp::omapi::port', {
     'value_type'    => Stdlib::Port,
     'default_value' => 7911,
@@ -71,6 +75,7 @@ class profile::dhcp {
     interfaces       => $dhcp_interfaces,
     nameservers      => $nameservers,
     ntpservers       => $ntp_servers,
+    omapi_algorithm  => $omapi_algorithm,
     omapi_key        => $omapi_key,
     omapi_name       => $omapi_name,
     omapi_port       => $omapi_port,
