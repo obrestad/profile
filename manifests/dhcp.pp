@@ -67,7 +67,7 @@ class profile::dhcp {
   include ::profile::dhcp::firewall
 
   class { '::dhcp':
-    dnssearchdomains => [$searchdomain],
+    dnssearchdomains => $searchdomains,
     interfaces       => $dhcp_interfaces,
     nameservers      => $nameservers,
     ntpservers       => $ntp_servers,
