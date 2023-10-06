@@ -92,11 +92,11 @@ class profile::dhcp {
       ::dhcp::pool { $name:
         network     => $data['ipv4']['id'],
         mask        => $data['ipv4']['mask'],
-        gateway     => 'gateway' in $data['ipv4'] = {
+        gateway     => 'gateway' in $data['ipv4'] ? {
           true  => $data['ipv4']['gateway'],
           false => undef,
         },
-        domain_name => 'domain' in $data = {
+        domain_name => 'domain' in $data ? {
           true  => $data['domain'],
           false => undef,
         },
