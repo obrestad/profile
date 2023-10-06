@@ -6,7 +6,12 @@ class profile::dhcp {
     'merge'      => 'unique',
   })
   $dhcp_interfaces = lookup('profile::dhcp::interfaces', {
-    'value_type'    => Array[String], 
+    'value_type'    => Array[String],
+  })
+
+  $networks = lookup('profile::networks', {
+    'default_value' => {},
+    'value_type'    => Hash,
   })
 
   $omapi_name = lookup('profile::dhcp::omapi::name', String)
@@ -80,5 +85,27 @@ class profile::dhcp {
     omapi_name       => $omapi_name,
     omapi_port       => $omapi_port,
     dhcp_classes     => $pxe_logic,
+  }
+
+  $networks.each | $name, $data | {
+    if('ipv4' in $data and 'id' in $data['ipv4'] and 'mask' in $data['ipv4']) {
+      ::dhcp::pool { $name:
+        network     => $data['ipv4']['id'],
+        mask        => $data['ipv4']['mask'],
+        gateway     => 'gateway' in $data['ipv4'] = {
+          true  => $data['ipv4']['gateway'],
+          false => undef,
+        },
+        domain_name => 'domain' in $data = {
+          true  => $data['domain'],
+          false => undef,
+        },
+      }
+    } else {
+      notify { "unconfigured ${name}":
+        message  => "Skipped DHCP-pool for ${name} due to missing parameters",
+        withpath => true,
+      }
+    }
   }
 }
