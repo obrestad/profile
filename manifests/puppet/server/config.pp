@@ -72,7 +72,7 @@ class profile::puppet::server::config {
       ensure  => present,
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
-      setting => 'reports',
+      setting => 'reporturl',
       value   => $report_url,
     }
   } else {
@@ -87,7 +87,7 @@ class profile::puppet::server::config {
       ensure  => absent,
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
-      setting => 'reports',
+      setting => 'reporturl',
     }
   }
 
