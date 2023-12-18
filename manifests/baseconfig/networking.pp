@@ -31,7 +31,7 @@ class profile::baseconfig::networking {
 
       $netplandata = {
         'accept_ra'   => false,
-        'dhcp'        => false,
+        'dhcp4'       => false,
         'addresses'   => [
           $::sl2['server']['interfaces'][$netname]['ipv4_cidr'],
           $::sl2['server']['interfaces'][$netname]['ipv6_cidr'],
@@ -42,7 +42,12 @@ class profile::baseconfig::networking {
     } elsif ($data['method'] == 'auto') {
       $netplandata = {
         'accept_ra' => true,
-        'dhcp'      => true,
+        'dhcp4'     => true,
+      }
+    } elsif ($data['method'] == 'up') {
+      $netplandata = {
+        'accept_ra' => false,
+        'dhcp4'     => false,
       }
     } else {
       fail("Method ${data['method']} not known for interface ${netname}")
