@@ -4,7 +4,7 @@ class profile::baseconfig::networking {
     'default_value' => [],
     'value_type'    => Array[Stdlib::IP::Address::Nosubnet],
   })
-  $networks = lookup('profile::networks::interfaces', {
+  $networks = lookup('profile::network::interfaces', {
     'default_value' => {},
     'value_type'    => Hash,
   })
@@ -56,6 +56,6 @@ class profile::baseconfig::networking {
   }
 
   class { '::netplan':
-    ethernets => length($networks) ? { 0 => undef, default => {} },
+    ethernets => (length($networks) == 0) ? { true => undef, default => {} },
   }
 }
