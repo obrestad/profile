@@ -1,7 +1,7 @@
 # Configures the hosts base networking
 class profile::baseconfig::networking {
   $dns = lookup('profile::dns::resolvers', {
-    'default_value' => []
+    'default_value' => [],
     'value_type'    => Array[Stdlib::IP::Address::Nosubnet],
   })
   $networks = lookup('profile::networks::interfaces', {
