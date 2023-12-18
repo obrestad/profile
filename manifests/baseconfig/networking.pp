@@ -4,6 +4,10 @@ class profile::baseconfig::networking {
     'default_value' => [],
     'value_type'    => Array[Stdlib::IP::Address::Nosubnet],
   })
+  $dns_search = lookup('profile::dhcp::searchdomains', {
+    'default_value' => [],
+    'value_type'    => Array[String],
+  })
   $networks = lookup('profile::network::interfaces', {
     'default_value' => {},
     'value_type'    => Hash,
@@ -36,7 +40,10 @@ class profile::baseconfig::networking {
           $::sl2['server']['interfaces'][$netname]['ipv4_cidr'],
           $::sl2['server']['interfaces'][$netname]['ipv6_cidr'],
         ] - [ undef, false ],
-        'nameservers' => $dns,
+        'nameservers' => {
+          'addresses' => $dns,
+          'search'    => $dns_search,
+        },
         'routes'      => $v4route + $v6route,
       }
     } elsif ($data['method'] == 'auto') {
