@@ -1,8 +1,8 @@
-# This define configures a django app 
-define profile::webserver::django::apps::configure {
-  $secret = hiera("profile::web::djangoapp::${name}::djangosecret")
-  $url = hiera("profile::web::djangoapp::${name}::url")
-
+# Base-config for a django-application
+define profile::webserver::django::app::config (
+  String       $secret,
+  Stdlib::Fqdn $url,
+) {
   $configfile = "/etc/${name}/settings.ini"
 
   ini_setting { "Djangoapp ${name} debug":

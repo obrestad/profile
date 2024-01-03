@@ -1,7 +1,8 @@
 # This define installs a djangoapp 
-define profile::webserver::django::apps::install {
+define profile::webserver::django::app::install (
+  String $sourcerepo,
+) {
   $sourcerepo = hiera("profile::web::djangoapp::${name}::sourcerepo")
-  $dbname = hiera("profile::web::djangoapp::${name}::db::name")
 
   vcsrepo { "/opt/${name}":
     ensure   => latest,
@@ -19,7 +20,6 @@ define profile::webserver::django::apps::install {
     refreshonly => true,
     require     => [
       Vcsrepo["/opt/${name}"],
-      Mysql::Db[$dbname],
     ],
   }
 

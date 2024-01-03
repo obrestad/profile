@@ -1,24 +1,11 @@
-# This definec creates a mysql database, and configures a djangoapp to use it
-define profile::webserver::django::apps::database {
-  $dbname = hiera("profile::web::djangoapp::${name}::db::name")
-  $dbhost = hiera("profile::web::djangoapp::${name}::db::host")
-  $dbuser = hiera("profile::web::djangoapp::${name}::db::user")
-  $dbpass = hiera("profile::web::djangoapp::${name}::db::pass")
-
-  $installpath = "/opt/${name}"
+# Configures a djangoapp to use a certain database.
+define profile::webserver::django::app::config::db (
+  String $dbhost,
+  String $password,
+  String $username = $name,
+  String $dbname = $name,
+) {
   $configfile = "/etc/${name}/settings.ini"
-
-  mysql::db { $dbname:
-    user     => $dbuser,
-    password => $dbpass,
-    host     => $dbhost,
-    grant    => ['CREATE', 'ALTER',
-                  'DELETE', 'INSERT',
-                  'SELECT', 'UPDATE',
-                  'INDEX', 'DROP',
-                ],
-    require  => Class['::mysql::server'],
-  }
 
   ini_setting { "Djangoapp ${name} db type":
     ensure  => present,
@@ -26,6 +13,7 @@ define profile::webserver::django::apps::database {
     section => 'database',
     setting => 'type',
     value   => 'mysql',
+    before  => Exec["/opt/${name}/manage.py migrate --noinput"],
     require => [
               Vcsrepo["/opt/${name}"],
               File["/etc/${name}"],
@@ -38,6 +26,7 @@ define profile::webserver::django::apps::database {
     section => 'database',
     setting => 'host',
     value   => $dbhost,
+    before  => Exec["/opt/${name}/manage.py migrate --noinput"],
     require => [
               Vcsrepo["/opt/${name}"],
               File["/etc/${name}"],
@@ -50,6 +39,7 @@ define profile::webserver::django::apps::database {
     section => 'database',
     setting => 'name',
     value   => $dbname,
+    before  => Exec["/opt/${name}/manage.py migrate --noinput"],
     require => [
               Vcsrepo["/opt/${name}"],
               File["/etc/${name}"],
@@ -61,7 +51,8 @@ define profile::webserver::django::apps::database {
     path    => $configfile,
     section => 'database',
     setting => 'user',
-    value   => $dbuser,
+    value   => $username,
+    before  => Exec["/opt/${name}/manage.py migrate --noinput"],
     require => [
               Vcsrepo["/opt/${name}"],
               File["/etc/${name}"],
@@ -73,7 +64,8 @@ define profile::webserver::django::apps::database {
     path    => $configfile,
     section => 'database',
     setting => 'password',
-    value   => $dbpass,
+    value   => $password,
+    before  => Exec["/opt/${name}/manage.py migrate --noinput"],
     require => [
               Vcsrepo["/opt/${name}"],
               File["/etc/${name}"],
