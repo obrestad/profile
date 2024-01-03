@@ -29,8 +29,8 @@ class profile::webserver::django::app (
   }
 
   ::profile::webserver::django::app::vhost { $name :
-    $appname => $appname,
-    $tls     => $tls,
-    $url     => $url,
+    appname => $appname,
+    tls     => $tls,
+    url     => $url,
   }
 }
