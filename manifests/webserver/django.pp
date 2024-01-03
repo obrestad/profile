@@ -30,4 +30,11 @@ class profile::webserver::django {
       },
     }
   }
+
+  class { 'apache::mod::wsgi':
+    mod_path         => '/usr/lib/apache2/modules/mod_wsgi.so',
+    package_name     => 'libapache2-mod-wsgi-py3',
+    wsgi_python_path => join(keys($apps), ':'),
+  }
+
 }
