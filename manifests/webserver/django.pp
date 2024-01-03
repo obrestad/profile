@@ -14,15 +14,15 @@ class profile::webserver::django {
       url        => $data['url'],
       appname    => 'appname' in $data ? {
         true  => $data['appname'],
-        false => $name,
+        false => $appname,
       },
       dbusername => 'username' in $data['database'] ? {
         true  => $data['database']['username'],
-        false => $name,
+        false => $appname,
       },
       dbname     => 'name' in $data['database'] ? {
         true  => $data['database']['name'],
-        false => $name,
+        false => $appname,
       },
       tls        => 'tls' in $data ? {
         true  => $data['tls'],
