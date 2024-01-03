@@ -8,6 +8,7 @@ define profile::webserver::django::app::vhost (
 ) {
   if($tls) {
     $tlsoptions = {
+      'port'     => 443,
       'ssl'      => true,
       'ssl_cert' => "/etc/letsencrypt/live/${url}/fullchain.pem",
       'ssl_key'  => "/etc/letsencrypt/live/${url}/privkey.pem",
@@ -22,7 +23,7 @@ define profile::webserver::django::app::vhost (
 
     apache::vhost { "${url} HTTPS redirect":
       servername      => $url,
-      port            => '80',
+      port            => 80,
       docroot         => "/var/www/${url}",
       redirect_source => ['/'],
       redirect_dest   => ["https://${url}/"],
@@ -30,13 +31,13 @@ define profile::webserver::django::app::vhost (
     }
   } else {
     $tlsoptions = {
-      'ssl' => false,
+      'port' => 80,
+      'ssl'  => false,
     }
   }
 
   apache::vhost { "Djangoapp-${url}":
     servername          => $url,
-    port                => '443',
     docroot             => "/var/www/${url}",
     directories         => [
       { path    => "/opt/${name}static/",
