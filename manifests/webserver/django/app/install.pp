@@ -2,8 +2,6 @@
 define profile::webserver::django::app::install (
   String $sourcerepo,
 ) {
-  $sourcerepo = hiera("profile::web::djangoapp::${name}::sourcerepo")
-
   vcsrepo { "/opt/${name}":
     ensure   => latest,
     provider => 'git',
