@@ -13,7 +13,7 @@ define profile::webserver::django::app::vhost (
       'ssl_key'  => "/etc/letsencrypt/live/${url}/privkey.pem",
     }
 
-    ::profile::letsencrypt::certificate { $url,
+    ::profile::letsencrypt::certificate { $url:
       before               => Apache::Vhost["Djangoapp-${url}"],
       cron_success_command => '/bin/systemctl reload apache2.service',
       domains              => [ $url ],
