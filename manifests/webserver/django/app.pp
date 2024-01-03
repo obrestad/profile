@@ -1,5 +1,5 @@
 # This class installs and configures a django application
-class profile::webserver::django::app (
+define profile::webserver::django::app (
   String       $dbhost,
   String       $dbpassword,
   String       $secret,
