@@ -6,6 +6,7 @@ class profile::mysql::server {
   })
   $mysql_root_pw = lookup('profile::mysql::rootpw', String)
 
+  include ::profile::mysql::databases
   include ::profile::mysql::firewall
 
   class { '::mysql::server':
