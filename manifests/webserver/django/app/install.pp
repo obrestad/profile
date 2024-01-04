@@ -28,6 +28,13 @@ define profile::webserver::django::app::install (
     group  => 'root',
   }
 
+  file { "/opt/${name}media":
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'www-data',
+    group  => 'www-data',
+  }
+
   exec { "/opt/${name}/manage.py collectstatic --noinput":
     refreshonly => true,
     require     => [

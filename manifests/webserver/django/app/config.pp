@@ -41,6 +41,18 @@ define profile::webserver::django::app::config (
             ],
   }
 
+  ini_setting { "Djangoapp ${name} mediapath":
+    ensure  => present,
+    path    => $configfile,
+    section => 'general',
+    setting => 'mediapath',
+    value   => "/opt/${name}media",
+    require => [
+              Vcsrepo["/opt/${name}"],
+              File["/etc/${name}"],
+            ],
+  }
+
   ini_setting { "Djangoapp ${name} staticpath":
     ensure  => present,
     path    => $configfile,
