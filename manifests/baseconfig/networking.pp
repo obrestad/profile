@@ -8,66 +8,46 @@ class profile::baseconfig::networking {
     'default_value' => [],
     'value_type'    => Array[String],
   })
+
   $networks = lookup('profile::network::interfaces', {
     'default_value' => {},
     'value_type'    => Hash,
   })
 
+  $vlans = lookup('profile::network::interfaces', {
+    'default_value' => {},
+    'value_type'    => Hash,
+  })
+
   $networks.each | $netname, $data | {
-    if($data['method'] == 'shiftleader') {
-      if($data['ipv4'] and $data['ipv4']['gateway']) {
-        $v4route = [{
-          'to' => '0.0.0.0/0',
-          'via' => $data['ipv4']['gateway'],
-        }]
-      } else {
-        $v4route = []
-      }
-
-      if($data['ipv6'] and $data['ipv6']['gateway']) {
-        $v6route = [{
-          'to' => '::/0',
-          'via' => $data['ipv6']['gateway'],
-        }]
-      } else {
-        $v6route = []
-      }
-
-      $netplandata = {
-        'accept_ra'   => false,
-        'dhcp4'       => false,
-        'addresses'   => [
-          $::sl2['server']['interfaces'][$netname]['ipv4_cidr'],
-          $::sl2['server']['interfaces'][$netname]['ipv6_cidr'],
-        ] - [ undef, false ],
-        'nameservers' => {
-          'addresses' => $dns,
-          'search'    => $dns_search,
-        },
-        'routes'      => $v4route + $v6route,
-      }
-    } elsif ($data['method'] == 'auto') {
-      $netplandata = {
-        'accept_ra' => true,
-        'dhcp4'     => true,
-      }
-    } elsif ($data['method'] == 'up') {
-      $netplandata = {
-        'accept_ra' => false,
-        'dhcp4'     => false,
-      }
-    } else {
-      fail("Method ${data['method']} not known for interface ${netname}")
+    ::profile::baseconfig::networking::interface { $netname:
+      method            => $data['method'],
+      dns_resolvers     => $dns,
+      dns_searchdomains => $dns_search,
+      gateway_v4        => ('ipv4' in $data) ? {
+        true => $data['ipv4']['gateway'], false => undef },
+      gateway_v6        => ('ipv6' in $data) ? {
+        true => $data['ipv6']['gateway'], false => undef },
     }
+  }
 
-    ::netplan::ethernets { $netname:
-      dhcp6     => false,
-      emit_lldp => true,
-      *         => $netplandata,
+  $vlans.each | $netname, $data | {
+    ::profile::baseconfig::networking::interface { $netname:
+      method            => $data['method'],
+      dns_resolvers     => $dns,
+      dns_searchdomains => $dns_search,
+      gateway_v4        => ('ipv4' in $data) ? {
+        true => $data['ipv4']['gateway'], false => undef },
+      gateway_v6        => ('ipv6' in $data) ? {
+        true => $data['ipv6']['gateway'], false => undef },
+      parent            => $data['parent'],
+      type              => 'vlan',
+      vlan_id           => $data['vlanid'],
     }
   }
 
   class { '::netplan':
     ethernets => (length($networks) == 0) ? { true => undef, default => {} },
+    vlans     => (length($vlans) == 0) ? { true => undef, default => {} },
   }
 }
