@@ -11,5 +11,8 @@ class profile::baseconfig {
   include ::profile::baseconfig::upgrades
 
   include ::profile::firewall
+
+  include ::profile::puppet::altnames
+
   include ::profile::users
 }
