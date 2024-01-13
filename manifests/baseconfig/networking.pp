@@ -14,7 +14,7 @@ class profile::baseconfig::networking {
     'value_type'    => Hash,
   })
 
-  $vlans = lookup('profile::network::interfaces', {
+  $vlans = lookup('profile::network::vlans', {
     'default_value' => {},
     'value_type'    => Hash,
   })
