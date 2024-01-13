@@ -1,5 +1,5 @@
 # Configures an interface (physical or VLAN)  
-class profile::baseconfig::networking::interface (
+define profile::baseconfig::networking::interface (
   Enum['shiftleader', 'auto', 'up']           $method,
   Array[Stdlib::IP::Address::Nosubnet]        $dns_resolvers = [],
   Array[String]                               $dns_searchdomains = [],
