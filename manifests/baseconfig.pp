@@ -1,6 +1,6 @@
 # Base-configuration of the hosts.
 class profile::baseconfig {
-
+  include ::profile::baseconfig::disk
   include ::profile::baseconfig::networking
   include ::profile::baseconfig::ntp
   include ::profile::baseconfig::ssh
