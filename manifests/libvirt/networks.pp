@@ -10,7 +10,7 @@ class profile::libvirt::networks {
       ensure             => 'running',
       autostart          => true,
       forward_mode       => 'bridge',
-      forward_interfaces => [ $data['interfaces'] ],
+      forward_interfaces => $data['interface'],
     }
   }
 }
