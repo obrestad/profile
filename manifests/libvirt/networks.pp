@@ -9,6 +9,7 @@ class profile::libvirt::networks {
     ::libvirt::network { $netname:
       ensure             => 'running',
       autostart          => true,
+      forward_dev        => $netname,
       forward_mode       => 'bridge',
       forward_interfaces => $data['interfaces'],
     }
