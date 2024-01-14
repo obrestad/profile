@@ -5,6 +5,8 @@ class profile::postgres {
     'value_type' => Array[Stdlib::IP::Address],
   })
 
+  include ::profile::puppet::db::database
+
   ::profile::firewall::permit { 'postgres':
     port     => 5432,
     prefixes => $postgres_clients,
