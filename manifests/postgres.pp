@@ -13,6 +13,7 @@ class profile::postgres {
   }
 
   class { '::postgresql::server':
+    listen_addresses  => [ '0.0.0.0' ],
     postgres_password => $password,
   }
 }
