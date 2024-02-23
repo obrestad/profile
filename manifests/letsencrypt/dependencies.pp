@@ -5,9 +5,4 @@ class profile::letsencrypt::dependencies {
   package { 'python3-openssl':
     ensure => 'present',
   }
-
-  package { 'cryptography':
-    ensure   => 'latest',
-    provider => 'pip3',
-  }
 }
