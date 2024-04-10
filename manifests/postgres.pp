@@ -13,7 +13,9 @@ class profile::postgres {
   }
 
   class { '::postgresql::server':
-    listen_addresses  => [ '0.0.0.0' ],
-    postgres_password => $password,
+    listen_addresses           => [ '0.0.0.0' ],
+    postgres_password          => $password,
+    ip_mask_deny_postgres_user => '0.0.0.0/32',
+    ip_mask_allow_all_users    => '0.0.0.0/0',
   }
 }
