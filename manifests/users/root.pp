@@ -21,7 +21,7 @@ class profile::users::root {
     source => 'puppet:///modules/profile/userpref/vimrc',
   }
 
-  $sshkeys = lookup('profile::root:keys', {
+  $sshkeys = lookup('profile::root::keys', {
     'default_value' => {},
     'value_type'    => Hash,
   })
