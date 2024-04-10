@@ -60,6 +60,8 @@ class profile::puppet::server::config {
       section => 'main',
       setting => 'server_urls',
       value   => "https://${puppetdb}:8081/"
+      require => Package['puppetdb-termini'],
+      notify  => Service['puppetserver'],
     }
 
     ini_setting { 'Puppet storeconfigs':
@@ -68,6 +70,8 @@ class profile::puppet::server::config {
       section => 'master',
       setting => 'storeconfigs',
       value   => 'true' 
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
 
     ini_setting { 'Puppet storeconfigs backend':
@@ -76,6 +80,8 @@ class profile::puppet::server::config {
       section => 'master',
       setting => 'storeconfigs_backend',
       value   => 'puppetdb' 
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
   } else {
     ini_setting { 'Puppet storeconfigs':
@@ -83,6 +89,8 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
       setting => 'storeconfigs',
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
 
     ini_setting { 'Puppet storeconfigs backend':
@@ -90,6 +98,8 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
       setting => 'storeconfigs_backend',
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
   }
 
@@ -110,6 +120,8 @@ class profile::puppet::server::config {
       section => 'master',
       setting => 'reports',
       value   => 'http',
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
 
     ini_setting { 'Puppet Report url':
@@ -118,6 +130,8 @@ class profile::puppet::server::config {
       section => 'master',
       setting => 'reporturl',
       value   => $report_url,
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
   } else {
     ini_setting { 'Puppet Report type':
@@ -125,6 +139,8 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
       setting => 'reports',
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
 
     ini_setting { 'Puppet Report url':
@@ -132,6 +148,8 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
       setting => 'reporturl',
+      notify  => Service['puppetserver'],
+      require => Package['puppetserver'],
     }
   }
 
