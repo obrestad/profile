@@ -20,4 +20,18 @@ class profile::users::root {
     mode   => '0440',
     source => 'puppet:///modules/profile/userpref/vimrc',
   }
+
+  $sshkeys = lookup('profile::root:keys', {
+    'default_value' => {},
+    'value_type'    => Hash,
+  })
+
+  $sshkeys.map | $keyname, $sshkey | {
+    ssh_authorized_key { $keyname:
+      user    => 'root',
+      type    => $sshkey['type'],
+      key     => $sshkey['key'],
+      require => File['/root/.ssh'],
+    }
+  }
 }
