@@ -7,8 +7,8 @@ class profile::puppet::server::config {
   $puppetca = lookup('profile::puppet::caserver', Stdlib::Fqdn)
 
   $puppetdb = lookup('profile::puppet::db::server', {
-    'default_value' => false,
-    'value_type'    => Variant[Stdlib::Fqdn, Boolean],
+    'default_value' => undef,
+    'value_type'    => Optional[Stdlib::Fqdn],
   })
 
   include ::profile::puppet::altnames
@@ -46,6 +46,50 @@ class profile::puppet::server::config {
       owner   => 'puppet',
       group   => 'puppet',
       require => Package['puppetserver'],
+    }
+  }
+
+  if($puppetdb) {
+    package { 'puppetdb-termini':
+      ensure => present,
+    }
+
+    ini_setting { 'Puppetdb url':
+      ensure  => present,
+      path    => '/etc/puppetlabs/puppet/puppetdb.conf',
+      section => 'main',
+      setting => 'server_urls',
+      value   => "https://${puppetdb}:8081/"
+    }
+
+    ini_setting { 'Puppet storeconfigs':
+      ensure  => present,
+      path    => '/etc/puppetlabs/puppet/puppet.conf',
+      section => 'master',
+      setting => 'storeconfigs',
+      value   => 'true' 
+    }
+
+    ini_setting { 'Puppet storeconfigs backend':
+      ensure  => present,
+      path    => '/etc/puppetlabs/puppet/puppet.conf',
+      section => 'master',
+      setting => 'storeconfigs_backend',
+      value   => 'puppetdb' 
+    }
+  } else {
+    ini_setting { 'Puppet storeconfigs':
+      ensure  => absent,
+      path    => '/etc/puppetlabs/puppet/puppet.conf',
+      section => 'master',
+      setting => 'storeconfigs',
+    }
+
+    ini_setting { 'Puppet storeconfigs backend':
+      ensure  => absent,
+      path    => '/etc/puppetlabs/puppet/puppet.conf',
+      section => 'master',
+      setting => 'storeconfigs_backend',
     }
   }
 
