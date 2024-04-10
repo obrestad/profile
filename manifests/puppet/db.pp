@@ -11,6 +11,8 @@ class profile::puppet::db {
   })
   $dbpass = lookup('profile::puppet::db::database::pass')
 
+  include ::profile::puppet::db::firewall
+
   class { '::puppetdb::server':
     database          => 'postgres',
     database_host     => $dbhost,
