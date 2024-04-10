@@ -59,7 +59,7 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppetdb.conf',
       section => 'main',
       setting => 'server_urls',
-      value   => "https://${puppetdb}:8081/"
+      value   => "https://${puppetdb}:8081/",
       require => Package['puppetdb-termini'],
       notify  => Service['puppetserver'],
     }
@@ -69,7 +69,7 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
       setting => 'storeconfigs',
-      value   => 'true' 
+      value   => 'true',
       notify  => Service['puppetserver'],
       require => Package['puppetserver'],
     }
@@ -79,7 +79,7 @@ class profile::puppet::server::config {
       path    => '/etc/puppetlabs/puppet/puppet.conf',
       section => 'master',
       setting => 'storeconfigs_backend',
-      value   => 'puppetdb' 
+      value   => 'puppetdb',
       notify  => Service['puppetserver'],
       require => Package['puppetserver'],
     }
