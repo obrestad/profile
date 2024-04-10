@@ -7,6 +7,6 @@ class profile::puppet::db::firewall {
 
   ::profile::firewall::permit { 'puppetdb':
     port     => 8081,
-    prefixes => $postgres_clients,
+    prefixes => $puppetserverprefixes,
   }
 }
