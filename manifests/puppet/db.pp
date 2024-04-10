@@ -14,10 +14,13 @@ class profile::puppet::db {
   include ::profile::puppet::db::firewall
 
   class { '::puppetdb::server':
-    database          => 'postgres',
-    database_host     => $dbhost,
-    database_username => $dbuser,
-    database_password => $dbpass,
-    database_name     => $dbname,
+    database_host          => $dbhost,
+    database_username      => $dbuser,
+    database_password      => $dbpass,
+    database_name          => $dbname,
+    read_database_host     => $dbhost,
+    read_database_username => $dbuser,
+    read_database_password => $dbpass,
+    read_database_name     => $dbname,
   }
 }
