@@ -1,6 +1,7 @@
 # Configures an interface (physical or VLAN)  
 define profile::baseconfig::networking::interface (
-  Enum['shiftleader', 'auto', 'up']           $method,
+  Enum['shiftleader', 'auto', 'up', 'manual'] $method,
+  Array[Stdlib::IP::Address::CIDR]            $addresses = [],
   Array[Stdlib::IP::Address::Nosubnet]        $dns_resolvers = [],
   Array[String]                               $dns_searchdomains = [],
   Optional[Stdlib::IP::Address::V4::Nosubnet] $gateway_v4 = undef,
@@ -9,7 +10,7 @@ define profile::baseconfig::networking::interface (
   Enum['physical', 'vlan']                    $type = 'physical',
   Optional[Integer]                           $vlan_id = undef,
 ) {
-  if($method == 'shiftleader') {
+  if($method in ['shiftleader', 'manual']) {
     if($gateway_v4) {
       $v4route = [{
         'to' => '0.0.0.0/0',
@@ -31,7 +32,7 @@ define profile::baseconfig::networking::interface (
     $addressdata = {
       'accept_ra'   => false,
       'dhcp4'       => false,
-      'addresses'   => [
+      'addresses'   => $addresses + [
         $::sl2['server']['interfaces'][$name]['ipv4_cidr'],
         $::sl2['server']['interfaces'][$name]['ipv6_cidr'],
       ] - [ undef, false ],

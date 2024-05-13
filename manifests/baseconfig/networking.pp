@@ -20,7 +20,11 @@ class profile::baseconfig::networking {
   })
 
   $networks.each | $netname, $data | {
+    $ipv4 = ('ipv4' in $data) = { true => $data['ipv4']['addresses'], false => []}
+    $ipv6 = ('ipv6' in $data) = { true => $data['ipv6']['addresses'], false => []}
+
     ::profile::baseconfig::networking::interface { $netname:
+      addresses         => $ipv4 + $ipv6 - [ undef ],
       method            => $data['method'],
       dns_resolvers     => $dns,
       dns_searchdomains => $dns_search,
@@ -32,7 +36,11 @@ class profile::baseconfig::networking {
   }
 
   $vlans.each | $netname, $data | {
+    $ipv4 = ('ipv4' in $data) = { true => $data['ipv4']['addresses'], false => []}
+    $ipv6 = ('ipv6' in $data) = { true => $data['ipv6']['addresses'], false => []}
+
     ::profile::baseconfig::networking::interface { $netname:
+      addresses         => $ipv4 + $ipv6 - [ undef ],
       method            => $data['method'],
       dns_resolvers     => $dns,
       dns_searchdomains => $dns_search,
