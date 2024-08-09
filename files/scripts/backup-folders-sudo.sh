@@ -29,7 +29,7 @@ testHost $remoteHost
 
 logger "Verifying that the remote folders needed are present"
 if [[ ! -e ${localPath} ]]; then
-  mkdir "${localPath}"
+  mkdir -p "${localPath}"
 fi
 if [[ ! -e ${localPath}/snapshots ]]; then
   mkdir "${localPath}/snapshots"

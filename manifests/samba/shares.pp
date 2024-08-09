@@ -6,6 +6,11 @@ class profile::samba::shares {
   })
 
   $shares.each | $sharename, $data | {
+    ::profile::backup::folder {"SambaShare-${sharename}":
+      category => 'fileserver',
+      folder   => $data['path'],
+    }
+
     samba::server::share { $sharename :
       comment       => $data['comment'],
       path          => $data['path'],
