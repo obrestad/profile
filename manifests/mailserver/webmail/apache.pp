@@ -10,7 +10,7 @@ class profile::mailserver::webmail::apache {
 
   apache::vhost { "${webmailname} http":
     servername      => $webmailname,
-    port            => '80',
+    port            => 80,
     docroot         => '/var/lib/roundcube',
     redirect_source => ['/'],
     redirect_dest   => ["https://${webmailname}/"],
@@ -18,7 +18,7 @@ class profile::mailserver::webmail::apache {
   }
   apache::vhost { "${webmailname} https":
     servername  => $webmailname,
-    port        => '443',
+    port        => 443,
     docroot     => '/var/lib/roundcube/',
     ssl         => true,
     ssl_cert    => "/etc/letsencrypt/live/${webmailname}/fullchain.pem",
