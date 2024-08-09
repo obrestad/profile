@@ -7,7 +7,7 @@ class profile::mailadmin::web {
 
   apache::vhost { "${url} http":
     servername      => $url,
-    port            => '80',
+    port            => 80,
     docroot         => "/var/www/${url}",
     redirect_source => ['/'],
     redirect_dest   => ["https://${url}/"],
@@ -15,7 +15,7 @@ class profile::mailadmin::web {
   }
   apache::vhost { "${url} https":
     servername          => $url,
-    port                => '443',
+    port                => 443,
     docroot             => "/var/www/${url}",
     ssl                 => true,
     ssl_cert            => "/etc/letsencrypt/live/${url}/fullchain.pem",
