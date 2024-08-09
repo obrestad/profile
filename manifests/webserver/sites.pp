@@ -14,7 +14,7 @@ class profile::webserver::sites {
 
     apache::vhost { "${domain} http":
       servername    => $domain,
-      port          => '80',
+      port          => 80,
       docroot       => $data['docroot'], 
       docroot_owner => $data['owner'],
       docroot_group => $data['group'],
@@ -22,7 +22,7 @@ class profile::webserver::sites {
 
     apache::vhost { "${domain} https":
       servername => $domain,
-      port       => '443',
+      port       => 443,
       docroot       => $data['docroot'], 
       ssl        => true,
       ssl_cert   => "/etc/letsencrypt/live/${domain}/fullchain.pem",
