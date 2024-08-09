@@ -9,6 +9,6 @@ class profile::mailserver::firewall::imap {
     proto    => 'tcp',
     dport    => [993],
     jump     => 'accept',
-    provider => 'ip6tables',
+    protocol => 'ip6tables',
   }
 }
