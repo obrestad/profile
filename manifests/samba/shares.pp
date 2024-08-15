@@ -5,12 +5,21 @@ class profile::samba::shares {
     'default_value' => {},
   })
 
-  $shares.each | $sharename, $data | {
-    ::profile::backup::folder {"SambaShare-${sharename}":
-      category => 'fileserver',
-      folder   => $data['path'],
+  # If there are at least one share:
+  if($shares =~ Hash[String, Hash, 1]) {
+    # Collect all the share paths:
+    $folders = $shares.map | $sharename, $data | {
+      $data['path']
     }
 
+    # And initiate backup of them
+    ::profile::backup::folder {"SambaShares-${::fqdn}":
+      category => 'sambashares',
+      folder   => $folders,
+    }
+  }
+
+  $shares.each | $sharename, $data | {
     samba::server::share { $sharename :
       comment       => $data['comment'],
       path          => $data['path'],
