@@ -15,7 +15,7 @@ class profile::samba::shares {
     # And initiate backup of them
     ::profile::backup::folder {"SambaShares-${::fqdn}":
       category => 'sambashares',
-      folder   => $folders,
+      folder   => join($folders, ' '),
     }
   }
 
