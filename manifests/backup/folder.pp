@@ -11,16 +11,16 @@ define profile::backup::folder (
   @@cron { "folder-backup-${::fqdn}-${name}":
     command => "/usr/local/sbin/backup-folders ${usr} ${::fqdn} ${pth} ${folder}",
     user    => $usr,
-    hour    => [3, 9, 15, 21],
-    minute  => [10],
+    hour    => fqdn_rand(24), 
+    minute  => fqdn_rand(60),
     tag     => 'backup-pulls',
   }
 
   @@cron{ "clean-folder-backup-${::fqdn}-${name}":
     command => "/usr/local/sbin/clean-backup ${pth} --silent --delete",
     user    => $usr,
-    hour    => [4],
-    minute  => [37],
+    hour    => fqdn_rand(24),
+    minute  => fqdn_rand(60), 
     tag     => 'clean-backups',
   }
 }
