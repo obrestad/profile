@@ -2,6 +2,7 @@
 define profile::backup::folder (
   $folder,
   $category = $name,
+  $weekday  = undef,
 ) {
   $usr = lookup('profile::backup::user', String)
   $base_path = lookup('profile::backup::base_path', String)
@@ -13,6 +14,7 @@ define profile::backup::folder (
     user    => $usr,
     hour    => fqdn_rand(24), 
     minute  => fqdn_rand(60),
+    weekday => $weekday,
     tag     => 'backup-pulls',
   }
 
@@ -21,6 +23,7 @@ define profile::backup::folder (
     user    => $usr,
     hour    => fqdn_rand(24),
     minute  => fqdn_rand(60), 
+    weekday => $weekday,
     tag     => 'clean-backups',
   }
 }

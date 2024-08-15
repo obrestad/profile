@@ -16,6 +16,7 @@ class profile::samba::shares {
     ::profile::backup::folder {"SambaShares-${::fqdn}":
       category => 'sambashares',
       folder   => join($folders, ' '),
+      weekday  => '6', # 6 = Saturday
     }
   }
 
