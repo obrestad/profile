@@ -16,9 +16,11 @@ class profile::docker::ingress {
     }
 
     profile::nginx::proxy { $target:
-      alias        => pick($data['alias'], []),
-      target       => $data['target'],
-      request_size => $data['request_size'],
+      alias          => pick($data['alias'], []),
+      location_allow => $location_allow,
+      location_deny  => $location_deny,
+      request_size   => $data['request_size'],
+      target         => $data['target'],
     }
   }
 }
