@@ -1,8 +1,10 @@
 # Configures an nginx reverse proxy, and issuing a certificate for it.
 define profile::nginx::proxy (
   $target,
-  $request_size = undef,
-  $alias = [],
+  $alias          = [],
+  $location_allow = [],
+  $location_deny  = [],
+  $request_size   = undef,
 ){
   include ::profile::nginx
 
@@ -26,6 +28,8 @@ define profile::nginx::proxy (
     ipv6_listen_options  => '',
     client_max_body_size => $request_size,
     listen_port          => 80,
+    location_allow       => $location_allow,
+    location_deny        => $location_deny,
     proxy                => $target,
     server_name          => [ $name ] + $alias,
     *                    => $sslconf

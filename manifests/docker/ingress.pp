@@ -7,6 +7,14 @@ class profile::docker::ingress {
   })
 
   $proxies.each | $target, $data | {
+    if('cidrs' in $data) {
+      $location_deny = ['all']
+      $location_allow = $data['cidrs']
+    } else {
+      $location_allow = []
+      $location_deny = []
+    }
+
     profile::nginx::proxy { $target:
       alias        => pick($data['alias'], []),
       target       => $data['target'],
