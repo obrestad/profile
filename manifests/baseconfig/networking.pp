@@ -32,6 +32,7 @@ class profile::baseconfig::networking {
         true => $data['ipv4']['gateway'], false => undef },
       gateway_v6        => ('ipv6' in $data) ? {
         true => $data['ipv6']['gateway'], false => undef },
+      tableid           => $data['tableid'],
     }
   }
 
@@ -49,6 +50,7 @@ class profile::baseconfig::networking {
       gateway_v6        => ('ipv6' in $data) ? {
         true => $data['ipv6']['gateway'], false => undef },
       parent            => $data['parent'],
+      tableid           => $data['tableid'],
       type              => 'vlan',
       vlan_id           => $data['vlanid'],
     }

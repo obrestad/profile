@@ -7,26 +7,65 @@ define profile::baseconfig::networking::interface (
   Optional[Stdlib::IP::Address::V4::Nosubnet] $gateway_v4 = undef,
   Optional[Stdlib::IP::Address::V6::Nosubnet] $gateway_v6 = undef,
   Optional[String]                            $parent = undef,
+  Optional[Integer]                           $tableid = undef,
   Enum['physical', 'vlan']                    $type = 'physical',
   Optional[Integer]                           $vlan_id = undef,
 ) {
   if($method in ['shiftleader', 'manual']) {
     if($gateway_v4) {
-      $v4route = [{
-        'to' => '0.0.0.0/0',
-        'via' => $gateway_v4,
-      }]
+      if($tableid) {
+        $v4route = [{
+          'to'    => '0.0.0.0/0',
+          'via'   => $gateway_v4,
+          'table' => $tableid,
+        }, {
+          'to'    => ip_network($::sl2['server']['interfaces'][$name]['ipv4_cidr']),
+          'scope' => 'link',
+          'table' => $tableid,
+        }]
+        $v4policy = [{
+          'to'    => '0.0.0.0/0',
+          'from'  => ip_network($::sl2['server']['interfaces'][$name]['ipv4_cidr']),
+          'table' => $tableid,
+        }]
+      } else {
+        $v4route = [{
+          'to'  => '0.0.0.0/0',
+          'via' => $gateway_v4,
+        }]
+        $v4policy = []
+      }
     } else {
       $v4route = []
+      $v4policy = []
     }
 
     if($gateway_v6) {
-      $v6route = [{
-        'to' => '::/0',
-        'via' => $gateway_v6,
-      }]
+      if($tableid) {
+        $v6route = [{
+          'to'    => '::/0',
+          'via'   => $gateway_v6,
+          'table' => $tableid,
+        }, {
+          'to'    => ip_network($::sl2['server']['interfaces'][$name]['ipv6_cidr']),
+          'scope' => 'link',
+          'table' => $tableid,
+        }]
+        $v6policy = [{
+          'to'    => '::/0',
+          'from'  => ip_network($::sl2['server']['interfaces'][$name]['ipv6_cidr']),
+          'table' => $tableid,
+        }]
+      } else {
+        $v4route = [{
+          'to'  => '::/0',
+          'via' => $gateway_v6,
+        }]
+        $v6policy = []
+      }
     } else {
       $v6route = []
+      $v6policy = []
     }
 
     $addressdata = {
