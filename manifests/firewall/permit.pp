@@ -1,8 +1,8 @@
 # Permits a certain port through the firewall for certain prefixes. 
 define profile::firewall::permit (
-  Stdlib::Port                $port,
-  Array[Stdlib::IP::Address]  $prefixes,
-  Enum['tcp', 'udp']          $proto = 'tcp',
+  Variant[Integer, Array[Integer], String] $port,
+  Array[Stdlib::IP::Address]               $prefixes,
+  Enum['tcp', 'udp']                       $proto = 'tcp',
 ) {
   $prefixes.each | $prefix | {
     if($prefix =~ Stdlib::IP::Address::V4::CIDR) {

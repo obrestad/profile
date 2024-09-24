@@ -1,11 +1,18 @@
 # Configures the firewall for the unifi controller 
 class profile::unifi {
-  profile::firewall::generic { 'Unifi UAP':
+  $prefixes = lookup('profile::unifi::sources', {
+    'default_value' => [],
+    'value_type'    => Array[Stdlib::IP::Address],
+  })
+
+  profile::firewall::permit { 'Unifi UAP':
+    prefixes => $prefixes,
     protocol => 'tcp',
     port     => [ 8080 ],
   }
   
-  profile::firewall::generic { 'Unifi STUN':
+  profile::firewall::permit { 'Unifi STUN':
+    prefixes => $prefixes,
     protocol => 'udp',
     port     => [ 3478 ],
   }
