@@ -57,7 +57,7 @@ define profile::baseconfig::networking::interface (
           'table' => $tableid,
         }]
       } else {
-        $v4route = [{
+        $v6route = [{
           'to'  => '::/0',
           'via' => $gateway_v6,
         }]
