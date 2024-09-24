@@ -7,13 +7,13 @@ class profile::unifi {
 
   profile::firewall::permit { 'Unifi UAP':
     prefixes => $prefixes,
-    protocol => 'tcp',
+    proto    => 'tcp',
     port     => [ 8080 ],
   }
   
   profile::firewall::permit { 'Unifi STUN':
     prefixes => $prefixes,
-    protocol => 'udp',
+    proto    => 'udp',
     port     => [ 3478 ],
   }
 }
