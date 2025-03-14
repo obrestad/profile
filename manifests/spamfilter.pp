@@ -1,5 +1,6 @@
 # This class installs and configures the spamfilter
 class profile::spamfilter {
+  include profile::bind
   include profile::spamfilter::config
   include profile::spamfilter::install
   include profile::spamfilter::service
