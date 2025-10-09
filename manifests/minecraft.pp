@@ -5,10 +5,6 @@ class profile::minecraft {
     'default_value' => [ 25565 ],
   })
 
-  package { 'openjdk-8-jdk':
-    ensure => 'present',
-  }
-
   firewall { '50 Accept minecraft':
     proto  => 'tcp',
     dport  => $ports,
